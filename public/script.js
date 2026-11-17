@@ -2,7 +2,6 @@
   const searchInput = document.getElementById('equipmentSearch');
   const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .item'));
   const equipmentCount = document.getElementById('equipmentCount');
-  const printButton = document.getElementById('printGuide');
 
   function filterEquipment() {
     const term = (searchInput?.value || '').trim().toLocaleLowerCase('pt-BR');
@@ -49,7 +48,6 @@
   }
 
   searchInput?.addEventListener('input', filterEquipment);
-  printButton?.addEventListener('click', () => window.print());
 
   const navLinks = Array.from(document.querySelectorAll('.top nav a'));
   const sections = navLinks

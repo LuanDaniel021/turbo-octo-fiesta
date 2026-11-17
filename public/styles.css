@@ -246,3 +246,37 @@ footer p { margin: 0; }
 @media print {
   .collection-map { break-inside: avoid; }
 }
+
+/* Folder informativo */
+.brochure-gallery {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px; margin: 24px 0;
+}
+.brochure-preview {
+  margin: 0; padding: 12px; background: white;
+  border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow);
+}
+.brochure-preview img {
+  display: block; width: 100%; height: auto; border-radius: 8px;
+}
+.brochure-preview figcaption {
+  padding: 10px 4px 2px; color: var(--muted); font-size: .88rem; font-weight: 700;
+}
+.download-link {
+  display: inline-flex; align-items: center; gap: 13px;
+  padding: 13px 18px; border: 1px solid #b9d8c5; border-radius: 11px;
+  background: var(--mint); color: var(--green-dark); text-decoration: none;
+}
+.download-link > span:first-child {
+  display: grid; place-items: center; width: 38px; height: 38px;
+  border-radius: 9px; background: var(--green); color: white; font-size: 1.35rem;
+}
+.download-link strong, .download-link small { display: block; }
+.download-link small { color: var(--muted); font-size: .78rem; }
+.download-link:hover { border-color: var(--green); transform: translateY(-2px); }
+@media (max-width: 620px) {
+  .brochure-gallery { grid-template-columns: 1fr; }
+}
+@media print {
+  .download-link { display: none; }
+}
