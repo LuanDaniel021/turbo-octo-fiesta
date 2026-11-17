@@ -62,19 +62,26 @@
     if (!MODAL) OVERLAY?.classList.remove('open');
   }
 
+  function openModal(trigger) {
+    const modalId = trigger.dataset.modal;
+    const targetModal = modalId ? document.getElementById(modalId) : null;
+    if (!targetModal) return;
+
+    if (MODAL && MODAL !== targetModal) {
+      MODAL.classList.remove('open');
+    }
+
+    MODAL = targetModal;
+    MODAL.classList.add('open');
+    OVERLAY?.classList.add('open');
+  }
+
   document.querySelectorAll('.open-modal').forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const modalId = trigger.dataset.modal;
-      const targetModal = modalId ? document.getElementById(modalId) : null;
-      if (!targetModal) return;
-
-      if (MODAL && MODAL !== targetModal) {
-        MODAL.classList.remove('open');
-      }
-
-      MODAL = targetModal;
-      MODAL.classList.add('open');
-      OVERLAY?.classList.add('open');
+    trigger.addEventListener('click', () => openModal(trigger));
+    trigger.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      openModal(trigger);
     });
   });
 
