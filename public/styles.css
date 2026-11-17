@@ -1020,21 +1020,29 @@ footer .inner { position: relative; }
   max-height: min( min(900px, calc(100dvh - 40px)), 94vh);
 }
 .modal-folder .modal-content { display: flex; flex-direction: column; }
-.folder-pdf-frame {
-  width: 100%;
-  height: min(58vh, 620px);
-  min-height: 300px;
+.folder-image-preview {
+  display: grid;
+  gap: 18px;
   margin: 10px 0 18px;
-  overflow: hidden;
+}
+.folder-preview-page {
+  margin: 0;
+  padding: 12px;
   border: 1px solid #dcebe2;
   border-radius: 12px;
   background: #f3f8f5;
 }
-.folder-pdf-frame iframe {
+.folder-preview-page figcaption {
+  margin: 0 0 10px;
+  color: #426b59;
+  font-size: .84rem;
+  font-weight: 700;
+}
+.folder-preview-page img {
   display: block;
   width: 100%;
-  height: 100%;
-  border: 0;
+  height: auto;
+  border-radius: 6px;
   background: #fff;
 }
 .folder-modal-actions {
