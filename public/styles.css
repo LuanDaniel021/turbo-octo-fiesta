@@ -983,3 +983,11 @@ footer .inner { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .modal { transition: none; }
 }
+
+
+/* ELEMENTOS QUE ABREM MODAIS */
+.open-modal { cursor: pointer; }
+.open-modal:focus-visible {
+  outline: 3px solid rgba(7, 132, 93, .38);
+  outline-offset: 3px;
+}
