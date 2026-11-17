@@ -145,6 +145,56 @@
 
   searchInput?.addEventListener('input', filterEquipment);
 
+  // CABEÇALHO INTELIGENTE — direção da rolagem
+  const topHeader = document.querySelector('.top');
+  let previousScrollY = window.scrollY;
+  const scrollThreshold = 8;
+
+  window.addEventListener('scroll', () => {
+    if (!topHeader) return;
+
+    const currentScrollY = window.scrollY;
+    const difference = currentScrollY - previousScrollY;
+
+    if (Math.abs(difference) >= scrollThreshold) {
+      setNavigationOpen(false);
+    }
+
+    if (currentScrollY <= 12) {
+      topHeader.classList.remove('header-hidden');
+    } else if (Math.abs(difference) >= scrollThreshold) {
+      topHeader.classList.toggle('header-hidden', difference > 0);
+    }
+
+    previousScrollY = currentScrollY;
+  }, { passive: true });
+
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNavigation = document.getElementById('main-navigation');
+
+  function setNavigationOpen(open) {
+    if (!navToggle || !mainNavigation) return;
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    mainNavigation.classList.toggle('open', open);
+  }
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    setNavigationOpen(!isOpen);
+  });
+
+  mainNavigation?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavigationOpen(false));
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
+      setNavigationOpen(false);
+      navToggle.focus();
+    }
+  });
+
   const navLinks = Array.from(document.querySelectorAll('.top nav a'));
   const sections = navLinks
     .map(link => document.querySelector(link.getAttribute('href')))

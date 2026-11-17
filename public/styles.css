@@ -1209,3 +1209,120 @@ body.modal-open {
     transition: none;
   }
 }
+
+
+/* CABEÇALHO INTELIGENTE — oculta ao descer e reaparece ao subir */
+.top {
+  transition: transform .28s ease;
+  will-change: transform;
+}
+
+.top.header-hidden {
+  transform: translateY(-100%);
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .top { transition: none; }
+}
+
+/* NAVEGAÇÃO RESPONSIVA — menu vertical recolhível */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px;
+  border: 1px solid #dcebe2;
+  border-radius: 10px;
+  background: #f4faf6;
+  color: #176044;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 1050px) {
+  .top {
+    position: sticky;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 16px;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .top nav,
+  .top nav.open {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 21;
+    display: none;
+    flex: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: auto;
+    max-height: min(70vh, 520px);
+    gap: 0;
+    margin: 0;
+    padding: 8px 20px 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: rgba(255,255,255,.99);
+    border-top: 1px solid #e5efe8;
+    box-shadow: 0 12px 24px rgba(5,70,47,.10);
+  }
+
+  .top nav.open {
+    display: flex;
+  }
+
+  .top nav a {
+    display: block;
+    width: 100%;
+    padding: 11px 8px;
+    border-bottom: 0;
+    border-radius: 7px;
+    font-size: .94rem;
+  }
+
+  .top nav a:hover,
+  .top nav a:focus-visible,
+  .top nav a.active {
+    background: #eff8f3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle span { transition: none; }
+}
