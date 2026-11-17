@@ -1211,6 +1211,24 @@ body.modal-open {
 }
 
 
+/* CABEÇALHO INTELIGENTE — oculta ao descer e reaparece ao subir */
+.top {
+  transition: transform .28s ease;
+  will-change: transform;
+}
+
+.top.header-hidden {
+  transform: translateY(-100%);
+}
+
+.top:focus-within {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top { transition: none; }
+}
+
 /* NAVEGAÇÃO RESPONSIVA — menu vertical recolhível */
 .nav-toggle {
   display: none;
