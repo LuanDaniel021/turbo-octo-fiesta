@@ -48,6 +48,45 @@
     map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
   }
 
+
+  // SISTEMA DE MODAIS
+  const OVERLAY = document.getElementById('overlay');
+  let MODAL = null;
+
+  function closeModal() {
+    if (MODAL) {
+      MODAL.classList.remove('open');
+      MODAL = null;
+    }
+
+    if (!MODAL) OVERLAY?.classList.remove('open');
+  }
+
+  document.querySelectorAll('.open-modal').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const modalId = trigger.dataset.modal;
+      const targetModal = modalId ? document.getElementById(modalId) : null;
+      if (!targetModal) return;
+
+      if (MODAL && MODAL !== targetModal) {
+        MODAL.classList.remove('open');
+      }
+
+      MODAL = targetModal;
+      MODAL.classList.add('open');
+      OVERLAY?.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('.close-modal').forEach(control => {
+    control.addEventListener('click', closeModal);
+  });
+
+  OVERLAY?.addEventListener('click', () => {
+    if (MODAL) closeModal();
+    else OVERLAY.classList.remove('open');
+  });
+
   searchInput?.addEventListener('input', filterEquipment);
 
   const navLinks = Array.from(document.querySelectorAll('.top nav a'));
