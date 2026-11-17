@@ -159,11 +159,7 @@
     if (currentScrollY <= 12) {
       topHeader.classList.remove('header-hidden');
     } else if (Math.abs(difference) >= scrollThreshold) {
-      const navigationIsOpen = document.querySelector('.nav-toggle')?.getAttribute('aria-expanded') === 'true';
-
-      if (!navigationIsOpen) {
-        topHeader.classList.toggle('header-hidden', difference > 0);
-      }
+      topHeader.classList.toggle('header-hidden', difference > 0);
     }
 
     previousScrollY = currentScrollY;
