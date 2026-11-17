@@ -488,3 +488,27 @@ footer .inner { position: relative; }
 @media print {
   .hero, footer { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 }
+
+
+/* Circuito decorativo: dimensões e transformação da referência visual. */
+.hero:before,
+footer:before {
+  width: 2561.7513407500296px;
+  height: 2561.7513407500296px;
+  opacity: 1;
+  transform: rotate(-32.89deg);
+  background-size: 100% 100%;
+  background-position: center;
+}
+.hero:before {
+  inset: auto;
+  right: -850px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-32.89deg);
+}
+footer:before {
+  inset: auto;
+  right: -850px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-32.89deg);
+}
