@@ -7,6 +7,7 @@
   <meta name="description" content="Guia de orientação para o descarte adequado de equipamentos eletroeletrônicos, com checklist e informações sobre logística reversa.">
   <title>Guia de descarte de eletroeletrônicos</title>
     <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -103,17 +104,13 @@
       <div class="section-kicker">03 · Antes de entregar</div>
       <h2>Lista de verificação</h2>
       <p class="intro">Antes de levar o equipamento ao ponto de recebimento, siga estas etapas para reduzir riscos e proteger suas informações pessoais.</p>
-      <div class="progress"><span id="progressBar"></span></div>
-      <div class="checklist-heading">
-        <div class="progress-text" id="progressText" aria-live="polite">0 de 5 etapas concluídas</div>
-        <button class="text-button" type="button" id="resetChecklist">Limpar checklist</button>
-      </div>
-      <ul class="checklist">
-        <li><label><input type="checkbox"><span><strong>Desligue o equipamento.</strong> Desconecte-o da tomada e de outros aparelhos. Aguarde o resfriamento, quando necessário.</span></label></li>
-        <li><label><input type="checkbox"><span><strong>Separe pilhas e baterias removíveis.</strong> Retire-as somente quando isso puder ser feito com segurança e conforme as instruções do fabricante. Encaminhe-as a um ponto que receba esse tipo de resíduo.</span></label></li>
-        <li><label><input type="checkbox"><span><strong>Apague seus dados pessoais.</strong> Em celulares, computadores, tablets e dispositivos de armazenamento, faça backup do que deseja guardar, encerre sessões e restaure as configurações de fábrica quando possível.</span></label></li>
-        <li><label><input type="checkbox"><span><strong>Separe acessórios e peças soltas.</strong> Organize cabos, carregadores, controles e acessórios para facilitar a identificação e confirme se o local também os recebe.</span></label></li>
-        <li><label><input type="checkbox"><span><strong>Confirme as condições do ponto de recebimento.</strong> Verifique quais equipamentos são aceitos, horários, limites de quantidade e instruções para transporte.</span></label></li>
+      <p class="checklist-caption">Etapas recomendadas antes de encaminhar seu equipamento para descarte.</p>
+      <ul class="checklist checklist-static">
+        <li><div class="checklist-item"><span class="check-icon" aria-hidden="true">✓</span><span><strong>Desligue o equipamento.</strong> Desconecte-o da tomada e de outros aparelhos. Aguarde o resfriamento, quando necessário.</span></div></li>
+        <li><div class="checklist-item"><span class="check-icon" aria-hidden="true">✓</span><span><strong>Separe pilhas e baterias removíveis.</strong> Retire-as somente quando isso puder ser feito com segurança e conforme as instruções do fabricante. Encaminhe-as a um ponto que receba esse tipo de resíduo.</span></div></li>
+        <li><div class="checklist-item"><span class="check-icon" aria-hidden="true">✓</span><span><strong>Apague seus dados pessoais.</strong> Em celulares, computadores, tablets e dispositivos de armazenamento, faça backup do que deseja guardar, encerre sessões e restaure as configurações de fábrica quando possível.</span></div></li>
+        <li><div class="checklist-item"><span class="check-icon" aria-hidden="true">✓</span><span><strong>Separe acessórios e peças soltas.</strong> Organize cabos, carregadores, controles e acessórios para facilitar a identificação e confirme se o local também os recebe.</span></div></li>
+        <li><div class="checklist-item"><span class="check-icon" aria-hidden="true">✓</span><span><strong>Confirme as condições do ponto de recebimento.</strong> Verifique quais equipamentos são aceitos, horários, limites de quantidade e instruções para transporte.</span></div></li>
       </ul>
       <div class="note"><strong>Atenção às baterias:</strong> não abra, perfure, esmague ou tente remover baterias internas que não sejam projetadas para remoção pelo usuário. Se a bateria estiver estufada, aquecendo, vazando ou danificada, evite manuseá-la e procure orientação especializada do fabricante ou de um ponto habilitado.</div>
     </section>
@@ -122,6 +119,15 @@
       <div class="section-kicker">04 · Onde entregar</div>
       <h2>Pontos de recebimento e destinação</h2>
       <p class="intro">Os pontos de recebimento são locais fixos ou móveis destinados a receber e armazenar temporariamente equipamentos descartados pelos consumidores. Depois da coleta, os materiais seguem para triagem e encaminhamento aos processos de reutilização, desmontagem, reciclagem e destinação final ambientalmente adequada.</p>
+      <div class="map-heading">
+        <div>
+          <h3>Mapa demonstrativo de pontos de recebimento</h3>
+          <p>Os cinco marcadores abaixo são exemplos ilustrativos para demonstrar o mapa. Não representam estabelecimentos reais.</p>
+        </div>
+        <span class="map-tag">5 pontos de exemplo</span>
+      </div>
+      <div id="collectionMap" class="collection-map" role="region" aria-label="Mapa demonstrativo com cinco pontos de recebimento"></div>
+      <p class="map-disclaimer">Localizações fictícias em Brasília (DF), utilizadas apenas como demonstração. Substitua-as pelos endereços confirmados no levantamento local antes de publicar.</p>
       <div class="steps">
         <div class="step"><h3>Identifique um ponto próximo</h3><p>Consulte os localizadores oficiais de entidades gestoras e os pontos levantados pelo Grupo 2. Priorize locais identificados como pontos de recebimento de eletroeletrônicos.</p></div>
         <div class="step"><h3>Confira o que o local aceita</h3><p>Nem todo ponto recebe todas as categorias, tamanhos ou quantidades. Verifique previamente a lista de equipamentos aceitos e se há regras específicas para baterias, lâmpadas e acessórios.</p></div>
@@ -178,6 +184,7 @@
       </div>
     </div>
   </footer>
-    <script src="script.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
