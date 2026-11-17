@@ -52,14 +52,25 @@
   // SISTEMA DE MODAIS
   const OVERLAY = document.getElementById('overlay');
   let MODAL = null;
+  let LAST_TRIGGER = null;
+
+  function getModalFocusables(modal) {
+    return Array.from(modal.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter(element => element.getClientRects().length > 0);
+  }
 
   function closeModal() {
-    if (MODAL) {
-      MODAL.classList.remove('open');
-      MODAL = null;
-    }
+    if (!MODAL) return;
 
-    if (!MODAL) OVERLAY?.classList.remove('open');
+    MODAL.classList.remove('open');
+    MODAL = null;
+    OVERLAY?.classList.remove('open');
+    document.body.classList.remove('modal-open');
+
+    const trigger = LAST_TRIGGER;
+    LAST_TRIGGER = null;
+    trigger?.focus();
   }
 
   function openModal(trigger) {
@@ -67,31 +78,69 @@
     const targetModal = modalId ? document.getElementById(modalId) : null;
     if (!targetModal) return;
 
-    if (MODAL && MODAL !== targetModal) {
-      MODAL.classList.remove('open');
-    }
+    if (MODAL === targetModal) return;
+    if (MODAL) MODAL.classList.remove('open');
 
     MODAL = targetModal;
+    LAST_TRIGGER = trigger;
     MODAL.classList.add('open');
     OVERLAY?.classList.add('open');
+    document.body.classList.add('modal-open');
+
+    const closeControl = MODAL.querySelector('.close-modal');
+    (closeControl || MODAL).focus();
   }
 
   document.querySelectorAll('.open-modal').forEach(trigger => {
-    trigger.addEventListener('click', () => openModal(trigger));
-    trigger.addEventListener('keydown', event => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
+    trigger.addEventListener('click', event => {
+      if (trigger.tagName === 'A') event.preventDefault();
       openModal(trigger);
     });
+
+    if (trigger.getAttribute('role') === 'button') {
+      trigger.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openModal(trigger);
+      });
+    }
   });
 
   document.querySelectorAll('.close-modal').forEach(control => {
     control.addEventListener('click', closeModal);
   });
 
+  document.addEventListener('keydown', event => {
+    if (!MODAL) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+    const focusables = getModalFocusables(MODAL);
+    if (!focusables.length) {
+      event.preventDefault();
+      MODAL.focus();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
   OVERLAY?.addEventListener('click', () => {
     if (MODAL) closeModal();
-    else OVERLAY.classList.remove('open');
   });
 
   searchInput?.addEventListener('input', filterEquipment);
