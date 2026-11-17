@@ -145,6 +145,32 @@
 
   searchInput?.addEventListener('input', filterEquipment);
 
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNavigation = document.getElementById('main-navigation');
+
+  function setNavigationOpen(open) {
+    if (!navToggle || !mainNavigation) return;
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    mainNavigation.classList.toggle('open', open);
+  }
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    setNavigationOpen(!isOpen);
+  });
+
+  mainNavigation?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavigationOpen(false));
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
+      setNavigationOpen(false);
+      navToggle.focus();
+    }
+  });
+
   const navLinks = Array.from(document.querySelectorAll('.top nav a'));
   const sections = navLinks
     .map(link => document.querySelector(link.getAttribute('href')))
