@@ -1221,9 +1221,6 @@ body.modal-open {
   transform: translateY(-100%);
 }
 
-.top:focus-within {
-  transform: translateY(0);
-}
 
 @media (prefers-reduced-motion: reduce) {
   .top { transition: none; }
