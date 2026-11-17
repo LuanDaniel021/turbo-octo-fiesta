@@ -422,23 +422,13 @@ body { background: #fff; color: var(--ink); }
 .references { color: #61796e; }
 .references a { color: #07845d; }
 footer {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(108deg, #07845d 0%, #0ab779 62%, #13d28a 100%);
-  color: #e8fff2;
-}
-footer:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .13;
-  background: url("assets/images/circuito-verde.png") right center / auto 175% no-repeat;
+  background: #fff;
+  color: var(--ink);
 }
 footer .inner { position: relative; }
-.team { border-color: rgba(255,255,255,.28); }
-.team strong { color: #fff; }
-.team li { border-color: rgba(255,255,255,.3); color: #edfff5; }
+.team { border-color: var(--line); }
+.team strong { color: var(--ink); }
+.team li { border-color: var(--line); color: var(--muted); }
 
 /* Folder em faixa horizontal, usando o verde-claro da identidade visual */
 .folder-section { margin-top: 8px; }
@@ -489,8 +479,7 @@ footer .inner { position: relative; }
 
 
 /* Circuito decorativo: dimensões e transformação da referência visual. */
-.hero:before,
-footer:before {
+.hero:before {
   width: 2561.7513407500296px;
   height: 2561.7513407500296px;
   opacity: 1;
@@ -504,13 +493,6 @@ footer:before {
   top: 50%;
   transform: translateY(-50%) rotate(-32.89deg);
 }
-footer:before {
-  inset: auto;
-  right: -850px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-32.89deg);
-}
-
 
 /* Redes e notícias: composição em faixa inspirada na referência visual. */
 .social-section {
