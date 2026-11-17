@@ -145,6 +145,30 @@
 
   searchInput?.addEventListener('input', filterEquipment);
 
+  // CABEÇALHO INTELIGENTE — direção da rolagem
+  const topHeader = document.querySelector('.top');
+  let previousScrollY = window.scrollY;
+  const scrollThreshold = 8;
+
+  window.addEventListener('scroll', () => {
+    if (!topHeader) return;
+
+    const currentScrollY = window.scrollY;
+    const difference = currentScrollY - previousScrollY;
+
+    if (currentScrollY <= 12) {
+      topHeader.classList.remove('header-hidden');
+    } else if (Math.abs(difference) >= scrollThreshold) {
+      const navigationIsOpen = document.querySelector('.nav-toggle')?.getAttribute('aria-expanded') === 'true';
+
+      if (!navigationIsOpen) {
+        topHeader.classList.toggle('header-hidden', difference > 0);
+      }
+    }
+
+    previousScrollY = currentScrollY;
+  }, { passive: true });
+
   const navToggle = document.querySelector('.nav-toggle');
   const mainNavigation = document.getElementById('main-navigation');
 
