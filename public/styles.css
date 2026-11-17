@@ -358,3 +358,133 @@ footer p { margin: 0; }
   .social-card, .news-card { min-height: 0; }
   .news-heading { align-items: flex-start; flex-direction: column; }
 }
+
+
+/* Paleta alinhada à referência visual: branco, verde vivo e verde-claro */
+:root {
+  --ink: #173b31;
+  --muted: #61796e;
+  --green: #07845d;
+  --green-dark: #087452;
+  --mint: #eaf6ef;
+  --paper: #ffffff;
+  --line: #dcebe2;
+  --accent: #c9f0d9;
+  --shadow: 0 8px 24px rgba(7,92,62,.07);
+}
+body { background: #fff; color: var(--ink); }
+.top {
+  background: rgba(255,255,255,.98);
+  color: var(--ink);
+  box-shadow: 0 3px 14px rgba(5,70,47,.06);
+}
+.top nav a { color: #36594a; }
+.top nav a:hover, .top nav a:focus-visible, .top nav a.active {
+  color: var(--green-dark); border-bottom-color: #0bb879;
+}
+.hero {
+  background:
+    radial-gradient(ellipse at 88% 22%, rgba(43,238,160,.58), transparent 42%),
+    linear-gradient(112deg, #07835e 0%, #0aa96e 55%, #14d58a 100%);
+}
+.hero:after {
+  border-color: rgba(0,78,51,.2);
+  box-shadow: 0 0 0 45px rgba(0,78,51,.07), 0 0 0 90px rgba(0,78,51,.045);
+}
+.hero:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .2;
+  background: url("assets/images/circuito-verde.png") right center / auto 145% no-repeat;
+  mix-blend-mode: screen;
+}
+.hero-inner { z-index: 1; }
+.eyebrow { color: #d9ffeb; }
+.hero p { color: #edfff5; }
+.hero-links a.secondary { border-color: rgba(255,255,255,.85); }
+.hero-action { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.55); }
+.section-kicker { color: #07845d; }
+.intro { color: #587267; }
+.note {
+  border-color: #d3eadc;
+  border-left-color: #0aa66e;
+  background: #eff8f3;
+}
+.item { box-shadow: 0 5px 18px rgba(7,92,62,.06); }
+.item .symbol { background: #e8f5ed; }
+.checklist-item { border-color: #dcebe2; }
+.check-icon { background: #e5f5eb; color: #07845d; }
+.collection-map { background: #eaf5ef; }
+.map-tag { background: #dff3e7; color: #087452; }
+.step:before { background: #e3f4e9; color: #07845d; }
+.links a { border-color: #dcebe2; color: #087452; }
+.links a:hover { border-color: #75c69b; }
+.references { color: #61796e; }
+.references a { color: #07845d; }
+footer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(108deg, #07845d 0%, #0ab779 62%, #13d28a 100%);
+  color: #e8fff2;
+}
+footer:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .13;
+  background: url("assets/images/circuito-verde.png") right center / auto 175% no-repeat;
+}
+footer .inner { position: relative; }
+.team { border-color: rgba(255,255,255,.28); }
+.team strong { color: #fff; }
+.team li { border-color: rgba(255,255,255,.3); color: #edfff5; }
+
+/* Folder em faixa horizontal, usando o verde-claro da identidade visual */
+.folder-section { margin-top: 8px; }
+.folder-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 25px 28px;
+  border: 1px solid #d8eee1;
+  border-radius: 16px;
+  background: #eff8f3;
+}
+.folder-copy { max-width: 680px; }
+.folder-copy h2 {
+  margin: 6px 0 8px;
+  color: #173b31;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+.folder-copy p {
+  margin: 0;
+  color: #61796e;
+  font-size: .94rem;
+}
+.folder-strip .download-link {
+  flex: 0 0 auto;
+  background: #07845d;
+  border-color: #07845d;
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(7,132,93,.14);
+}
+.folder-strip .download-link > span:first-child {
+  background: rgba(255,255,255,.18);
+  color: #fff;
+}
+.folder-strip .download-link small { color: #d9f5e5; }
+.folder-strip .download-link:hover {
+  background: #066f4f;
+  border-color: #066f4f;
+}
+@media (max-width: 620px) {
+  .folder-strip { align-items: flex-start; flex-direction: column; padding: 22px; }
+  .folder-strip .download-link { width: 100%; }
+}
+@media print {
+  .hero, footer { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
