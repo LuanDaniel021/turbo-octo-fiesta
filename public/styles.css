@@ -152,7 +152,7 @@ p { margin: 0 0 14px; }
 }
 .text-button:hover { color: var(--green-dark); }
 /* 08. ETAPAS E LINKS DE RECEBIMENTO */
-.steps { counter-reset: step; display: grid; gap: 13px; margin-top: 20px; }
+.steps { counter-reset: step; display: grid; grid-template-columns: 1fr; gap: 13px; margin-top: 20px; }
 .step {
   counter-increment: step; background: white; border: 1px solid var(--line);
   border-radius: 12px; padding: 19px 22px 19px 66px; position: relative;
@@ -238,6 +238,46 @@ footer p { margin: 0; }
   color: var(--green); font-size: .85rem; font-weight: 900;
 }
 .checklist-caption { color: var(--muted); margin-top: 18px; }
+
+
+/* PONTOS DE RECEBIMENTO — cartões de referência acima do mapa */
+.map-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.map-point-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.map-point-card > span {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--mint);
+  color: var(--green);
+  font-size: .82rem;
+  font-weight: 800;
+}
+.map-point-card h3 { margin: 2px 0 5px; font-size: .98rem; }
+.map-point-card p { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.45; }
+@media (min-width: 600px) and (max-width: 899px) {
+  .map-points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+  .map-points { grid-template-columns: 1fr; }
+}
 
 /* COMPONENTE — mapa Leaflet */
 .map-heading {
