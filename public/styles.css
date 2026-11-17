@@ -982,3 +982,31 @@ footer .inner { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .modal { transition: none; }
 }
+
+
+/* CONTROLE DE TESTE DO SISTEMA DE MODAIS */
+.modal-demo-trigger {
+  margin-top: 18px;
+  padding: 11px 17px;
+  color: #087b57;
+  background: #eff8f3;
+  border: 1px solid #cfe5d7;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+.modal-demo-trigger:hover {
+  background: #e2f2e9;
+  border-color: #a9d2b9;
+}
+.modal-content {
+  flex: 1;
+  min-height: 0;
+  padding: 8px 4px 24px 0;
+}
+.modal-content h2 { margin: 10px 52px 16px 0; }
+.modal-content h3 { margin: 26px 0 8px; color: #245442; }
+.modal-content p { line-height: 1.75; }
+.modal-content .note { margin: 22px 0; }
