@@ -153,16 +153,17 @@
   window.addEventListener('scroll', () => {
     if (!topHeader) return;
 
-    const currentScrollY = window.scrollY;
+    const currentScrollY = Math.max(0, window.scrollY);
     const difference = currentScrollY - previousScrollY;
+    const passedThreshold = Math.abs(difference) >= scrollThreshold;
 
-    if (Math.abs(difference) >= scrollThreshold) {
+    if (passedThreshold) {
       setNavigationOpen(false);
     }
 
     if (currentScrollY <= 12) {
       topHeader.classList.remove('header-hidden');
-    } else if (Math.abs(difference) >= scrollThreshold) {
+    } else if (passedThreshold) {
       topHeader.classList.toggle('header-hidden', difference > 0);
     }
 
@@ -183,6 +184,16 @@
     const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
     setNavigationOpen(!isOpen);
   });
+
+  document.addEventListener('click', event => {
+    if (navToggle?.getAttribute('aria-expanded') !== 'true') return;
+    if (topHeader?.contains(event.target)) return;
+    setNavigationOpen(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1050) setNavigationOpen(false);
+  }, { passive: true });
 
   mainNavigation?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => setNavigationOpen(false));
