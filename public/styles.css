@@ -152,7 +152,7 @@ p { margin: 0 0 14px; }
 }
 .text-button:hover { color: var(--green-dark); }
 /* 08. ETAPAS E LINKS DE RECEBIMENTO */
-.steps { counter-reset: step; display: grid; grid-template-columns: 1fr; gap: 13px; margin-top: 20px; }
+.steps { counter-reset: step; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 20px; }
 .step {
   counter-increment: step; background: white; border: 1px solid var(--line);
   border-radius: 12px; padding: 19px 22px 19px 66px; position: relative;
@@ -808,3 +808,8 @@ footer .inner { position: relative; }
   }
 }
 
+
+
+@media (max-width: 760px) {
+  .steps { grid-template-columns: 1fr; }
+}
