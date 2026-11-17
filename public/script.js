@@ -48,7 +48,163 @@
     map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
   }
 
+
+  // SISTEMA DE MODAIS
+  const OVERLAY = document.getElementById('overlay');
+  let MODAL = null;
+  let LAST_TRIGGER = null;
+
+  function getModalFocusables(modal) {
+    return Array.from(modal.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter(element => element.getClientRects().length > 0);
+  }
+
+  function closeModal() {
+    if (!MODAL) return;
+
+    MODAL.classList.remove('open');
+    MODAL = null;
+    OVERLAY?.classList.remove('open');
+    document.body.classList.remove('modal-open');
+
+    const trigger = LAST_TRIGGER;
+    LAST_TRIGGER = null;
+    trigger?.focus();
+  }
+
+  function openModal(trigger) {
+    const modalId = trigger.dataset.modal;
+    const targetModal = modalId ? document.getElementById(modalId) : null;
+    if (!targetModal) return;
+
+    if (MODAL === targetModal) return;
+    if (MODAL) MODAL.classList.remove('open');
+
+    MODAL = targetModal;
+    LAST_TRIGGER = trigger;
+    MODAL.classList.add('open');
+    OVERLAY?.classList.add('open');
+    document.body.classList.add('modal-open');
+
+    const closeControl = MODAL.querySelector('.close-modal');
+    (closeControl || MODAL).focus();
+  }
+
+  document.querySelectorAll('.open-modal').forEach(trigger => {
+    trigger.addEventListener('click', event => {
+      if (trigger.tagName === 'A') event.preventDefault();
+      openModal(trigger);
+    });
+
+    if (trigger.getAttribute('role') === 'button') {
+      trigger.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openModal(trigger);
+      });
+    }
+  });
+
+  document.querySelectorAll('.close-modal').forEach(control => {
+    control.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', event => {
+    if (!MODAL) return;
+
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (event.key !== 'Tab') return;
+    const focusables = getModalFocusables(MODAL);
+    if (!focusables.length) {
+      event.preventDefault();
+      MODAL.focus();
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  OVERLAY?.addEventListener('click', () => {
+    if (MODAL) closeModal();
+  });
+
   searchInput?.addEventListener('input', filterEquipment);
+
+  // CABEÇALHO INTELIGENTE — direção da rolagem
+  const topHeader = document.querySelector('.top');
+  let previousScrollY = window.scrollY;
+  const scrollThreshold = 8;
+
+  window.addEventListener('scroll', () => {
+    if (!topHeader) return;
+
+    const currentScrollY = Math.max(0, window.scrollY);
+    const difference = currentScrollY - previousScrollY;
+    const passedThreshold = Math.abs(difference) >= scrollThreshold;
+
+    if (passedThreshold) {
+      setNavigationOpen(false);
+    }
+
+    if (currentScrollY <= 12) {
+      topHeader.classList.remove('header-hidden');
+    } else if (passedThreshold) {
+      topHeader.classList.toggle('header-hidden', difference > 0);
+    }
+
+    previousScrollY = currentScrollY;
+  }, { passive: true });
+
+  const navToggle = document.querySelector('.nav-toggle');
+  const mainNavigation = document.getElementById('main-navigation');
+
+  function setNavigationOpen(open) {
+    if (!navToggle || !mainNavigation) return;
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    mainNavigation.classList.toggle('open', open);
+  }
+
+  navToggle?.addEventListener('click', () => {
+    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+    setNavigationOpen(!isOpen);
+  });
+
+  document.addEventListener('click', event => {
+    if (navToggle?.getAttribute('aria-expanded') !== 'true') return;
+    if (topHeader?.contains(event.target)) return;
+    setNavigationOpen(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1050) setNavigationOpen(false);
+  }, { passive: true });
+
+  mainNavigation?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavigationOpen(false));
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
+      setNavigationOpen(false);
+      navToggle.focus();
+    }
+  });
 
   const navLinks = Array.from(document.querySelectorAll('.top nav a'));
   const sections = navLinks
