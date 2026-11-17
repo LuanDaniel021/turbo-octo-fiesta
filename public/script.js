@@ -1,43 +1,8 @@
 (() => {
-  const checks = Array.from(document.querySelectorAll('.checklist input[type="checkbox"]'));
-  const bar = document.getElementById('progressBar');
-  const progressText = document.getElementById('progressText');
-  const resetButton = document.getElementById('resetChecklist');
   const searchInput = document.getElementById('equipmentSearch');
   const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .item'));
   const equipmentCount = document.getElementById('equipmentCount');
   const printButton = document.getElementById('printGuide');
-  const storageKey = 'guia-descarte-checklist-v1';
-
-  function loadChecklist() {
-    try {
-      const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-      checks.forEach((input, index) => {
-        input.checked = Boolean(saved[index]);
-      });
-    } catch (error) {
-      // A página continua funcional mesmo se o armazenamento estiver indisponível.
-    }
-  }
-
-  function saveChecklist() {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(checks.map(input => input.checked)));
-    } catch (error) {
-      // O checklist ainda funciona durante a sessão.
-    }
-  }
-
-  function updateProgress() {
-    const done = checks.filter(input => input.checked).length;
-    const total = checks.length;
-    const percentage = total ? (done / total) * 100 : 0;
-    if (bar) bar.style.width = percentage + '%';
-    if (progressText) {
-      progressText.textContent = done + ' de ' + total + ' etapas concluídas';
-    }
-    saveChecklist();
-  }
 
   function filterEquipment() {
     const term = (searchInput?.value || '').trim().toLocaleLowerCase('pt-BR');
@@ -54,11 +19,35 @@
     }
   }
 
-  checks.forEach(input => input.addEventListener('change', updateProgress));
-  resetButton?.addEventListener('click', () => {
-    checks.forEach(input => { input.checked = false; });
-    updateProgress();
-  });
+  function initializeMap() {
+    const mapElement = document.getElementById('collectionMap');
+    if (!mapElement || typeof L === 'undefined') return;
+
+    const map = L.map(mapElement, { scrollWheelZoom: false }).setView([-15.7939, -47.8828], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    const samplePoints = [
+      { name: 'Ponto de exemplo 1', position: [-15.7868, -47.8912] },
+      { name: 'Ponto de exemplo 2', position: [-15.8002, -47.8875] },
+      { name: 'Ponto de exemplo 3', position: [-15.7901, -47.8708] },
+      { name: 'Ponto de exemplo 4', position: [-15.8050, -47.8750] },
+      { name: 'Ponto de exemplo 5', position: [-15.7805, -47.8790] }
+    ];
+
+    const markers = samplePoints.map(point =>
+      L.marker(point.position)
+        .addTo(map)
+        .bindPopup('<strong>' + point.name + '</strong><br>Localização demonstrativa')
+    );
+
+    L.featureGroup(markers).addTo(map);
+    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
+  }
+
   searchInput?.addEventListener('input', filterEquipment);
   printButton?.addEventListener('click', () => window.print());
 
@@ -83,7 +72,6 @@
     sections.forEach(section => observer.observe(section));
   }
 
-  loadChecklist();
-  updateProgress();
   filterEquipment();
+  initializeMap();
 })();
