@@ -500,13 +500,13 @@ footer:before {
 }
 .hero:before {
   inset: auto;
-  right: calc(-850px + 20%);
+  right: -850px;
   top: 50%;
   transform: translateY(-50%) rotate(-32.89deg);
 }
 footer:before {
   inset: auto;
-  right: calc(-850px + 20%);
+  right: -850px;
   top: 50%;
   transform: translateY(-50%) rotate(-32.89deg);
 }
