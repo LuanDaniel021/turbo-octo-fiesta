@@ -685,40 +685,36 @@ footer .inner { position: relative; }
 }
 
 
-/* EXPERIMENTO 2 — composição horizontal do checklist */
+/* EXPERIMENTO 2 — composição horizontal da seção pós-Hero */
 @media (min-width: 900px) {
-  /* Checklist: etapas à esquerda e orientação sobre baterias em destaque à direita. */
-  #checklist {
+  .quick-overview {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
     column-gap: clamp(28px, 4vw, 60px);
-    align-items: start;
-    row-gap: 8px;
+    align-items: center;
+    row-gap: 12px;
   }
-  #checklist > .section-kicker,
-  #checklist > h2,
-  #checklist > .intro,
-  #checklist > .checklist-caption {
-    grid-column: 1 / -1;
-  }
-  #checklist > .checklist {
+  .quick-overview > .section-kicker,
+  .quick-overview > h2,
+  .quick-overview > .intro {
     grid-column: 1;
-    margin-top: 0;
   }
-  #checklist > .note {
+  .quick-overview > .overview-grid {
     grid-column: 2;
-    grid-row: 5;
+    grid-row: 1 / span 3;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 0;
     align-self: center;
-    margin: 0;
-    padding: 26px;
-    border: 0;
-    border-left: 4px solid #08a66e;
-    border-radius: 4px 18px 18px 4px;
-    box-shadow: 0 14px 36px rgba(7, 92, 62, .09);
+  }
+  .quick-overview > .overview-grid .overview-item {
+    padding: 12px 14px;
+    border: 1px solid #dcebe2;
+    border-radius: 12px;
+    background: #f7fbf8;
   }
 }
 
-/* Em telas menores, mantém o fluxo vertical natural. */
 @media (max-width: 899px) {
-  #checklist { display: block; }
+  .quick-overview { display: block; }
 }
