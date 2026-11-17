@@ -879,3 +879,28 @@ footer .inner { position: relative; }
     transition: none;
   }
 }
+
+
+/* SISTEMA DE MODAIS — camada de sobreposição */
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10, 30, 22, .58);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+#overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+#modals {
+  position: relative;
+  z-index: 1001;
+}
+@media (prefers-reduced-motion: reduce) {
+  #overlay { transition: none; }
+}
