@@ -1282,7 +1282,7 @@ body.modal-open {
   .top nav,
   .top nav.open {
     position: absolute;
-    top: 100%;
+    top: calc(100% - 1px);
     left: 0;
     right: 0;
     z-index: 21;
@@ -1292,15 +1292,18 @@ body.modal-open {
     align-items: stretch;
     justify-content: flex-start;
     width: auto;
-    max-height: min(70vh, 520px);
-    gap: 0;
+    max-height: min(70dvh, 520px);
+    gap: 3px;
     margin: 0;
-    padding: 8px 20px 12px;
+    padding: 10px 20px 14px;
     overflow-x: hidden;
     overflow-y: auto;
+    overscroll-behavior: contain;
     background: rgba(255,255,255,.99);
+    border: 1px solid #e2eee6;
     border-top: 1px solid #e5efe8;
-    box-shadow: 0 12px 24px rgba(5,70,47,.10);
+    border-radius: 0 0 14px 14px;
+    box-shadow: 0 14px 30px rgba(5,70,47,.13);
   }
 
   .top nav.open {
@@ -1310,10 +1313,12 @@ body.modal-open {
   .top nav a {
     display: block;
     width: 100%;
-    padding: 11px 8px;
-    border-bottom: 0;
-    border-radius: 7px;
+    min-height: 42px;
+    padding: 11px 10px;
+    border: 0;
+    border-radius: 8px;
     font-size: .94rem;
+    line-height: 1.35;
   }
 
   .top nav a:hover,
@@ -1325,4 +1330,33 @@ body.modal-open {
 
 @media (prefers-reduced-motion: reduce) {
   .nav-toggle span { transition: none; }
+}
+
+
+/* REFINAMENTO DA NAVEGAÇÃO — estados e áreas de toque */
+.nav-toggle {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.nav-toggle:focus-visible {
+  outline: 3px solid rgba(7, 132, 93, .38);
+  outline-offset: 3px;
+}
+
+@media (max-width: 420px) {
+  .top {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .institution-logo {
+    max-width: min(150px, calc(100vw - 100px));
+  }
+
+  .top nav,
+  .top nav.open {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
