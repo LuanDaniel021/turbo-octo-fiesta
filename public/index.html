@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header class="top">
     <div class="brand">GUIA AMBIENTAL · ELETROELETRÔNICOS</div>
     <nav aria-label="Navegação principal">
@@ -28,11 +29,12 @@
       <div class="hero-links">
         <a href="#guia">Consultar guia de equipamentos</a>
         <a class="secondary" href="#checklist">Ir para a lista de verificação</a>
+        <button class="hero-action" type="button" id="printGuide">Imprimir guia</button>
       </div>
     </div>
   </div>
 
-  <main>
+  <main id="conteudo">
     <section id="introducao">
       <div class="section-kicker">01 · Contexto</div>
       <h2>Por que o descarte adequado importa?</h2>
@@ -45,7 +47,14 @@
       <div class="section-kicker">02 · Guia por tipo de equipamento</div>
       <h2>O que pode ser encaminhado?</h2>
       <p class="intro">O Anexo I do Decreto nº 10.240/2020 apresenta a relação de produtos eletroeletrônicos objeto do sistema de logística reversa. Abaixo, os itens estão agrupados por tipo para facilitar a consulta. Os exemplos são orientativos: confirme a aceitação do produto com o ponto de recebimento antes de se deslocar.</p>
-      <div class="grid">
+      <div class="equipment-tools">
+        <label class="search-box" for="equipmentSearch">
+          <span aria-hidden="true">⌕</span>
+          <input id="equipmentSearch" type="search" placeholder="Buscar equipamento ou categoria..." autocomplete="off">
+        </label>
+        <p id="equipmentCount" class="search-status" aria-live="polite">8 categorias disponíveis</p>
+      </div>
+      <div class="grid" id="equipmentGrid">
         <article class="item">
           <div class="symbol">💻</div>
           <h3>Informática e comunicação</h3>
@@ -95,7 +104,10 @@
       <h2>Lista de verificação</h2>
       <p class="intro">Antes de levar o equipamento ao ponto de recebimento, siga estas etapas para reduzir riscos e proteger suas informações pessoais.</p>
       <div class="progress"><span id="progressBar"></span></div>
-      <div class="progress-text" id="progressText" aria-live="polite">0 de 5 etapas concluídas</div>
+      <div class="checklist-heading">
+        <div class="progress-text" id="progressText" aria-live="polite">0 de 5 etapas concluídas</div>
+        <button class="text-button" type="button" id="resetChecklist">Limpar checklist</button>
+      </div>
       <ul class="checklist">
         <li><label><input type="checkbox"><span><strong>Desligue o equipamento.</strong> Desconecte-o da tomada e de outros aparelhos. Aguarde o resfriamento, quando necessário.</span></label></li>
         <li><label><input type="checkbox"><span><strong>Separe pilhas e baterias removíveis.</strong> Retire-as somente quando isso puder ser feito com segurança e conforme as instruções do fabricante. Encaminhe-as a um ponto que receba esse tipo de resíduo.</span></label></li>
