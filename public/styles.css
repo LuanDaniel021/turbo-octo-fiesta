@@ -906,28 +906,27 @@ footer .inner { position: relative; }
 }
 
 
-/* SISTEMA DE MODAIS — painel lateral */
+/* SISTEMA DE MODAIS — painel flutuante centralizado */
 .modal {
   position: fixed;
-  inset: 0 0 0 auto;
+  top: 50%;
+  left: 50%;
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  width: min(560px, 100%);
-  height: 100vh;
-  height: 100dvh;
+  width: min(620px, calc(100% - 40px));
+  max-height: min( min(780px, calc(100dvh - 48px)), 90vh);
   overflow: hidden;
-  padding: 32px;
+  padding: 30px;
   color: #183c30;
   background: #fff;
   border: 1px solid #dcebe2;
-  border-right: 0;
-  border-radius: 22px 0 0 22px;
-  box-shadow: -18px 0 48px rgba(10, 48, 32, .16);
+  border-radius: 20px;
+  box-shadow: 0 24px 70px rgba(10, 48, 32, .22);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateX(24px);
+  transform: translate(-50%, calc(-50% + 12px)) scale(.985);
   transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
 }
 
@@ -935,20 +934,21 @@ footer .inner { position: relative; }
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(0);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* O conteúdo rola sem deslocar o controle de fechamento. */
-.modal > :not(.close-modal) {
-  min-width: 0;
+.modal-content {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
 .modal .close-modal {
   position: absolute;
-  top: 18px;
-  right: 18px;
+  top: 14px;
+  right: 14px;
   z-index: 2;
   display: inline-grid;
   place-items: center;
@@ -969,13 +969,14 @@ footer .inner { position: relative; }
 
 @media (max-width: 600px) {
   .modal {
-    width: 100%;
-    padding: 26px 20px;
-    border-radius: 18px 0 0 18px;
+    width: calc(100% - 28px);
+    max-height: calc(100dvh - 28px);
+    padding: 24px 20px;
+    border-radius: 16px;
   }
   .modal .close-modal {
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 10px;
   }
 }
 
