@@ -56,6 +56,7 @@
       <p class="intro">Equipamentos eletroeletrônicos fazem parte da rotina doméstica, mas, quando deixam de funcionar ou perdem sua utilidade, não devem ser descartados junto aos resíduos comuns. Esses produtos podem conter materiais que precisam de tratamento específico e componentes que podem ser recuperados e reinseridos na cadeia produtiva.</p>
       <p>O descarte incorreto pode provocar contaminação do solo e da água, desperdício de matérias-primas e riscos à saúde de pessoas que manipulam os resíduos sem proteção. A entrega em pontos de recebimento apropriados permite que os produtos sigam para triagem, desmontagem, reciclagem e outras formas de destinação ambientalmente adequada.</p>
       <div class="note"><strong>Importante:</strong> este guia considera produtos eletroeletrônicos de uso doméstico. O Decreto nº 10.240/2020 não abrange, entre outros casos, equipamentos de uso corporativo ou industrial, produtos de serviços de saúde e pilhas, baterias ou lâmpadas removíveis, que possuem sistemas próprios de logística reversa.</div>
+      <button type="button" class="open-modal modal-demo-trigger" data-modal="modal-exemplo">Ver exemplo de modal</button>
     </section>
 
     <section id="folder" class="folder-section">
@@ -286,7 +287,28 @@
   </footer>
 
 <div id="overlay" class="overlay"></div>
-<div id="modals" class="modals"></div>
+
+<div id="modals" class="modals">
+  <section id="modal-exemplo" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-exemplo-titulo">
+    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+    <div class="modal-content">
+      <div class="section-kicker">Demonstração · Sistema de modais</div>
+      <h2 id="modal-exemplo-titulo">Descarte consciente começa com informação</h2>
+      <p class="intro">Este é um modal de demonstração para testar a abertura, o fechamento e a rolagem independente do conteúdo.</p>
+      <div class="note">
+        <strong>Por que usar um ponto de recebimento?</strong>
+        A entrega em locais adequados permite que os equipamentos sejam encaminhados para triagem, reaproveitamento e reciclagem, reduzindo o descarte irregular.
+      </div>
+      <h3>Antes de entregar seu equipamento</h3>
+      <p>Desligue o aparelho, remova apenas as baterias que foram projetadas para remoção pelo usuário e proteja seus dados pessoais. Também é importante confirmar previamente se o ponto escolhido recebe aquela categoria de produto.</p>
+      <h3>O que acontece depois?</h3>
+      <p>Os equipamentos recebidos podem passar por avaliação, desmontagem e separação de componentes. Materiais que podem ser recuperados seguem para processos de reciclagem ou reaproveitamento, enquanto rejeitos recebem destinação adequada.</p>
+      <h3>Confira as orientações</h3>
+      <p>As condições de recebimento variam conforme o local e a entidade responsável. Consulte os localizadores oficiais antes de transportar seu equipamento.</p>
+      <p>Este conteúdo é ilustrativo e serve para validar o comportamento visual do componente modal.</p>
+    </div>
+  </section>
+</div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="script.js" defer></script>
 </body>
