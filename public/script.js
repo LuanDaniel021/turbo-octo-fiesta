@@ -156,6 +156,10 @@
     const currentScrollY = window.scrollY;
     const difference = currentScrollY - previousScrollY;
 
+    if (Math.abs(difference) >= scrollThreshold) {
+      setNavigationOpen(false);
+    }
+
     if (currentScrollY <= 12) {
       topHeader.classList.remove('header-hidden');
     } else if (Math.abs(difference) >= scrollThreshold) {
