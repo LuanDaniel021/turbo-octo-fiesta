@@ -1,3 +1,6 @@
+/* ==========================================================
+   01. TOKENS E CONFIGURAÇÕES GLOBAIS
+   ========================================================== */
 :root {
   color-scheme: light;
   --ink: #172b27;
@@ -12,6 +15,7 @@
   --shadow: 0 18px 50px rgba(18,59,50,.08);
   --radius: 16px;
 }
+/* 02. RESET E ELEMENTOS GLOBAIS */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
@@ -31,6 +35,7 @@ button { cursor: pointer; }
   box-shadow: var(--shadow); font-weight: 700;
 }
 .skip-link:focus { transform: translateY(0); }
+/* 03. CABEÇALHO E NAVEGAÇÃO */
 .top {
   position: sticky; top: 0; z-index: 20;
   background: rgba(255,255,255,.97); color: var(--green-dark);
@@ -51,6 +56,7 @@ button { cursor: pointer; }
 .top nav a:hover, .top nav a:focus-visible, .top nav a.active {
   color: var(--green-dark); border-bottom-color: var(--green); outline: none;
 }
+/* 04. HERO E CHAMADAS PRINCIPAIS */
 .hero {
   position: relative; overflow: hidden;
   background: linear-gradient(125deg, #123b32, #176b52 68%, #2c8565);
@@ -83,6 +89,7 @@ h1 {
 .hero-links a:hover, .hero-action:hover { transform: translateY(-2px); }
 .hero-links a.secondary { background: transparent; color: white; border-color: #a8d3bc; }
 .hero-action { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.35); color: white; }
+/* 05. ESTRUTURA E TIPOGRAFIA */
 main { padding: 58px 24px 86px; }
 section { scroll-margin-top: 110px; margin: 0 0 70px; }
 .section-kicker {
@@ -97,6 +104,7 @@ p { margin: 0 0 14px; }
   border: 1px solid #d5e8dc; border-left: 4px solid var(--green);
   background: var(--mint); padding: 17px 20px; border-radius: 0 12px 12px 0; margin: 22px 0;
 }
+/* 06. GUIA DE EQUIPAMENTOS E BUSCA */
 .equipment-tools {
   display: flex; align-items: center; justify-content: space-between;
   gap: 14px; margin: 26px 0 16px;
@@ -124,6 +132,7 @@ p { margin: 0 0 14px; }
   background: var(--mint); border-radius: 13px; font-size: 1.5rem; margin-bottom: 16px;
 }
 .item p { color: var(--muted); margin: 0; }
+/* 07. CHECKLIST */
 .checklist-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .checklist { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 10px; }
 .checklist label {
@@ -142,6 +151,7 @@ p { margin: 0 0 14px; }
   font-size: .88rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px;
 }
 .text-button:hover { color: var(--green-dark); }
+/* 08. ETAPAS E LINKS DE RECEBIMENTO */
 .steps { counter-reset: step; display: grid; gap: 13px; margin-top: 20px; }
 .step {
   counter-increment: step; background: white; border: 1px solid var(--line);
@@ -163,6 +173,7 @@ p { margin: 0 0 14px; }
 .references { padding-left: 20px; color: var(--muted); }
 .references li { margin: 10px 0; padding-left: 4px; overflow-wrap: anywhere; }
 .references a { font-weight: 600; }
+/* 09. RODAPÉ */
 footer { background: var(--green-dark); color: #d9e9df; padding: 34px 24px; font-size: .9rem; }
 footer p { margin: 0; }
 .team { margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(217,233,223,.2); }
@@ -187,9 +198,11 @@ footer p { margin: 0; }
   .hero-links { align-items: stretch; flex-direction: column; }
   .hero-links a, .hero-action { width: 100%; }
 }
+/* 10. ACESSIBILIDADE E MOVIMENTO REDUZIDO */
 @media (prefers-reduced-motion: reduce) {
   *, *:before, *:after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+/* 11. IMPRESSÃO */
 @media print {
   body { background: white; }
   .top, .hero { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
@@ -201,7 +214,7 @@ footer p { margin: 0; }
   a { color: inherit; }
 }
 
-/* Layout horizontal: quatro categorias por linha em telas largas. */
+/* RESPONSIVIDADE — grade de equipamentos */
 @media (min-width: 900px) {
   .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
   .item { padding: 18px; }
@@ -212,7 +225,8 @@ footer p { margin: 0; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-/* Checklist informativo, sem controles de marcação. */
+/* COMPONENTE — checklist informativo */
+/* 12. COMPONENTES COMPLEMENTARES */
 .checklist-static { margin-top: 20px; }
 .checklist-item {
   display: flex; align-items: flex-start; gap: 13px; padding: 16px 18px;
@@ -225,7 +239,7 @@ footer p { margin: 0; }
 }
 .checklist-caption { color: var(--muted); margin-top: 18px; }
 
-/* Mapa Leaflet demonstrativo. */
+/* COMPONENTE — mapa Leaflet */
 .map-heading {
   display: flex; justify-content: space-between; align-items: flex-start;
   gap: 18px; margin: 30px 0 14px;
@@ -251,7 +265,7 @@ footer p { margin: 0; }
   .collection-map { break-inside: avoid; }
 }
 
-/* Folder informativo */
+/* COMPONENTE — folder e download */
 .brochure-gallery {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px; margin: 24px 0;
@@ -290,7 +304,8 @@ footer p { margin: 0; }
 }
 
 
-/* Resumo de navegação logo após o hero */
+/* COMPONENTE — resumo de navegação */
+/* 13. RESUMO APÓS O HERO */
 .quick-overview { margin-bottom: 66px; }
 .overview-grid {
   display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
@@ -309,7 +324,7 @@ footer p { margin: 0; }
 .overview-item small { margin-top: 5px; color: var(--muted); font-size: .82rem; line-height: 1.45; }
 .overview-item:hover strong { color: var(--green); }
 
-/* Blocos de redes, iniciativas e notícias */
+/* COMPONENTES — redes e notícias (estilos-base) */
 .social-section { padding: 42px 0 48px; }
 .social-grid {
   display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
@@ -360,7 +375,7 @@ footer p { margin: 0; }
 }
 
 
-/* Paleta alinhada à referência visual: branco, verde vivo e verde-claro */
+/* 14. AJUSTES DO TEMA — identidade visual verde e branco */
 :root {
   --ink: #173b31;
   --muted: #61796e;
@@ -478,7 +493,7 @@ footer .inner { position: relative; }
 }
 
 
-/* Circuito decorativo: dimensões e transformação da referência visual. */
+/* 15. CIRCUITO DECORATIVO DO HERO */
 .hero:before {
   width: 2561.7513407500296px;
   height: 2561.7513407500296px;
@@ -494,7 +509,7 @@ footer .inner { position: relative; }
   transform: translateY(-50%) rotate(-32.89deg);
 }
 
-/* Redes e notícias: composição em faixa inspirada na referência visual. */
+/* 16. SEÇÃO DE REDES SOCIAIS E NOTÍCIAS */
 .social-section {
   width: 100vw;
   margin: 0 0 0 calc(50% - 50vw);
