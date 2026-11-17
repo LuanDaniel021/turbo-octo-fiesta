@@ -65,10 +65,13 @@
           <h2>Leve a informação com você</h2>
           <p>Consulte o folder completo do projeto com orientações sobre o descarte correto de eletroeletrônicos.</p>
         </div>
-        <a class="download-link" href="assets/documents/folder-descarte-eletroeletronicos.pdf" download>
-          <span aria-hidden="true">↓</span>
-          <span><strong>Baixar folder</strong><small>Arquivo PDF</small></span>
-        </a>
+        <div class="folder-actions">
+          <button type="button" class="download-link folder-preview-trigger open-modal" data-modal="modal-folder">
+            <span aria-hidden="true">▣</span>
+            <span><strong>Visualizar folder</strong><small>Prévia do conteúdo</small></span>
+          </button>
+          <a class="folder-download-secondary" href="assets/documents/folder-descarte-eletroeletronicos.pdf" download>Baixar PDF ↓</a>
+        </div>
       </div>
     </section>
 
@@ -461,6 +464,25 @@
       <p class="intro">O transporte correto reduz o risco de quebra, vazamentos, acidentes e exposição de pessoas a componentes danificados.</p>
       <h3>Proteja o equipamento</h3><p>Evite quedas, impactos, umidade e pressão sobre telas. Acondicione peças soltas e acessórios para que não se espalhem durante o trajeto.</p><h3>Cuide de baterias e partes frágeis</h3><p>Não transporte baterias danificadas sem orientação especializada. Não perfure, esmague ou tente abrir o equipamento.</p><h3>Faça a entrega diretamente</h3><p>Entregue o material a um responsável ou no coletor indicado. Não deixe equipamentos ao lado de coletores, na calçada ou em locais fechados.</p>
       <div class="note"><strong>Importante:</strong> Se perceber aquecimento, estufamento, vazamento ou cheiro incomum em uma bateria, evite manusear o aparelho e procure orientação especializada.</div>
+    </div>
+  </section>
+  <section id="modal-folder" class="modal modal-folder" role="dialog" aria-modal="true" aria-labelledby="modal-folder-titulo">
+    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+    <div class="modal-content">
+      <div class="section-kicker">Material complementar · Pré-visualização</div>
+      <h2 id="modal-folder-titulo">Folder de descarte de eletroeletrônicos</h2>
+      <p class="intro">Confira o material do projeto antes de baixar. Use os controles do visualizador para ampliar, navegar pelas páginas ou ler em tela cheia.</p>
+      <div class="folder-pdf-frame">
+        <iframe src="assets/documents/folder-descarte-eletroeletronicos.pdf#view=FitH" title="Pré-visualização do folder em PDF" loading="lazy"></iframe>
+      </div>
+      <div class="folder-modal-actions">
+        <a class="download-link" href="assets/documents/folder-descarte-eletroeletronicos.pdf" download>
+          <span aria-hidden="true">↓</span>
+          <span><strong>Baixar folder</strong><small>Arquivo PDF</small></span>
+        </a>
+        <a class="folder-open-pdf" href="assets/documents/folder-descarte-eletroeletronicos.pdf" target="_blank" rel="noopener noreferrer">Abrir PDF em nova aba ↗</a>
+      </div>
+      <p class="progress-text">Se a pré-visualização não aparecer no seu navegador, use “Abrir PDF em nova aba” ou faça o download do arquivo.</p>
     </div>
   </section>
 </div>
