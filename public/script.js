@@ -1,4 +1,7 @@
-(() => {
+(async () => {
+    
+  await DATA_READY;
+
   const searchInput = document.getElementById('equipmentSearch');
   const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .item'));
   const equipmentCount = document.getElementById('equipmentCount');
@@ -22,7 +25,7 @@
     const mapElement = document.getElementById('collectionMap');
     if (!mapElement || typeof L === 'undefined') return;
 
-    const map = L.map(mapElement, { scrollWheelZoom: false, zoomControl: false }).setView([-15.7939, -47.8828], 13);
+    const map = L.map(mapElement).setView([-15.7939, -47.8828], 13);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -30,15 +33,7 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    const samplePoints = [
-      { name: 'Ponto de exemplo 1', position: [-15.7868, -47.8912] },
-      { name: 'Ponto de exemplo 2', position: [-15.8002, -47.8875] },
-      { name: 'Ponto de exemplo 3', position: [-15.7901, -47.8708] },
-      { name: 'Ponto de exemplo 4', position: [-15.8050, -47.8750] },
-      { name: 'Ponto de exemplo 5', position: [-15.7805, -47.8790] }
-    ];
-
-    const markers = samplePoints.map(point =>
+    const markers = DATA_POINTS.points.map(point =>
       L.marker(point.position)
         .addTo(map)
         .bindPopup('<strong>' + point.name + '</strong><br>Localização demonstrativa')
