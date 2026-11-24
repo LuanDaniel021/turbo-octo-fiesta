@@ -25,7 +25,7 @@
     const mapElement = document.getElementById('collectionMap');
     if (!mapElement || typeof L === 'undefined') return;
 
-    const map = L.map(mapElement).setView([-15.7939, -47.8828], 13);
+    const map = L.map(mapElement, {zoomControl:false}).setView([-15.7939, -47.8828], 13);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
