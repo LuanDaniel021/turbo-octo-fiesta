@@ -43,6 +43,113 @@
     map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
   }
 
+function createMapPoint(item, index) {
+    const card = document.createElement("article");
+    card.className = "map-point-card open-modal";
+    card.dataset.modal = item.modal?.id || "";
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-haspopup", "dialog");
+
+    const num = document.createElement("span");
+    num.textContent = String(index + 1).padStart(2, "0");
+
+    const info = document.createElement("div");
+
+    const title = document.createElement("h3");
+    title.textContent = item.modal?.title || item.name;
+
+    const summary = document.createElement("p");
+    summary.textContent = `Localização demonstrativa em ${item.city} (${item.state}).`;
+
+    info.append(title, summary);
+    card.append(num, info);
+
+    return card;
+}
+
+function createModalSection(data) {
+    const { modal } = data;
+
+    const titleId = `${modal.id}-titulo`;
+
+    const section = document.createElement("section");
+    section.id = modal.id;
+    section.className = "modal";
+    section.setAttribute("role", "dialog");
+    section.setAttribute("aria-modal", "true");
+    section.setAttribute("tabindex", "-1");
+    section.setAttribute("aria-labelledby", titleId);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "close-modal";
+    closeBtn.setAttribute("aria-label", "Fechar modal");
+    closeBtn.textContent = "✕";
+
+    const modalContent = document.createElement("div");
+    modalContent.className = "modal-content";
+
+    const kicker = document.createElement("div");
+    kicker.className = "section-kicker";
+    kicker.textContent = modal.kicker;
+
+    const heading = document.createElement("h2");
+    heading.id = titleId;
+    heading.textContent = modal.title;
+
+    const intro = document.createElement("p");
+    intro.className = "intro";
+    intro.textContent = modal.intro;
+
+    modalContent.append(kicker, heading, intro);
+
+    for (const item of modal.sections || []) {
+        const h3 = document.createElement("h3");
+        h3.textContent = item.heading;
+
+        const p = document.createElement("p");
+        p.textContent = item.content;
+
+        modalContent.append(h3, p);
+    }
+
+    if (modal.note) {
+        const noteDiv = document.createElement("div");
+        noteDiv.className = "note";
+
+        const separatorIndex = modal.note.indexOf(":");
+        if (separatorIndex !== -1) {
+            const strong = document.createElement("strong");
+            strong.textContent = modal.note.slice(0, separatorIndex + 1);
+            noteDiv.append(strong, modal.note.slice(separatorIndex + 1));
+        } else {
+            noteDiv.textContent = modal.note;
+        }
+
+        modalContent.append(noteDiv);
+    }
+
+    section.append(closeBtn, modalContent);
+    return section;
+}
+
+function renderPontos(items) {
+    const pointsContainer = document.getElementById("mapPoints");
+    const modalsContainer = document.getElementById("modals");
+
+    items.forEach((item, index) => {
+        if (pointsContainer) {
+            pointsContainer.appendChild(createMapPoint(item, index));
+        }
+
+        if (modalsContainer && item.modal) {
+            modalsContainer.appendChild(createModalSection(item));
+        }
+    });
+}
+
+    renderPontos(DATA_POINTS.points)
 
   // SISTEMA DE MODAIS
   const OVERLAY = document.getElementById('overlay');
@@ -224,4 +331,5 @@
 
   filterEquipment();
   initializeMap();
+  
 })();
