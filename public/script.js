@@ -1,6 +1,25 @@
+
 (async () => {
-    
-  await DATA_READY;
+
+  const SOURCE = "./data";
+
+  const FILES = {
+      pontos:"pontos.json"
+  }
+
+  const LIST_FILES = [
+      FILES.pontos
+  ];
+
+  const DATA_READY = await loader( SOURCE, LIST_FILES );
+
+  const POINTS = DATA_READY[FILES.pontos].points;
+
+  const OVERLAY = document.getElementById('overlay');
+
+  let LAST_TRIGGER = null;
+
+  let MODAL = null;
 
   const searchInput = document.getElementById('equipmentSearch');
   const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .item'));
@@ -33,7 +52,7 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    const markers = DATA_POINTS.points.map(point =>
+    const markers = POINTS.map(point =>
       L.marker(point.position)
         .addTo(map)
         .bindPopup('<strong>' + point.name + '</strong><br>Localização demonstrativa')
@@ -149,12 +168,7 @@ function renderPontos(items) {
     });
 }
 
-    renderPontos(DATA_POINTS.points)
-
-  // SISTEMA DE MODAIS
-  const OVERLAY = document.getElementById('overlay');
-  let MODAL = null;
-  let LAST_TRIGGER = null;
+  renderPontos(POINTS)
 
   function getModalFocusables(modal) {
     return Array.from(modal.querySelectorAll(

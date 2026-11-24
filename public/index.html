@@ -6,9 +6,11 @@
   <meta name="theme-color" content="#123b32">
   <meta name="description" content="Guia de orientação para o descarte adequado de equipamentos eletroeletrônicos, com checklist e informações sobre logística reversa.">
   <title>Guia de descarte de eletroeletrônicos</title>
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-  <script defer src="./assets/mapa.js"></script>
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script defer src="./assets/utils.js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -285,158 +287,271 @@
     </div>
   </footer>
 
-<div id="overlay" class="overlay"></div>
+  <div id="overlay" class="overlay"></div>
 
-<div id="modals" class="modals">
-<section id="modal-informatica" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-informatica-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-informatica-titulo">Informática e comunicação</h2>
-      <p class="intro">Computadores, notebooks, tablets, celulares, telefones, roteadores e periféricos podem conter metais, placas eletrônicas, plásticos e outros materiais que precisam de tratamento adequado.</p>
-      <h3>Antes da entrega</h3><p>Faça backup do que deseja guardar, encerre as sessões das suas contas e remova chips e cartões de memória. Quando possível, restaure as configurações de fábrica e desvincule o aparelho de serviços de localização.</p><h3>Acessórios e periféricos</h3><p>Separe carregadores, fontes, teclados, mouses, cabos e dispositivos de armazenamento. Pergunte ao ponto se esses itens podem ser entregues junto com o equipamento principal.</p><h3>Cuidados no transporte</h3><p>Proteja telas e componentes contra impactos e umidade. Não corte cabos nem abra fontes ou baterias para separar materiais.</p>
-      <div class="note"><strong>Importante:</strong> Dispositivos com bateria estufada, aquecendo ou danificada exigem cuidado especial. Não pressione nem tente remover uma bateria interna; procure orientação do fabricante ou de um ponto habilitado.</div>
-    </div>
-  </section>
+  <div id="modals" class="modals">
+    <section id="modal-informatica" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-informatica-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-informatica-titulo">Informática e comunicação</h2>
+        <p class="intro">Computadores, notebooks, tablets, celulares, telefones, roteadores e periféricos podem conter
+          metais, placas eletrônicas, plásticos e outros materiais que precisam de tratamento adequado.</p>
+        <h3>Antes da entrega</h3>
+        <p>Faça backup do que deseja guardar, encerre as sessões das suas contas e remova chips e cartões de memória.
+          Quando possível, restaure as configurações de fábrica e desvincule o aparelho de serviços de localização.</p>
+        <h3>Acessórios e periféricos</h3>
+        <p>Separe carregadores, fontes, teclados, mouses, cabos e dispositivos de armazenamento. Pergunte ao ponto se
+          esses itens podem ser entregues junto com o equipamento principal.</p>
+        <h3>Cuidados no transporte</h3>
+        <p>Proteja telas e componentes contra impactos e umidade. Não corte cabos nem abra fontes ou baterias para separar
+          materiais.</p>
+        <div class="note"><strong>Importante:</strong> Dispositivos com bateria estufada, aquecendo ou danificada exigem
+          cuidado especial. Não pressione nem tente remover uma bateria interna; procure orientação do fabricante ou de um
+          ponto habilitado.</div>
+      </div>
+    </section>
 
-<section id="modal-imagem-som" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-imagem-som-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-imagem-som-titulo">Imagem, som e entretenimento</h2>
-      <p class="intro">Televisores, monitores, rádios, caixas de som, câmeras, projetores e videogames reúnem componentes eletrônicos e materiais que podem ser recuperados em processos especializados.</p>
-      <h3>Telas e monitores</h3><p>Evite pressionar a tela ou transportar o aparelho apoiado sobre objetos que possam quebrá-la. Proteja cantos e superfície com material acolchoado, sem colar fitas diretamente no painel.</p><h3>Áudio, câmeras e videogames</h3><p>Desconecte cabos, controles, cartões e mídias. Organize os acessórios e confirme se o local recebe cada item separadamente.</p><h3>Não desmonte</h3><p>Não abra televisores, monitores, projetores ou fontes. Componentes internos podem oferecer risco mesmo quando o equipamento está desligado.</p>
-      <div class="note"><strong>Importante:</strong> Confirme previamente se o ponto recebe equipamentos grandes, como televisores, e se há limite de tamanho ou necessidade de agendamento.</div>
-    </div>
-  </section>
+    <section id="modal-imagem-som" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-imagem-som-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-imagem-som-titulo">Imagem, som e entretenimento</h2>
+        <p class="intro">Televisores, monitores, rádios, caixas de som, câmeras, projetores e videogames reúnem
+          componentes eletrônicos e materiais que podem ser recuperados em processos especializados.</p>
+        <h3>Telas e monitores</h3>
+        <p>Evite pressionar a tela ou transportar o aparelho apoiado sobre objetos que possam quebrá-la. Proteja cantos e
+          superfície com material acolchoado, sem colar fitas diretamente no painel.</p>
+        <h3>Áudio, câmeras e videogames</h3>
+        <p>Desconecte cabos, controles, cartões e mídias. Organize os acessórios e confirme se o local recebe cada item
+          separadamente.</p>
+        <h3>Não desmonte</h3>
+        <p>Não abra televisores, monitores, projetores ou fontes. Componentes internos podem oferecer risco mesmo quando o
+          equipamento está desligado.</p>
+        <div class="note"><strong>Importante:</strong> Confirme previamente se o ponto recebe equipamentos grandes, como
+          televisores, e se há limite de tamanho ou necessidade de agendamento.</div>
+      </div>
+    </section>
 
-<section id="modal-eletrodomesticos" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-eletrodomesticos-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-eletrodomesticos-titulo">Eletrodomésticos e cozinha</h2>
-      <p class="intro">Liquidificadores, cafeteiras, torradeiras, micro-ondas, refrigeradores e outros aparelhos domésticos possuem motores, circuitos, cabos e diferentes materiais que podem seguir para reciclagem.</p>
-      <h3>Pequenos eletrodomésticos</h3><p>Desligue da tomada, aguarde o resfriamento e retire resíduos de alimentos ou líquidos sem molhar partes elétricas. Mantenha cabos organizados.</p><h3>Refrigeradores e aparelhos grandes</h3><p>Esvazie o interior e planeje o transporte com ajuda adequada. Não corte tubulações nem tente retirar gases ou componentes do sistema de refrigeração.</p><h3>Confirme o recebimento</h3><p>Verifique se o ponto aceita o porte e a categoria do aparelho. Alguns locais podem receber pequenos equipamentos, mas não ter estrutura para itens volumosos.</p>
-      <div class="note"><strong>Importante:</strong> Não descarte líquidos, óleos ou substâncias do aparelho no ambiente. Equipamentos com sistemas de refrigeração devem ser encaminhados sem desmontagem.</div>
-    </div>
-  </section>
+    <section id="modal-eletrodomesticos" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-eletrodomesticos-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-eletrodomesticos-titulo">Eletrodomésticos e cozinha</h2>
+        <p class="intro">Liquidificadores, cafeteiras, torradeiras, micro-ondas, refrigeradores e outros aparelhos
+          domésticos possuem motores, circuitos, cabos e diferentes materiais que podem seguir para reciclagem.</p>
+        <h3>Pequenos eletrodomésticos</h3>
+        <p>Desligue da tomada, aguarde o resfriamento e retire resíduos de alimentos ou líquidos sem molhar partes
+          elétricas. Mantenha cabos organizados.</p>
+        <h3>Refrigeradores e aparelhos grandes</h3>
+        <p>Esvazie o interior e planeje o transporte com ajuda adequada. Não corte tubulações nem tente retirar gases ou
+          componentes do sistema de refrigeração.</p>
+        <h3>Confirme o recebimento</h3>
+        <p>Verifique se o ponto aceita o porte e a categoria do aparelho. Alguns locais podem receber pequenos
+          equipamentos, mas não ter estrutura para itens volumosos.</p>
+        <div class="note"><strong>Importante:</strong> Não descarte líquidos, óleos ou substâncias do aparelho no
+          ambiente. Equipamentos com sistemas de refrigeração devem ser encaminhados sem desmontagem.</div>
+      </div>
+    </section>
 
-<section id="modal-climatizacao" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-climatizacao-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-climatizacao-titulo">Climatização e ventilação</h2>
-      <p class="intro">Ventiladores, circuladores, umidificadores, desumidificadores e aparelhos de ar-condicionado possuem motores, placas e componentes específicos.</p>
-      <h3>Ventiladores e climatizadores</h3><p>Desligue e desconecte o aparelho. Não tente desmontar motor, capacitor ou fiação; mantenha as partes reunidas para facilitar a identificação.</p><h3>Ar-condicionado</h3><p>Não corte tubos, não libere fluido refrigerante e não desmonte o compressor. O manuseio do sistema deve ser feito por profissional habilitado.</p><h3>Transporte</h3><p>Proteja hélices, grades e partes frágeis. Para unidades pesadas ou instaladas, procure assistência especializada para a retirada.</p>
-      <div class="note"><strong>Importante:</strong> Antes de se deslocar, confirme se o ponto recebe aparelhos de climatização e se aceita equipamentos de grande porte.</div>
-    </div>
-  </section>
+    <section id="modal-climatizacao" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-climatizacao-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-climatizacao-titulo">Climatização e ventilação</h2>
+        <p class="intro">Ventiladores, circuladores, umidificadores, desumidificadores e aparelhos de ar-condicionado
+          possuem motores, placas e componentes específicos.</p>
+        <h3>Ventiladores e climatizadores</h3>
+        <p>Desligue e desconecte o aparelho. Não tente desmontar motor, capacitor ou fiação; mantenha as partes reunidas
+          para facilitar a identificação.</p>
+        <h3>Ar-condicionado</h3>
+        <p>Não corte tubos, não libere fluido refrigerante e não desmonte o compressor. O manuseio do sistema deve ser
+          feito por profissional habilitado.</p>
+        <h3>Transporte</h3>
+        <p>Proteja hélices, grades e partes frágeis. Para unidades pesadas ou instaladas, procure assistência
+          especializada para a retirada.</p>
+        <div class="note"><strong>Importante:</strong> Antes de se deslocar, confirme se o ponto recebe aparelhos de
+          climatização e se aceita equipamentos de grande porte.</div>
+      </div>
+    </section>
 
-<section id="modal-ferramentas" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-ferramentas-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-ferramentas-titulo">Ferramentas e equipamentos</h2>
-      <p class="intro">Furadeiras, parafusadeiras, serras elétricas, aparadores e outras ferramentas domésticas podem conter motores, placas, cabos e baterias.</p>
-      <h3>Desligamento e acessórios</h3><p>Desconecte o equipamento da tomada ou retire a bateria somente se ela for removível pelo usuário conforme o manual. Reúna carregadores, cabos e acessórios.</p><h3>Peças e lâminas</h3><p>Não tente desmontar motores, fontes ou mecanismos. Proteja lâminas e partes cortantes para evitar acidentes durante o transporte.</p><h3>Baterias</h3><p>Baterias removíveis podem ter fluxo de recebimento próprio. Confirme o local adequado e não misture baterias danificadas com itens comuns.</p>
-      <div class="note"><strong>Importante:</strong> Ferramentas profissionais ou industriais podem não estar abrangidas pelo mesmo sistema destinado a produtos de uso doméstico. Confirme o enquadramento e a aceitação.</div>
-    </div>
-  </section>
+    <section id="modal-ferramentas" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-ferramentas-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-ferramentas-titulo">Ferramentas e equipamentos</h2>
+        <p class="intro">Furadeiras, parafusadeiras, serras elétricas, aparadores e outras ferramentas domésticas podem
+          conter motores, placas, cabos e baterias.</p>
+        <h3>Desligamento e acessórios</h3>
+        <p>Desconecte o equipamento da tomada ou retire a bateria somente se ela for removível pelo usuário conforme o
+          manual. Reúna carregadores, cabos e acessórios.</p>
+        <h3>Peças e lâminas</h3>
+        <p>Não tente desmontar motores, fontes ou mecanismos. Proteja lâminas e partes cortantes para evitar acidentes
+          durante o transporte.</p>
+        <h3>Baterias</h3>
+        <p>Baterias removíveis podem ter fluxo de recebimento próprio. Confirme o local adequado e não misture baterias
+          danificadas com itens comuns.</p>
+        <div class="note"><strong>Importante:</strong> Ferramentas profissionais ou industriais podem não estar abrangidas
+          pelo mesmo sistema destinado a produtos de uso doméstico. Confirme o enquadramento e a aceitação.</div>
+      </div>
+    </section>
 
-<section id="modal-cuidados-pessoais" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-cuidados-pessoais-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-cuidados-pessoais-titulo">Cuidados pessoais e vestuário</h2>
-      <p class="intro">Secadores, barbeadores, aparadores, pranchas, massageadores, ferros e vaporizadores de roupa também são equipamentos eletroeletrônicos.</p>
-      <h3>Preparação</h3><p>Desligue o aparelho, retire da tomada e espere esfriar completamente. Esvazie reservatórios de água quando houver essa orientação no manual.</p><h3>Acessórios</h3><p>Separe pentes, bocais, suportes e cabos. Não force a abertura de carcaças ou compartimentos que não sejam destinados à remoção pelo usuário.</p><h3>Higienização</h3><p>Remova resíduos superficiais sem mergulhar o aparelho em água ou aplicar líquidos nas entradas elétricas.</p>
-      <div class="note"><strong>Importante:</strong> Verifique se o ponto recebe pequenos eletroeletrônicos e acessórios. Não coloque aparelhos ainda quentes ou com líquidos em coletores.</div>
-    </div>
-  </section>
+    <section id="modal-cuidados-pessoais" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-cuidados-pessoais-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-cuidados-pessoais-titulo">Cuidados pessoais e vestuário</h2>
+        <p class="intro">Secadores, barbeadores, aparadores, pranchas, massageadores, ferros e vaporizadores de roupa
+          também são equipamentos eletroeletrônicos.</p>
+        <h3>Preparação</h3>
+        <p>Desligue o aparelho, retire da tomada e espere esfriar completamente. Esvazie reservatórios de água quando
+          houver essa orientação no manual.</p>
+        <h3>Acessórios</h3>
+        <p>Separe pentes, bocais, suportes e cabos. Não force a abertura de carcaças ou compartimentos que não sejam
+          destinados à remoção pelo usuário.</p>
+        <h3>Higienização</h3>
+        <p>Remova resíduos superficiais sem mergulhar o aparelho em água ou aplicar líquidos nas entradas elétricas.</p>
+        <div class="note"><strong>Importante:</strong> Verifique se o ponto recebe pequenos eletroeletrônicos e
+          acessórios. Não coloque aparelhos ainda quentes ou com líquidos em coletores.</div>
+      </div>
+    </section>
 
-<section id="modal-brinquedos-lazer" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-brinquedos-lazer-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-brinquedos-lazer-titulo">Brinquedos, lazer e acessórios</h2>
-      <p class="intro">Brinquedos elétricos ou eletrônicos, relógios inteligentes, calculadoras, balanças e acessórios podem conter circuitos e, em alguns casos, pilhas ou baterias.</p>
-      <h3>Identifique a alimentação</h3><p>Confira se o item utiliza pilhas removíveis, bateria recarregável ou alimentação por cabo. Retire somente pilhas e baterias previstas para remoção pelo usuário.</p><h3>Proteja dados e pareamentos</h3><p>Em relógios inteligentes e dispositivos conectados, desvincule o aparelho da conta e restaure as configurações quando possível.</p><h3>Organize os conjuntos</h3><p>Reúna controles, cabos e acessórios. Peças pequenas devem ser acondicionadas para não se perderem durante o transporte.</p>
-      <div class="note"><strong>Importante:</strong> Pilhas e baterias removíveis possuem sistemas de recebimento próprios. Consulte o ponto adequado e não descarte esses itens no lixo comum.</div>
-    </div>
-  </section>
+    <section id="modal-brinquedos-lazer" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-brinquedos-lazer-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-brinquedos-lazer-titulo">Brinquedos, lazer e acessórios</h2>
+        <p class="intro">Brinquedos elétricos ou eletrônicos, relógios inteligentes, calculadoras, balanças e acessórios
+          podem conter circuitos e, em alguns casos, pilhas ou baterias.</p>
+        <h3>Identifique a alimentação</h3>
+        <p>Confira se o item utiliza pilhas removíveis, bateria recarregável ou alimentação por cabo. Retire somente
+          pilhas e baterias previstas para remoção pelo usuário.</p>
+        <h3>Proteja dados e pareamentos</h3>
+        <p>Em relógios inteligentes e dispositivos conectados, desvincule o aparelho da conta e restaure as configurações
+          quando possível.</p>
+        <h3>Organize os conjuntos</h3>
+        <p>Reúna controles, cabos e acessórios. Peças pequenas devem ser acondicionadas para não se perderem durante o
+          transporte.</p>
+        <div class="note"><strong>Importante:</strong> Pilhas e baterias removíveis possuem sistemas de recebimento
+          próprios. Consulte o ponto adequado e não descarte esses itens no lixo comum.</div>
+      </div>
+    </section>
 
-<section id="modal-componentes" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-componentes-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Guia por equipamento</div>
-      <h2 id="modal-componentes-titulo">Componentes e periféricos</h2>
-      <p class="intro">Fontes, conversores, protetores de linha, controles remotos, cabos, conectores e outros acessórios também podem integrar o fluxo de resíduos eletroeletrônicos, conforme seu enquadramento.</p>
-      <h3>Separe por tipo</h3><p>Agrupe cabos, carregadores, fontes, controles e periféricos. Evite misturar itens eletrônicos com resíduos comuns ou materiais cortantes.</p><h3>Não corte nem abra</h3><p>Não corte cabos para retirar metais e não abra fontes ou conversores. A desmontagem deve ocorrer em instalações apropriadas.</p><h3>Confirme a aceitação</h3><p>Alguns pontos recebem acessórios somente quando entregues junto de um equipamento. Consulte as regras do local antes de sair.</p>
-      <div class="note"><strong>Importante:</strong> Cartuchos de tinta e toner podem ter programas de devolução específicos. Consulte também as orientações do fabricante ou do estabelecimento.</div>
-    </div>
-  </section>
+    <section id="modal-componentes" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-componentes-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Guia por equipamento</div>
+        <h2 id="modal-componentes-titulo">Componentes e periféricos</h2>
+        <p class="intro">Fontes, conversores, protetores de linha, controles remotos, cabos, conectores e outros
+          acessórios também podem integrar o fluxo de resíduos eletroeletrônicos, conforme seu enquadramento.</p>
+        <h3>Separe por tipo</h3>
+        <p>Agrupe cabos, carregadores, fontes, controles e periféricos. Evite misturar itens eletrônicos com resíduos
+          comuns ou materiais cortantes.</p>
+        <h3>Não corte nem abra</h3>
+        <p>Não corte cabos para retirar metais e não abra fontes ou conversores. A desmontagem deve ocorrer em instalações
+          apropriadas.</p>
+        <h3>Confirme a aceitação</h3>
+        <p>Alguns pontos recebem acessórios somente quando entregues junto de um equipamento. Consulte as regras do local
+          antes de sair.</p>
+        <div class="note"><strong>Importante:</strong> Cartuchos de tinta e toner podem ter programas de devolução
+          específicos. Consulte também as orientações do fabricante ou do estabelecimento.</div>
+      </div>
+    </section>
 
-<section id="modal-localizar-ponto" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-localizar-ponto-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Busca e confirmação de locais</div>
-      <h2 id="modal-localizar-ponto-titulo">Identifique um ponto próximo</h2>
-      <p class="intro">Comece pelos localizadores das entidades gestoras e por canais oficiais do município. A proximidade é importante, mas a confirmação do serviço é indispensável.</p>
-      <h3>Pesquise em canais confiáveis</h3><p>Consulte os localizadores da ABREE, Green Eletron e outras entidades responsáveis. Verifique também informações publicadas pela prefeitura ou pelo serviço municipal de limpeza.</p><h3>Confira se o ponto está ativo</h3><p>Antes de sair, confirme o endereço e se o estabelecimento continua recebendo eletroeletrônicos. Cadastros e horários podem mudar.</p><h3>Planeje o trajeto</h3><p>Considere o tamanho do equipamento, a possibilidade de transporte seguro e se o local exige agendamento ou entrega em horário específico.</p>
-      <div class="note"><strong>Importante:</strong> Os cinco marcadores do mapa desta página são fictícios e não devem ser usados para planejar uma entrega.</div>
-    </div>
-  </section>
+    <section id="modal-localizar-ponto" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-localizar-ponto-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Busca e confirmação de locais</div>
+        <h2 id="modal-localizar-ponto-titulo">Identifique um ponto próximo</h2>
+        <p class="intro">Comece pelos localizadores das entidades gestoras e por canais oficiais do município. A
+          proximidade é importante, mas a confirmação do serviço é indispensável.</p>
+        <h3>Pesquise em canais confiáveis</h3>
+        <p>Consulte os localizadores da ABREE, Green Eletron e outras entidades responsáveis. Verifique também informações
+          publicadas pela prefeitura ou pelo serviço municipal de limpeza.</p>
+        <h3>Confira se o ponto está ativo</h3>
+        <p>Antes de sair, confirme o endereço e se o estabelecimento continua recebendo eletroeletrônicos. Cadastros e
+          horários podem mudar.</p>
+        <h3>Planeje o trajeto</h3>
+        <p>Considere o tamanho do equipamento, a possibilidade de transporte seguro e se o local exige agendamento ou
+          entrega em horário específico.</p>
+        <div class="note"><strong>Importante:</strong> Os cinco marcadores do mapa desta página são fictícios e não devem
+          ser usados para planejar uma entrega.</div>
+      </div>
+    </section>
 
-<section id="modal-confirmar-aceitacao" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-confirmar-aceitacao-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Categorias, volumes e regras</div>
-      <h2 id="modal-confirmar-aceitacao-titulo">Confira o que o local aceita</h2>
-      <p class="intro">A existência de um coletor ou ponto de entrega não significa que ele receba qualquer equipamento. As condições variam conforme a estrutura e o sistema de logística reversa.</p>
-      <h3>Informe o tipo de equipamento</h3><p>Ao entrar em contato, descreva o produto, suas dimensões e se está inteiro, danificado ou acompanhado de acessórios.</p><h3>Pergunte sobre itens especiais</h3><p>Confirme separadamente a aceitação de baterias, pilhas, lâmpadas, cartuchos e equipamentos de grande porte, pois podem ter fluxos próprios.</p><h3>Verifique limites e procedimentos</h3><p>Pergunte sobre quantidade por entrega, horário, necessidade de agendamento, acesso para descarregar e comprovante de recebimento, se aplicável.</p>
-      <div class="note"><strong>Importante:</strong> Não presuma que um ponto recebe itens fora de sua lista. Se não houver confirmação, procure outro canal de destinação adequado.</div>
-    </div>
-  </section>
+    <section id="modal-confirmar-aceitacao" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-confirmar-aceitacao-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Categorias, volumes e regras</div>
+        <h2 id="modal-confirmar-aceitacao-titulo">Confira o que o local aceita</h2>
+        <p class="intro">A existência de um coletor ou ponto de entrega não significa que ele receba qualquer equipamento.
+          As condições variam conforme a estrutura e o sistema de logística reversa.</p>
+        <h3>Informe o tipo de equipamento</h3>
+        <p>Ao entrar em contato, descreva o produto, suas dimensões e se está inteiro, danificado ou acompanhado de
+          acessórios.</p>
+        <h3>Pergunte sobre itens especiais</h3>
+        <p>Confirme separadamente a aceitação de baterias, pilhas, lâmpadas, cartuchos e equipamentos de grande porte,
+          pois podem ter fluxos próprios.</p>
+        <h3>Verifique limites e procedimentos</h3>
+        <p>Pergunte sobre quantidade por entrega, horário, necessidade de agendamento, acesso para descarregar e
+          comprovante de recebimento, se aplicável.</p>
+        <div class="note"><strong>Importante:</strong> Não presuma que um ponto recebe itens fora de sua lista. Se não
+          houver confirmação, procure outro canal de destinação adequado.</div>
+      </div>
+    </section>
 
-<section id="modal-entrega-segura" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-entrega-segura-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Acondicionamento e transporte</div>
-      <h2 id="modal-entrega-segura-titulo">Entregue o equipamento com segurança</h2>
-      <p class="intro">O transporte correto reduz o risco de quebra, vazamentos, acidentes e exposição de pessoas a componentes danificados.</p>
-      <h3>Proteja o equipamento</h3><p>Evite quedas, impactos, umidade e pressão sobre telas. Acondicione peças soltas e acessórios para que não se espalhem durante o trajeto.</p><h3>Cuide de baterias e partes frágeis</h3><p>Não transporte baterias danificadas sem orientação especializada. Não perfure, esmague ou tente abrir o equipamento.</p><h3>Faça a entrega diretamente</h3><p>Entregue o material a um responsável ou no coletor indicado. Não deixe equipamentos ao lado de coletores, na calçada ou em locais fechados.</p>
-      <div class="note"><strong>Importante:</strong> Se perceber aquecimento, estufamento, vazamento ou cheiro incomum em uma bateria, evite manusear o aparelho e procure orientação especializada.</div>
-    </div>
-  </section>
+    <section id="modal-entrega-segura" class="modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-entrega-segura-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Acondicionamento e transporte</div>
+        <h2 id="modal-entrega-segura-titulo">Entregue o equipamento com segurança</h2>
+        <p class="intro">O transporte correto reduz o risco de quebra, vazamentos, acidentes e exposição de pessoas a
+          componentes danificados.</p>
+        <h3>Proteja o equipamento</h3>
+        <p>Evite quedas, impactos, umidade e pressão sobre telas. Acondicione peças soltas e acessórios para que não se
+          espalhem durante o trajeto.</p>
+        <h3>Cuide de baterias e partes frágeis</h3>
+        <p>Não transporte baterias danificadas sem orientação especializada. Não perfure, esmague ou tente abrir o
+          equipamento.</p>
+        <h3>Faça a entrega diretamente</h3>
+        <p>Entregue o material a um responsável ou no coletor indicado. Não deixe equipamentos ao lado de coletores, na
+          calçada ou em locais fechados.</p>
+        <div class="note"><strong>Importante:</strong> Se perceber aquecimento, estufamento, vazamento ou cheiro incomum
+          em uma bateria, evite manusear o aparelho e procure orientação especializada.</div>
+      </div>
+    </section>
+
+    <section id="modal-folder" class="modal modal-folder" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-folder-titulo">
+      <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
+      <div class="modal-content">
+        <div class="section-kicker">Material complementar · Pré-visualização</div>
+        <h2 id="modal-folder-titulo">Folder de descarte de eletroeletrônicos</h2>
+        <p class="intro">Confira o material do projeto antes de baixar. Use os controles do visualizador para ampliar,
+          navegar pelas páginas ou ler em tela cheia.</p>
+        <div class="folder-image-preview" aria-label="Prévia das duas faces do folder">
+          <figure class="folder-preview-page">
+            <figcaption>Parte externa do folder</figcaption>
+            <img src="assets/images/folder-outside.png"
+              alt="Imagem da parte externa do folder de descarte de eletroeletrônicos" loading="lazy">
+          </figure>
+          <figure class="folder-preview-page">
+            <figcaption>Parte interna do folder</figcaption>
+            <img src="assets/images/folder-inside.png"
+              alt="Imagem da parte interna do folder de descarte de eletroeletrônicos" loading="lazy">
+          </figure>
+        </div>
+        <div class="folder-modal-actions">
+          <a class="download-link" href="assets/documents/folder-descarte-eletroeletronicos.pdf" download>
+            <span aria-hidden="true">↓</span>
+            <span><strong>Baixar folder</strong><small>Arquivo PDF</small></span>
+          </a>
+
+        </div>
+        <p class="progress-text">Se as imagens não carregarem, atualize a página ou tente novamente mais tarde. Você
+          também pode baixar o PDF completo pelo botão abaixo.</p>
+      </div>
+    </section>
+  </div>
     
-  <section id="modal-folder" class="modal modal-folder" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-folder-titulo">
-    <button type="button" class="close-modal" aria-label="Fechar modal">✕</button>
-    <div class="modal-content">
-      <div class="section-kicker">Material complementar · Pré-visualização</div>
-      <h2 id="modal-folder-titulo">Folder de descarte de eletroeletrônicos</h2>
-      <p class="intro">Confira o material do projeto antes de baixar. Use os controles do visualizador para ampliar, navegar pelas páginas ou ler em tela cheia.</p>
-      <div class="folder-image-preview" aria-label="Prévia das duas faces do folder">
-        <figure class="folder-preview-page">
-          <figcaption>Parte externa do folder</figcaption>
-          <img src="assets/images/folder-outside.png" alt="Imagem da parte externa do folder de descarte de eletroeletrônicos" loading="lazy">
-        </figure>
-        <figure class="folder-preview-page">
-          <figcaption>Parte interna do folder</figcaption>
-          <img src="assets/images/folder-inside.png" alt="Imagem da parte interna do folder de descarte de eletroeletrônicos" loading="lazy">
-        </figure>
-      </div>
-      <div class="folder-modal-actions">
-        <a class="download-link" href="assets/documents/folder-descarte-eletroeletronicos.pdf" download>
-          <span aria-hidden="true">↓</span>
-          <span><strong>Baixar folder</strong><small>Arquivo PDF</small></span>
-        </a>
-        
-      </div>
-      <p class="progress-text">Se as imagens não carregarem, atualize a página ou tente novamente mais tarde. Você também pode baixar o PDF completo pelo botão abaixo.</p>
-    </div>
-  </section>
-</div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="script.js" defer></script>
 </body>
 </html>
