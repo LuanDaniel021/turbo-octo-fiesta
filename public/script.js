@@ -79,7 +79,7 @@
 function createMapPoint(item, index) {
     const card = document.createElement("article");
     card.className = "map-point-card open-modal";
-    card.dataset.modal = item.modal?.id || "";
+    card.dataset.modal = item.id ? `modal-${item.id}` : "";
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
     card.setAttribute("aria-haspopup", "dialog");
@@ -92,11 +92,12 @@ function createMapPoint(item, index) {
     info.className = "map-point-info";
 
     const title = document.createElement("h3");
-    title.textContent = item.name || item.modal?.title || `Ponto ${index + 1}`;
+    title.textContent = item.name || `Ponto ${index + 1}`;
 
     const location = document.createElement("p");
     location.className = "map-point-location";
-    location.textContent = [item.city, item.state, item.country].filter(Boolean).join(" · ") || "Localização não informada";
+    const place = item.location || {};
+    location.textContent = [place.city, place.state, place.country].filter(Boolean).join(" · ") || "Localização não informada";
 
 
 
@@ -107,12 +108,11 @@ function createMapPoint(item, index) {
 }
 
 function createModalSection(data) {
-    const { modal } = data;
-
-    const titleId = `${modal.id}-titulo`;
+    const modalId = `modal-${data.id}`;
+    const titleId = `${modalId}-titulo`;
 
     const section = document.createElement("section");
-    section.id = modal.id;
+    section.id = modalId;
     section.className = "modal";
     section.setAttribute("role", "dialog");
     section.setAttribute("aria-modal", "true");
@@ -130,39 +130,69 @@ function createModalSection(data) {
 
     const kicker = document.createElement("div");
     kicker.className = "section-kicker";
-    kicker.textContent = modal.kicker;
+    kicker.textContent = "Ponto de recebimento";
 
     const heading = document.createElement("h2");
     heading.id = titleId;
-    heading.textContent = modal.title;
+    heading.textContent = data.name;
 
     const intro = document.createElement("p");
     intro.className = "intro";
-    intro.textContent = modal.intro;
+    intro.textContent = data.intro || data.description || "";
 
     modalContent.append(kicker, heading, intro);
 
-    for (const item of modal.sections || []) {
+    const place = data.location || {};
+    const address = [place.address, [place.city, place.state].filter(Boolean).join("/")].filter(Boolean).join(" — ");
+    if (address || data.hours) {
+        const addressHeading = document.createElement("h3");
+        addressHeading.textContent = "Endereço e atendimento";
+        modalContent.append(addressHeading);
+
+        if (address) {
+            const addressText = document.createElement("p");
+            addressText.textContent = address;
+            modalContent.append(addressText);
+        }
+
+        if (data.hours) {
+            const hoursText = document.createElement("p");
+            hoursText.textContent = data.hours;
+            modalContent.append(hoursText);
+        }
+    }
+
+    for (const item of data.details || []) {
         const h3 = document.createElement("h3");
-        h3.textContent = item.heading;
+        h3.textContent = item.title;
 
         const p = document.createElement("p");
-        p.textContent = item.content;
+        p.textContent = item.text;
 
         modalContent.append(h3, p);
     }
 
-    if (modal.note) {
+    if (data.instructions) {
+        const h3 = document.createElement("h3");
+        h3.textContent = data.instructions.title || "Orientações";
+
+        const p = document.createElement("p");
+        p.textContent = data.instructions.text || "";
+
+        modalContent.append(h3, p);
+    }
+
+    if (data.note) {
         const noteDiv = document.createElement("div");
         noteDiv.className = "note";
 
-        const separatorIndex = modal.note.indexOf(":");
+        const separatorIndex = data.note.indexOf(":");
         if (separatorIndex !== -1) {
             const strong = document.createElement("strong");
-            strong.textContent = modal.note.slice(0, separatorIndex + 1);
-            noteDiv.append(strong, modal.note.slice(separatorIndex + 1));
+            strong.textContent = data.note.slice(0, separatorIndex + 1);
+            noteDiv.append(strong, data.note.slice(separatorIndex + 1));
         } else {
-            noteDiv.textContent = modal.note;
+            noteDiv.textContent = data.note;
         }
 
         modalContent.append(noteDiv);
@@ -193,7 +223,7 @@ function renderPontos(items) {
             pointsContainer.appendChild(createMapPoint(item, index));
         }
 
-        if (modalsContainer && item.modal) {
+        if (modalsContainer && item.id) {
             modalsContainer.appendChild(createModalSection(item));
         }
     });
