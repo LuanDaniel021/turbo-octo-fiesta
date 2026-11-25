@@ -1427,3 +1427,36 @@ body.modal-open {
 .leaflet-popup-content a.map-route-link span {
   font-size: 14px;
 }
+
+
+/* POPUP DO MAPA — compacto e com coordenadas */
+.leaflet-popup-content {
+  width: 170px !important;
+  max-width: 170px !important;
+  margin: 10px 12px !important;
+  line-height: 1.4;
+}
+
+.leaflet-popup-content strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.leaflet-popup-content .map-popup-coordinates {
+  margin-top: 5px;
+  color: #607268;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaflet-popup-content a.map-route-link {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 8px;
+  padding: 8px 9px;
+  font-size: 11px;
+  text-align: center;
+}
