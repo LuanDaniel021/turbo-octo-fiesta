@@ -7,6 +7,8 @@
   <meta name="description" content="Guia de orientação para o descarte adequado de equipamentos eletroeletrônicos, com checklist e informações sobre logística reversa.">
   <title>Guia de descarte de eletroeletrônicos</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/medias.css">
+  <link rel="stylesheet" href="assets/teste.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script defer src="./assets/utils.js"></script>
@@ -100,44 +102,44 @@
           </label>
           <p id="equipmentCount" class="search-status" aria-live="polite">8 categorias disponíveis</p>
         </div>
-        <div class="grid" id="equipmentGrid">
-          <article class="item open-modal" data-modal="modal-informatica" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">💻</div>
+        <div class="equipment-grid" id="equipmentGrid">
+          <article class="equipment-item open-modal" data-modal="modal-informatica" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">💻</div>
             <h3>Informática e comunicação</h3>
             <p>Computadores de mesa e portáteis, notebooks, tablets, celulares, telefones, roteadores, teclados, mouses, scanners, impressoras, dispositivos de armazenamento, cabos, conectores e carregadores.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-imagem-som" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">📺</div>
+          <article class="equipment-item open-modal" data-modal="modal-imagem-som" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">📺</div>
             <h3>Imagem, som e entretenimento</h3>
             <p>Televisores, rádios, caixas de som, amplificadores, câmeras digitais, projetores, reprodutores de mídia, videogames, controles e cartuchos de videogame.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-eletrodomesticos" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">🍳</div>
+          <article class="equipment-item open-modal" data-modal="modal-eletrodomesticos" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">🍳</div>
             <h3>Eletrodomésticos e cozinha</h3>
             <p>Liquidificadores, batedeiras, cafeteiras, chaleiras, torradeiras, sanduicheiras, panelas elétricas, processadores de alimentos, refrigeradores e outros aparelhos domésticos listados no Anexo I.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-climatizacao" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">🌀</div>
+          <article class="equipment-item open-modal" data-modal="modal-climatizacao" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">🌀</div>
             <h3>Climatização e ventilação</h3>
             <p>Ventiladores, circuladores de ar, climatizadores, umidificadores, desumidificadores e aparelhos de ar-condicionado domésticos.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-ferramentas" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">🧰</div>
+          <article class="equipment-item open-modal" data-modal="modal-ferramentas" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">🧰</div>
             <h3>Ferramentas e equipamentos</h3>
             <p>Parafusadeiras, serras elétricas, aparadores de grama, podadores, pulverizadores elétricos e outros equipamentos domésticos relacionados na lista oficial.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-cuidados-pessoais" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">🧴</div>
+          <article class="equipment-item open-modal" data-modal="modal-cuidados-pessoais" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">🧴</div>
             <h3>Cuidados pessoais e vestuário</h3>
             <p>Secadores, barbeadores, aparadores de pelos, pranchas de cabelo, aparelhos de massagem, ferros e vaporizadores de roupa.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-brinquedos-lazer" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">🧸</div>
+          <article class="equipment-item open-modal" data-modal="modal-brinquedos-lazer" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">🧸</div>
             <h3>Brinquedos, lazer e acessórios</h3>
             <p>Brinquedos elétricos ou eletrônicos, relógios inteligentes, calculadoras, balanças, campainhas eletrônicas, adaptadores e acessórios abrangidos pela relação.</p>
           </article>
-          <article class="item open-modal" data-modal="modal-componentes" role="button" tabindex="0" aria-haspopup="dialog">
-            <div class="symbol">🔌</div>
+          <article class="equipment-item open-modal" data-modal="modal-componentes" role="button" tabindex="0" aria-haspopup="dialog">
+            <div class="equipment-symbol">🔌</div>
             <h3>Componentes e periféricos</h3>
             <p>Fontes e conversores, protetores de linha, controles remotos, cabos, conectores, cartuchos de tinta ou toner e outros componentes e acessórios previstos no sistema.</p>
           </article>
@@ -180,10 +182,10 @@
         <div id="collectionMap" class="collection-map" role="region" aria-label="Mapa com pontos de recebimento"></div>
         <div id="mapPoints" class="map-points" aria-label="Pontos demonstrativos exibidos no mapa">
         </div>
-        <div class="steps">
-          <div class="step open-modal" data-modal="modal-localizar-ponto" role="button" tabindex="0" aria-haspopup="dialog"><h3>Identifique um ponto próximo</h3><p>Consulte os localizadores oficiais de entidades gestoras e os pontos levantados pelo Grupo 2. Priorize locais identificados como pontos de recebimento de eletroeletrônicos.</p></div>
-          <div class="step open-modal" data-modal="modal-confirmar-aceitacao" role="button" tabindex="0" aria-haspopup="dialog"><h3>Confira o que o local aceita</h3><p>Nem todo ponto recebe todas as categorias, tamanhos ou quantidades. Verifique previamente a lista de equipamentos aceitos e se há regras específicas para baterias, lâmpadas e acessórios.</p></div>
-          <div class="step open-modal" data-modal="modal-entrega-segura" role="button" tabindex="0" aria-haspopup="dialog"><h3>Entregue o equipamento com segurança</h3><p>Transporte o aparelho de forma a evitar quedas, impactos ou danos. Não deixe equipamentos abandonados ao lado de coletores quando o local estiver fechado ou quando o item não for aceito.</p></div>
+        <div class="receiving-steps">
+          <div class="receiving-step open-modal" data-modal="modal-localizar-ponto" role="button" tabindex="0" aria-haspopup="dialog"><h3>Identifique um ponto próximo</h3><p>Consulte os localizadores oficiais de entidades gestoras e os pontos levantados pelo Grupo 2. Priorize locais identificados como pontos de recebimento de eletroeletrônicos.</p></div>
+          <div class="receiving-step open-modal" data-modal="modal-confirmar-aceitacao" role="button" tabindex="0" aria-haspopup="dialog"><h3>Confira o que o local aceita</h3><p>Nem todo ponto recebe todas as categorias, tamanhos ou quantidades. Verifique previamente a lista de equipamentos aceitos e se há regras específicas para baterias, lâmpadas e acessórios.</p></div>
+          <div class="receiving-step open-modal" data-modal="modal-entrega-segura" role="button" tabindex="0" aria-haspopup="dialog"><h3>Entregue o equipamento com segurança</h3><p>Transporte o aparelho de forma a evitar quedas, impactos ou danos. Não deixe equipamentos abandonados ao lado de coletores quando o local estiver fechado ou quando o item não for aceito.</p></div>
         </div>
         <div class="links">
           <a href="https://abree.org.br/pontos-de-recebimento" target="_blank" rel="noopener noreferrer">Localizador ABREE ↗</a>
@@ -304,7 +306,7 @@
   </main>
 
   <footer>
-    <div class="inner">
+    <div class="footer-inner">
       <div class="footer-brand"><img class="institution-logo" src="assets/images/logo-instituicao.png" alt="Logo da instituição"><p>Guia de descarte de equipamentos eletroeletrônicos · Educação ambiental e responsabilidade compartilhada.</p></div>
       <div class="team">
         <strong>Grupo 5</strong>
