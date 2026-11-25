@@ -54,10 +54,6 @@
     width: 100%;
   }
 
-  .checklist-heading {
-    align-items: flex-start;
-  }
-
   .hero-links {
     align-items: stretch;
     flex-direction: column;
@@ -112,8 +108,6 @@
 
   .hero-links,
   .equipment-tools,
-  .progress,
-  .checklist-heading button,
   .skip-link {
     display: none !important;
   }
@@ -179,9 +173,6 @@
 }
 
 @media (max-width: 620px) {
-  .brochure-gallery {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media print {
