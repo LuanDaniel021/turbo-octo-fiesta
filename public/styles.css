@@ -52,8 +52,6 @@ footer {
   background: #fff;
   color: var(--ink);
   font-size: .9rem;
-
-  padding: 34px 24px;
 }
 
 footer p {
@@ -1294,7 +1292,6 @@ footer .inner {
   display: flex;
   justify-content: center;
 
-  max-width: 1040px;
   width: 100%;
   margin: auto;
   position: relative;
