@@ -34,6 +34,7 @@ body {
 }
 
 main {
+  width: 100%;
   padding: 58px 0 86px;
 }
 
@@ -1252,7 +1253,6 @@ p {
 
 .hero-inner,
 .section-inner,
-main,
 footer .inner {
   max-width: 1040px;
   margin: auto;
