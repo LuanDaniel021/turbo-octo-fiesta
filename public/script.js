@@ -58,12 +58,15 @@
     const markers = POINTS.map(point => {
       const [latitude, longitude] = point.position;
       const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
+      const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
 
       return L.marker(point.position)
         .addTo(map)
         .bindPopup(
-          '<strong>' + point.name + '</strong><br>' +
-          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Abrir rota no Google Maps <span aria-hidden="true">↗</span></a>'
+          '<strong>' + point.name + '</strong>' +
+          '<div class="map-popup-coordinates">' + coordinates + '</div>' +
+          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Abrir rota no Google Maps <span aria-hidden="true">↗</span></a>',
+          { maxWidth: 190, minWidth: 170 }
         );
     });
 
