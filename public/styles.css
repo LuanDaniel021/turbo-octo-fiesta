@@ -68,7 +68,7 @@ button { cursor: pointer; }
   box-shadow: 0 0 0 45px rgba(255,255,255,.035), 0 0 0 90px rgba(255,255,255,.025);
   pointer-events: none;
 }
-.hero-inner, main, footer .inner { max-width: 1040px; margin: auto; }
+.hero-inner, .section-inner, main, footer .inner { max-width: 1040px; margin: auto; }
 .hero-inner { position: relative; z-index: 1; }
 .eyebrow {
   color: #c9ead7; text-transform: uppercase; letter-spacing: .14em;
@@ -712,16 +712,16 @@ footer .inner { position: relative; }
 @media (min-width: 900px) {
   main { max-width: 1240px; }
 
-  #introducao {
+  #introducao > .section-inner {
     display: grid;
     grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
     column-gap: clamp(32px, 5vw, 76px);
     align-items: start;
   }
-  #introducao > .section-kicker,
-  #introducao > h2,
-  #introducao > p:not(.note) { grid-column: 1; }
-  #introducao > .note {
+  #introducao > .section-inner > .section-kicker,
+  #introducao > .section-inner > h2,
+  #introducao > .section-inner > p:not(.note) { grid-column: 1; }
+  #introducao > .section-inner > .note {
     grid-column: 2;
     grid-row: 2 / span 3;
     align-self: center;
@@ -732,24 +732,24 @@ footer .inner { position: relative; }
     border-radius: 4px 18px 18px 4px;
     box-shadow: 0 14px 36px rgba(7, 92, 62, .09);
   }
-  #introducao { row-gap: 4px; }
+  #introducao > .section-inner { row-gap: 4px; }
 }
 
 /* LAYOUT APROVADO — resumo pós-Hero */
 @media (min-width: 900px) {
-  .quick-overview {
+  .quick-overview > .section-inner {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
     column-gap: clamp(28px, 4vw, 60px);
     align-items: center;
     row-gap: 12px;
   }
-  .quick-overview > .section-kicker,
-  .quick-overview > h2,
-  .quick-overview > .intro {
+  .quick-overview > .section-inner > .section-kicker,
+  .quick-overview > .section-inner > h2,
+  .quick-overview > .section-inner > .intro {
     grid-column: 1;
   }
-  .quick-overview > .overview-grid {
+  .quick-overview > .section-inner > .overview-grid {
     grid-column: 2;
     grid-row: 1 / span 3;
     grid-template-columns: 1fr;
@@ -757,7 +757,7 @@ footer .inner { position: relative; }
     margin-top: 0;
     align-self: center;
   }
-  .quick-overview > .overview-grid .overview-item {
+  .quick-overview > .section-inner > .overview-grid .overview-item {
     padding: 12px 14px;
     border: 1px solid #dcebe2;
     border-radius: 12px;
@@ -765,12 +765,12 @@ footer .inner { position: relative; }
   }
 }
 @media (max-width: 899px) {
-  .quick-overview { display: block; }
+  .quick-overview > .section-inner { display: block; }
 }
 
 /* LAYOUT APROVADO — Considerações finais */
 @media (min-width: 900px) {
-  #consideracoes {
+  #consideracoes > .section-inner {
     display: grid;
     grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr);
     column-gap: clamp(32px, 5vw, 76px);
@@ -780,13 +780,13 @@ footer .inner { position: relative; }
     border-radius: 18px;
     background: linear-gradient(115deg, #eff8f3 0%, #ffffff 100%);
   }
-  #consideracoes > .section-kicker,
-  #consideracoes > h2 { grid-column: 1; }
-  #consideracoes > h2 {
+  #consideracoes > .section-inner > .section-kicker,
+  #consideracoes > .section-inner > h2 { grid-column: 1; }
+  #consideracoes > .section-inner > h2 {
     margin-bottom: 0;
     max-width: 390px;
   }
-  #consideracoes > p {
+  #consideracoes > .section-inner > p {
     grid-column: 2;
     grid-row: 1 / span 2;
     margin: 0;
@@ -798,7 +798,7 @@ footer .inner { position: relative; }
   }
 }
 @media (max-width: 899px) {
-  #consideracoes {
+  #consideracoes > .section-inner {
     padding: 24px;
     border: 1px solid #dcebe2;
     border-radius: 16px;
