@@ -1449,3 +1449,21 @@ body.modal-open {
   font-variant-numeric: tabular-nums;
   text-align: center;
 }
+
+
+/* REFINAMENTO — navegação móvel */
+@media (max-width: 1050px) {
+  .top nav,
+  .top nav.open {
+    box-sizing: border-box;
+    max-height: min(70vh, 520px);
+    max-height: min(70dvh, 520px);
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  .top nav a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
