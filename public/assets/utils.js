@@ -18,6 +18,5 @@ async function loader(source, files)
         ( data ) => {
             return Object.fromEntries(data);
         }
-    )
-    ;
+    );
 }
