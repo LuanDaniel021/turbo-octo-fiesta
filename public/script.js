@@ -168,6 +168,18 @@ function createModalSection(data) {
         modalContent.append(noteDiv);
     }
 
+    const position = data.position;
+    if (Array.isArray(position) && position.length === 2 && position.every(Number.isFinite)) {
+        const [latitude, longitude] = position;
+        const routeLink = document.createElement("a");
+        routeLink.className = "modal-route-link";
+        routeLink.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
+        routeLink.target = "_blank";
+        routeLink.rel = "noopener noreferrer";
+        routeLink.textContent = "Traçar rota no Google Maps";
+        modalContent.append(routeLink);
+    }
+
     section.append(closeBtn, modalContent);
     return section;
 }
