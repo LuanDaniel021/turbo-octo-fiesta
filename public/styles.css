@@ -551,7 +551,7 @@ footer .inner { position: relative; }
 
 /* 16. SEÇÃO DE REDES SOCIAIS E NOTÍCIAS */
 .social-section {
-  padding: 64px max(24px, calc((100vw - 1250px) / 2)) 0;
+  padding: 64px 64px 0;
   background: linear-gradient(to bottom, #0aa875 0, #12d98a 270px, #fff 270px, #fff 100%);
 }
 .social-heading {
