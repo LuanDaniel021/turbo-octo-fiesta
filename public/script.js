@@ -173,8 +173,6 @@
     const place = item.location || {};
     location.textContent = [place.city, place.state, place.country].filter(Boolean).join(" · ") || "Localização não informada";
 
-
-
     info.append(title, location);
     card.append(num, info);
 
@@ -321,7 +319,7 @@
     filterEquipment();
 
     if (MAP_TAG) {
-      MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos}`;
+      MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
     }
   }
     
