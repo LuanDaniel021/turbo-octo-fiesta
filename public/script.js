@@ -19,12 +19,6 @@
     console.error("A aplicação continuará sem os dados dos pontos.", error);
   }
 
-  const POINTS = Array.isArray(DATA_READY[DATA_FILES.pontos]?.points)
-    ? DATA_READY[DATA_FILES.pontos].points
-    : [];
-
-  const MAP_TAG = document.querySelector(".map-tag");
-
   const OVERLAY = document.getElementById('overlay');
 
   const TOP_HEADER = document.querySelector('.top');
@@ -45,8 +39,6 @@
   let LAST_TRIGGER = null;
 
   let MODAL = null;
-
-  let MAP = null;
 
   function filterEquipment() {
     const term = (SEARCH_INPUT?.value || '').trim().toLocaleLowerCase('pt-BR');
@@ -124,8 +116,8 @@
     return map;
   }
 
-  function createMapMarker(point) {
-    if (!MAP || !Array.isArray(point.position) || point.position.length !== 2) return null;
+  function createMapMarker(point, map) {
+    if (!map || !Array.isArray(point.position) || point.position.length !== 2) return null;
 
     const [latitude, longitude] = point.position;
     if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
@@ -152,7 +144,7 @@
     popup.append(title, route, location);
 
     const marker = L.marker(point.position)
-      .addTo(MAP)
+      .addTo(map)
       .bindPopup(popup);
 
     return marker;
@@ -297,7 +289,12 @@
   }
 
   function initialize() {
-    MAP = createMap();
+    const POINTS = Array.isArray(DATA_READY[DATA_FILES.pontos]?.points)
+      ? DATA_READY[DATA_FILES.pontos].points
+      : [];
+
+    const MAP_TAG = document.querySelector(".map-tag");
+    const MAP = createMap();
 
     const pointsContainer = document.getElementById("mapPoints");
     const modalsContainer = document.getElementById("modals");
@@ -305,7 +302,7 @@
 
     POINTS.forEach((point, index) => {
       const mapPoint = createMapPoint(point, index);
-      const marker = createMapMarker(point);
+      const marker = createMapMarker(point, MAP);
       const modal = point.id ? createModalSection(point) : null;
 
       if (pointsContainer) pointsContainer.appendChild(mapPoint);
@@ -322,13 +319,13 @@
     }
 
     filterEquipment();
+
+    if (MAP_TAG) {
+      MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos}`;
+    }
   }
     
   initialize();
-
-  if (MAP_TAG) {
-    MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
-  }
 
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
