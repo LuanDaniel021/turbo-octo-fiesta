@@ -1,4 +1,206 @@
-/* ==========================================================
+
+
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+}
+
+/* LINK DE ROTA NOS POPUPS DO MAPA */
+.leaflet-popup-content a.map-route-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 9px 13px;
+  border-radius: 8px;
+  background: #087f5b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-decoration: none;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.leaflet-popup-content a.map-route-link:hover {
+  background: #066747;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.leaflet-popup-content a.map-route-link:focus-visible {
+  outline: 3px solid rgba(8, 127, 91, .3);
+  outline-offset: 3px;
+}
+
+.leaflet-popup-content a.map-route-link span {
+  font-size: 14px;
+}
+
+
+/* POPUP DO MAPA — alinhamento do conteúdo; dimensões padrão do Leaflet */
+.leaflet-popup-content {
+  text-align: center;
+}
+
+.leaflet-popup-content strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.leaflet-popup-content .map-popup-coordinates {
+  margin-top: 8px;
+  color: #607268;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+/* 03. CABEÇALHO E NAVEGAÇÃO */
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, .97);
+  color: var(--green-dark);
+  padding: 14px max(24px, calc((100% - 1120px)/2));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 8px 24px rgba(10, 35, 29, .08);
+  backdrop-filter: blur(14px);
+}
+
+.top {
+  background: rgba(255, 255, 255, .98);
+  color: var(--ink);
+  box-shadow: 0 3px 14px rgba(5, 70, 47, .06);
+}
+
+
+/* CABEÇALHO INTELIGENTE — oculta ao descer e reaparece ao subir */
+.top {
+  transition: transform .28s ease;
+  will-change: transform;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--green-dark);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .08em;
+  font-size: .82rem;
+  flex: 0 0 auto;
+}
+
+.institution-logo {
+  display: block;
+  width: auto;
+  height: 42px;
+  max-width: 150px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+}
+
+.top nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+
+.top nav a {
+  color: var(--green);
+  text-decoration: none;
+  font-size: .86rem;
+  padding: 5px 0;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+.top nav a {
+  color: #36594a;
+}
+
+.top nav a:hover,
+.top nav a:focus-visible,
+.top nav a.active {
+  color: var(--green-dark);
+  border-bottom-color: var(--green);
+  outline: none;
+}
+
+.top nav a:hover,
+.top nav a:focus-visible,
+.top nav a.active {
+  color: var(--green-dark);
+  border-bottom-color: #0bb879;
+}
+
+.top.header-hidden {
+  transform: translateY(-100%);
+}
+
+/* NAVEGAÇÃO RESPONSIVA — menu vertical recolhível */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 9px;
+  border: 1px solid #dcebe2;
+  border-radius: 10px;
+  background: #f4faf6;
+  color: #176044;
+  cursor: pointer;
+}
+
+
+/* REFINAMENTO DA NAVEGAÇÃO — estados e áreas de toque */
+.nav-toggle {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 21px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-toggle:focus-visible {
+  outline: 3px solid rgba(7, 132, 93, .38);
+  outline-offset: 3px;
+}/* ==========================================================
    01. TOKENS E CONFIGURAÇÕES GLOBAIS
    ========================================================== */
 :root {
@@ -109,23 +311,6 @@ p {
   margin: 0 0 14px;
 }
 
-/* 09. RODAPÉ */
-footer {
-  background: var(--green-dark);
-  color: #d9e9df;
-  padding: 34px 24px;
-  font-size: .9rem;
-}
-
-footer {
-  background: #fff;
-  color: var(--ink);
-}
-
-footer p {
-  margin: 0;
-}
-
 :focus-visible {
   outline: 3px solid #84c6a0;
   outline-offset: 3px;
@@ -153,104 +338,6 @@ footer p {
 
 .skip-link:focus {
   transform: translateY(0);
-}
-
-/* 03. CABEÇALHO E NAVEGAÇÃO */
-.top {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(255, 255, 255, .97);
-  color: var(--green-dark);
-  padding: 14px max(24px, calc((100% - 1120px)/2));
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  box-shadow: 0 8px 24px rgba(10, 35, 29, .08);
-  backdrop-filter: blur(14px);
-}
-
-.top {
-  background: rgba(255, 255, 255, .98);
-  color: var(--ink);
-  box-shadow: 0 3px 14px rgba(5, 70, 47, .06);
-}
-
-
-/* CABEÇALHO INTELIGENTE — oculta ao descer e reaparece ao subir */
-.top {
-  transition: transform .28s ease;
-  will-change: transform;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--green-dark);
-  text-decoration: none;
-  font-weight: 800;
-  letter-spacing: .08em;
-  font-size: .82rem;
-  flex: 0 0 auto;
-}
-
-.institution-logo {
-  display: block;
-  width: auto;
-  height: 42px;
-  max-width: 150px;
-  object-fit: contain;
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
-}
-
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.footer-brand p {
-  max-width: 650px;
-}
-
-.top nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-}
-
-.top nav a {
-  color: var(--green);
-  text-decoration: none;
-  font-size: .86rem;
-  padding: 5px 0;
-  border-bottom: 2px solid transparent;
-  transition: color .2s, border-color .2s;
-}
-
-.top nav a {
-  color: #36594a;
-}
-
-.top nav a:hover,
-.top nav a:focus-visible,
-.top nav a.active {
-  color: var(--green-dark);
-  border-bottom-color: var(--green);
-  outline: none;
-}
-
-.top nav a:hover,
-.top nav a:focus-visible,
-.top nav a.active {
-  color: var(--green-dark);
-  border-bottom-color: #0bb879;
 }
 
 /* 04. HERO E CHAMADAS PRINCIPAIS */
@@ -282,14 +369,6 @@ footer p {
 .hero:after {
   border-color: rgba(0, 78, 51, .2);
   box-shadow: 0 0 0 45px rgba(0, 78, 51, .07), 0 0 0 90px rgba(0, 78, 51, .045);
-}
-
-.hero-inner,
-.section-inner,
-main,
-footer .inner {
-  max-width: 1040px;
-  margin: auto;
 }
 
 .hero-inner {
@@ -704,46 +783,6 @@ footer .inner {
   color: #07845d;
 }
 
-.team {
-  margin-top: 22px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(217, 233, 223, .2);
-}
-
-.team {
-  border-color: var(--line);
-}
-
-.team strong {
-  color: white;
-  letter-spacing: .04em;
-}
-
-.team strong {
-  color: var(--ink);
-}
-
-.team ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  list-style: none;
-  padding: 0;
-  margin: 12px 0 0;
-}
-
-.team li {
-  padding: 5px 11px;
-  border: 1px solid rgba(217, 233, 223, .22);
-  border-radius: 30px;
-  color: #e4f1e8;
-}
-
-.team li {
-  border-color: var(--line);
-  color: var(--muted);
-}
-
 /* COMPONENTE — checklist informativo */
 /* 12. COMPONENTES COMPLEMENTARES */
 .checklist-static {
@@ -899,10 +938,6 @@ footer .inner {
   color: var(--muted);
   font-size: .82rem;
   margin: 10px 2px 0;
-}
-
-.leaflet-popup-content-wrapper {
-  border-radius: 10px;
 }
 
 /* COMPONENTE — folder e download */
@@ -1346,10 +1381,6 @@ footer .inner {
   transform: translateY(-50%) rotate(-32.89deg);
 }
 
-footer .inner {
-  position: relative;
-}
-
 /* Folder em faixa horizontal, usando o verde-claro da identidade visual */
 .folder-section {
   margin-top: 8px;
@@ -1503,6 +1534,148 @@ footer .inner {
 .links a:focus-visible,
 .hero-links a:focus-visible {
   outline-color: rgba(255, 255, 255, .8);
+}
+
+.map-point-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.map-point-card .map-point-description {
+  margin: 7px 0 10px;
+  color: #40584d;
+  font-size: .88rem;
+  line-height: 1.55;
+}
+
+.map-point-card .map-point-location {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.map-point-card .map-point-coordinates,
+.map-point-card .map-point-accepted {
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.map-point-card .map-point-accepted {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid var(--line);
+}
+
+/* 09. RODAPÉ */
+footer {
+  background: var(--green-dark);
+  color: #d9e9df;
+  padding: 34px 24px;
+  font-size: .9rem;
+}
+
+footer {
+  background: #fff;
+  color: var(--ink);
+}
+
+footer p {
+  margin: 0;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-brand p {
+  max-width: 650px;
+}
+
+.hero-inner,
+.section-inner,
+main,
+footer .inner {
+  max-width: 1040px;
+  margin: auto;
+}
+
+.team {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(217, 233, 223, .2);
+}
+
+.team {
+  border-color: var(--line);
+}
+
+.team strong {
+  color: white;
+  letter-spacing: .04em;
+}
+
+.team strong {
+  color: var(--ink);
+}
+
+.team ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.team li {
+  padding: 5px 11px;
+  border: 1px solid rgba(217, 233, 223, .22);
+  border-radius: 30px;
+  color: #e4f1e8;
+}
+
+.team li {
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+footer .inner {
+  position: relative;
+}
+
+
+/* REFINAMENTO DOS MODAIS — leitura, foco e adaptação */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* SISTEMA DE MODAIS — camada de sobreposição */
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10, 30, 22, .58);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+
+#overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#modals {
+  position: relative;
+  z-index: 1001;
 }
 
 
@@ -1699,12 +1872,6 @@ footer .inner {
   box-shadow: 0 7px 18px rgba(7, 132, 93, .16);
 }
 
-
-/* REFINAMENTO DOS MODAIS — leitura, foco e adaptação */
-body.modal-open {
-  overflow: hidden;
-}
-
 .modal-content h2 {
   max-width: 100%;
   margin: 8px 52px 14px 0;
@@ -1766,94 +1933,6 @@ body.modal-open {
   transform: translateY(-1px);
 }
 
-.top.header-hidden {
-  transform: translateY(-100%);
-}
-
-/* NAVEGAÇÃO RESPONSIVA — menu vertical recolhível */
-.nav-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  flex: 0 0 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 9px;
-  border: 1px solid #dcebe2;
-  border-radius: 10px;
-  background: #f4faf6;
-  color: #176044;
-  cursor: pointer;
-}
-
-
-/* REFINAMENTO DA NAVEGAÇÃO — estados e áreas de toque */
-.nav-toggle {
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-.nav-toggle span {
-  display: block;
-  width: 21px;
-  height: 2px;
-  border-radius: 2px;
-  background: currentColor;
-  transition: transform .2s ease, opacity .2s ease;
-}
-
-.nav-toggle[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.nav-toggle[aria-expanded="true"] span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav-toggle[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-.nav-toggle:focus-visible {
-  outline: 3px solid rgba(7, 132, 93, .38);
-  outline-offset: 3px;
-}
-
-.map-point-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.map-point-card .map-point-description {
-  margin: 7px 0 10px;
-  color: #40584d;
-  font-size: .88rem;
-  line-height: 1.55;
-}
-
-.map-point-card .map-point-location {
-  margin: 0 0 5px;
-  color: var(--green);
-  font-size: .82rem;
-  font-weight: 700;
-}
-
-.map-point-card .map-point-coordinates,
-.map-point-card .map-point-accepted {
-  margin: 0 0 5px;
-  color: var(--muted);
-  font-size: .78rem;
-  line-height: 1.45;
-}
-
-.map-point-card .map-point-accepted {
-  margin-top: 7px;
-  padding-top: 7px;
-  border-top: 1px solid var(--line);
-}
-
 
 /* LINK DE ROTA NOS MODAIS DOS PONTOS */
 .modal-route-link {
@@ -1895,83 +1974,4 @@ body.modal-open {
 .modal-route-link:focus-visible {
   outline: 3px solid rgba(8, 127, 91, .3);
   outline-offset: 3px;
-}
-
-/* LINK DE ROTA NOS POPUPS DO MAPA */
-.leaflet-popup-content a.map-route-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  margin-top: 10px;
-  padding: 9px 13px;
-  border-radius: 8px;
-  background: #087f5b;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.3;
-  text-decoration: none;
-  transition: background .2s ease, transform .2s ease;
-}
-
-.leaflet-popup-content a.map-route-link:hover {
-  background: #066747;
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-.leaflet-popup-content a.map-route-link:focus-visible {
-  outline: 3px solid rgba(8, 127, 91, .3);
-  outline-offset: 3px;
-}
-
-.leaflet-popup-content a.map-route-link span {
-  font-size: 14px;
-}
-
-
-/* POPUP DO MAPA — alinhamento do conteúdo; dimensões padrão do Leaflet */
-.leaflet-popup-content {
-  text-align: center;
-}
-
-.leaflet-popup-content strong {
-  display: block;
-  font-size: 13px;
-  line-height: 1.35;
-  overflow-wrap: anywhere;
-  text-align: center;
-}
-
-.leaflet-popup-content .map-popup-coordinates {
-  margin-top: 8px;
-  color: #607268;
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-  text-align: center;
-}
-
-
-/* SISTEMA DE MODAIS — camada de sobreposição */
-#overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(10, 30, 22, .58);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .2s ease, visibility .2s ease;
-}
-
-#overlay.open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-#modals {
-  position: relative;
-  z-index: 1001;
 }
