@@ -1,45 +1,55 @@
 
 (async () => {
 
-  const SOURCE = "./data";
+  const DATA_SOURCE = "./data";
 
-  const FILES = {
-      pontos:"pontos.json"
+  const DATA_FILES = {
+    pontos: "pontos.json"
   }
 
-  const LIST_FILES = [
-      FILES.pontos
+  const DATA_LIST_FILES = [
+    DATA_FILES.pontos
   ];
 
-  const DATA_READY = await loader( SOURCE, LIST_FILES );
+  const DATA_READY = await loader(DATA_SOURCE, DATA_LIST_FILES);
 
-  const POINTS = DATA_READY[FILES.pontos].points;
+  const POINTS = DATA_READY[DATA_FILES.pontos].points;
 
-  const mapTag = document.querySelector(".map-tag");
-  if (mapTag) mapTag.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
+  const MAP_TAG = document.querySelector(".map-tag");
 
   const OVERLAY = document.getElementById('overlay');
 
+  const TOP_HEADER = document.querySelector('.top');
+  const NAV_TOGGLE = document.querySelector('.nav-toggle');
+  const MAIN_NAVIGATION = document.getElementById('main-navigation');
+  const SEARCH_INPUT = document.getElementById('equipmentSearch');
+  const EQUIPMENT_CARDS = Array.from(document.querySelectorAll('#equipmentGrid .equipment-item'));
+  const EQUIPMENT_COUNT = document.getElementById('equipmentCount');
+  const NAV_LINKS = Array.from(document.querySelectorAll('.top nav a'));
+  const SECTIONS = NAV_LINKS
+    .map(link => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  const SCROLL_THRESHOLD = 8;
+  
+  let PREVIOUS_SCROLL_Y = window.scrollY;
+  
   let LAST_TRIGGER = null;
 
   let MODAL = null;
 
-  const searchInput = document.getElementById('equipmentSearch');
-  const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .equipment-item'));
-  const equipmentCount = document.getElementById('equipmentCount');
-
   function filterEquipment() {
-    const term = (searchInput?.value || '').trim().toLocaleLowerCase('pt-BR');
+    const term = (SEARCH_INPUT?.value || '').trim().toLocaleLowerCase('pt-BR');
     let visible = 0;
 
-    equipmentCards.forEach(card => {
+    EQUIPMENT_CARDS.forEach(card => {
       const matches = card.textContent.toLocaleLowerCase('pt-BR').includes(term);
       card.hidden = !matches;
       if (matches) visible++;
     });
 
-    if (equipmentCount) {
-      equipmentCount.textContent = visible + (visible === 1 ? ' categoria encontrada' : ' categorias encontradas');
+    if (EQUIPMENT_COUNT) {
+      EQUIPMENT_COUNT.textContent = visible + (visible === 1 ? ' categoria encontrada' : ' categorias encontradas');
     }
   }
 
@@ -47,7 +57,7 @@
     const mapElement = document.getElementById('collectionMap');
     if (!mapElement || typeof L === 'undefined') return;
 
-    const map = L.map(mapElement, {zoomControl:false}).setView([-15.7939, -47.8828], 13);
+    const map = L.map(mapElement, { zoomControl: false }).setView([-15.7939, -47.8828], 13);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -76,7 +86,7 @@
     });
   }
 
-function createMapPoint(item, index) {
+  function createMapPoint(item, index) {
     const card = document.createElement("article");
     card.className = "map-point-card open-modal";
     card.dataset.modal = item.id ? `modal-${item.id}` : "";
@@ -105,9 +115,9 @@ function createMapPoint(item, index) {
     card.append(num, info);
 
     return card;
-}
+  }
 
-function createModalSection(data) {
+  function createModalSection(data) {
     const modalId = `modal-${data.id}`;
     const titleId = `${modalId}-titulo`;
 
@@ -145,91 +155,89 @@ function createModalSection(data) {
     const place = data.location || {};
     const address = [place.address, [place.city, place.state].filter(Boolean).join("/")].filter(Boolean).join(" — ");
     if (address || data.hours) {
-        const addressHeading = document.createElement("h3");
-        addressHeading.textContent = "Endereço e atendimento";
-        modalContent.append(addressHeading);
+      const addressHeading = document.createElement("h3");
+      addressHeading.textContent = "Endereço e atendimento";
+      modalContent.append(addressHeading);
 
-        if (address) {
-            const addressText = document.createElement("p");
-            addressText.textContent = address;
-            modalContent.append(addressText);
-        }
+      if (address) {
+        const addressText = document.createElement("p");
+        addressText.textContent = address;
+        modalContent.append(addressText);
+      }
 
-        if (data.hours) {
-            const hoursText = document.createElement("p");
-            hoursText.textContent = data.hours;
-            modalContent.append(hoursText);
-        }
+      if (data.hours) {
+        const hoursText = document.createElement("p");
+        hoursText.textContent = data.hours;
+        modalContent.append(hoursText);
+      }
     }
 
     for (const item of data.details || []) {
-        const h3 = document.createElement("h3");
-        h3.textContent = item.title;
+      const h3 = document.createElement("h3");
+      h3.textContent = item.title;
 
-        const p = document.createElement("p");
-        p.textContent = item.text;
+      const p = document.createElement("p");
+      p.textContent = item.text;
 
-        modalContent.append(h3, p);
+      modalContent.append(h3, p);
     }
 
     if (data.instructions) {
-        const h3 = document.createElement("h3");
-        h3.textContent = data.instructions.title || "Orientações";
+      const h3 = document.createElement("h3");
+      h3.textContent = data.instructions.title || "Orientações";
 
-        const p = document.createElement("p");
-        p.textContent = data.instructions.text || "";
+      const p = document.createElement("p");
+      p.textContent = data.instructions.text || "";
 
-        modalContent.append(h3, p);
+      modalContent.append(h3, p);
     }
 
     if (data.note) {
-        const noteDiv = document.createElement("div");
-        noteDiv.className = "note";
+      const noteDiv = document.createElement("div");
+      noteDiv.className = "note";
 
-        const separatorIndex = data.note.indexOf(":");
-        if (separatorIndex !== -1) {
-            const strong = document.createElement("strong");
-            strong.textContent = data.note.slice(0, separatorIndex + 1);
-            noteDiv.append(strong, data.note.slice(separatorIndex + 1));
-        } else {
-            noteDiv.textContent = data.note;
-        }
+      const separatorIndex = data.note.indexOf(":");
+      if (separatorIndex !== -1) {
+        const strong = document.createElement("strong");
+        strong.textContent = data.note.slice(0, separatorIndex + 1);
+        noteDiv.append(strong, data.note.slice(separatorIndex + 1));
+      } else {
+        noteDiv.textContent = data.note;
+      }
 
-        modalContent.append(noteDiv);
+      modalContent.append(noteDiv);
     }
 
     const position = data.position;
     if (Array.isArray(position) && position.length === 2 && position.every(Number.isFinite)) {
-        const [latitude, longitude] = position;
-        const routeLink = document.createElement("a");
-        routeLink.className = "modal-route-link";
-        routeLink.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
-        routeLink.target = "_blank";
-        routeLink.rel = "noopener noreferrer";
-        routeLink.textContent = "Traçar rota no Google Maps";
-        modalContent.append(routeLink);
+      const [latitude, longitude] = position;
+      const routeLink = document.createElement("a");
+      routeLink.className = "modal-route-link";
+      routeLink.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
+      routeLink.target = "_blank";
+      routeLink.rel = "noopener noreferrer";
+      routeLink.textContent = "Traçar rota no Google Maps";
+      modalContent.append(routeLink);
     }
 
     section.append(closeBtn, modalContent);
     return section;
-}
+  }
 
-function renderPontos(items) {
+  function renderPontos(items) {
     const pointsContainer = document.getElementById("mapPoints");
     const modalsContainer = document.getElementById("modals");
 
     items.forEach((item, index) => {
-        if (pointsContainer) {
-            pointsContainer.appendChild(createMapPoint(item, index));
-        }
+      if (pointsContainer) {
+        pointsContainer.appendChild(createMapPoint(item, index));
+      }
 
-        if (modalsContainer && item.id) {
-            modalsContainer.appendChild(createModalSection(item));
-        }
+      if (modalsContainer && item.id) {
+        modalsContainer.appendChild(createModalSection(item));
+      }
     });
-}
-
-  renderPontos(POINTS)
+  }
 
   function getModalFocusables(modal) {
     return Array.from(modal.querySelectorAll(
@@ -267,6 +275,52 @@ function renderPontos(items) {
     const closeControl = MODAL.querySelector('.close-modal');
     (closeControl || MODAL).focus();
   }
+
+  function setNavigationOpen(open) {
+    if (!NAV_TOGGLE || !MAIN_NAVIGATION) return;
+    NAV_TOGGLE.setAttribute('aria-expanded', String(open));
+    NAV_TOGGLE.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    MAIN_NAVIGATION.classList.toggle('open', open);
+  }
+
+  renderPontos(POINTS)
+
+  filterEquipment();
+
+  initializeMap();
+
+  if (MAP_TAG) MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const activeLink = NAV_LINKS.find(link => link.getAttribute('href') === '#' + entry.target.id);
+        NAV_LINKS.forEach(link => {
+          const active = link === activeLink;
+          link.classList.toggle('active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    SECTIONS.forEach(section => observer.observe(section));
+  }
+
+  OVERLAY?.addEventListener('click', () => {
+    if (MODAL) closeModal();
+  });
+
+  SEARCH_INPUT?.addEventListener('input', filterEquipment);
+
+  NAV_TOGGLE?.addEventListener('click', () => {
+    const isOpen = NAV_TOGGLE.getAttribute('aria-expanded') === 'true';
+    setNavigationOpen(!isOpen);
+  });
+
+  MAIN_NAVIGATION?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavigationOpen(false));
+  });
 
   document.querySelectorAll('.open-modal').forEach(trigger => {
     trigger.addEventListener('click', event => {
@@ -316,96 +370,42 @@ function renderPontos(items) {
     }
   });
 
-  OVERLAY?.addEventListener('click', () => {
-    if (MODAL) closeModal();
+  document.addEventListener('click', event => {
+    if (NAV_TOGGLE?.getAttribute('aria-expanded') !== 'true') return;
+    if (TOP_HEADER?.contains(event.target)) return;
+    setNavigationOpen(false);
   });
 
-  searchInput?.addEventListener('input', filterEquipment);
-
-  // CABEÇALHO INTELIGENTE — direção da rolagem
-  const topHeader = document.querySelector('.top');
-  let previousScrollY = window.scrollY;
-  const scrollThreshold = 8;
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && NAV_TOGGLE?.getAttribute('aria-expanded') === 'true') {
+      setNavigationOpen(false);
+      NAV_TOGGLE.focus();
+    }
+  });
 
   window.addEventListener('scroll', () => {
-    if (!topHeader) return;
+    if (!TOP_HEADER) return;
 
     const currentScrollY = Math.max(0, window.scrollY);
-    const difference = currentScrollY - previousScrollY;
-    const passedThreshold = Math.abs(difference) >= scrollThreshold;
+    const difference = currentScrollY - PREVIOUS_SCROLL_Y;
+    const passedThreshold = Math.abs(difference) >= SCROLL_THRESHOLD;
 
-    const navigationWasOpen = navToggle?.getAttribute('aria-expanded') === 'true';
+    const navigationWasOpen = NAV_TOGGLE?.getAttribute('aria-expanded') === 'true';
 
     if (passedThreshold && navigationWasOpen) {
       setNavigationOpen(false);
-      topHeader.classList.remove('header-hidden');
+      TOP_HEADER.classList.remove('header-hidden');
     } else if (currentScrollY <= 12) {
-      topHeader.classList.remove('header-hidden');
+      TOP_HEADER.classList.remove('header-hidden');
     } else if (passedThreshold) {
-      topHeader.classList.toggle('header-hidden', difference > 0);
+      TOP_HEADER.classList.toggle('header-hidden', difference > 0);
     }
 
-    previousScrollY = currentScrollY;
+    PREVIOUS_SCROLL_Y = currentScrollY;
   }, { passive: true });
-
-  const navToggle = document.querySelector('.nav-toggle');
-  const mainNavigation = document.getElementById('main-navigation');
-
-  function setNavigationOpen(open) {
-    if (!navToggle || !mainNavigation) return;
-    navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
-    mainNavigation.classList.toggle('open', open);
-  }
-
-  navToggle?.addEventListener('click', () => {
-    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
-    setNavigationOpen(!isOpen);
-  });
-
-  document.addEventListener('click', event => {
-    if (navToggle?.getAttribute('aria-expanded') !== 'true') return;
-    if (topHeader?.contains(event.target)) return;
-    setNavigationOpen(false);
-  });
 
   window.addEventListener('resize', () => {
     if (window.innerWidth > 1050) setNavigationOpen(false);
   }, { passive: true });
 
-  mainNavigation?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => setNavigationOpen(false));
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
-      setNavigationOpen(false);
-      navToggle.focus();
-    }
-  });
-
-  const navLinks = Array.from(document.querySelectorAll('.top nav a'));
-  const sections = navLinks
-    .map(link => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const activeLink = navLinks.find(link => link.getAttribute('href') === '#' + entry.target.id);
-        navLinks.forEach(link => {
-          const active = link === activeLink;
-          link.classList.toggle('active', active);
-          if (active) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        });
-      });
-    }, { rootMargin: '-25% 0px -65% 0px' });
-    sections.forEach(section => observer.observe(section));
-  }
-
-  filterEquipment();
-  initializeMap();
-  
 })();
