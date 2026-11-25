@@ -98,7 +98,7 @@ function createMapPoint(item, index) {
 
 
 
-    info.append(title, location, coordinates);
+    info.append(title, location);
     card.append(num, info);
 
     return card;
