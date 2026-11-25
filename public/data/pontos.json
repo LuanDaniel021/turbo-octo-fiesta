@@ -2,177 +2,183 @@
     "version": 1,
     "points": [
         {
-            "name": "Ponto demonstrativo",
-            "position": [
-                -26.24,
-                -51.08
-            ],
+            "name": "EcoPonto Centro",
+            "position": [-26.2386, -51.0786],
             "city": "Porto União",
             "state": "SC",
             "country": "Brasil",
-            "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
+            "description": "Ponto de recebimento de pequenos eletrônicos, cabos, carregadores e acessórios.",
             "acceptedEquipmentIds": [],
             "modal": {
                 "id": "modal-ponto-0",
-                "kicker": "Pontos de recebimento · Exemplo fictício",
-                "title": "Ponto demonstrativo",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.24, -51.08. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "kicker": "Ponto de recebimento · Centro",
+                "title": "EcoPonto Centro",
+                "intro": "Espaço de entrega voluntária voltado a equipamentos eletrônicos de pequeno porte. Os materiais são separados para encaminhamento à triagem e à reciclagem.",
                 "sections": [
                     {
-                        "heading": "Informação a validar",
-                        "content": "Informar se recebe pequenos eletroeletrônicos, acessórios e periféricos."
+                        "heading": "Materiais recebidos",
+                        "content": "Celulares, carregadores, cabos, fones de ouvido, teclados, mouses e pequenos acessórios eletrônicos."
                     },
                     {
-                        "heading": "Antes de utilizar este cadastro",
-                        "content": "Substitua este exemplo por dados confirmados diretamente com o estabelecimento. Até essa atualização, este ponto não deve ser apresentado como opção real de descarte."
+                        "heading": "Endereço e atendimento",
+                        "content": "Rua das Araucárias, 125 — Centro, Porto União/SC. Atendimento de segunda a sexta-feira, das 9h às 17h."
+                    },
+                    {
+                        "heading": "Orientações para entrega",
+                        "content": "Sempre que possível, entregue os aparelhos desligados. Remova chips e cartões de memória dos celulares antes do descarte."
                     }
                 ],
-                "note": "Importante: Este cartão é exclusivamente ilustrativo. Não há endereço, horário ou aceitação de resíduos confirmados para este ponto."
+                "note": "Cadastro fictício para demonstração da interface. Endereço, funcionamento e recebimento não foram verificados."
             }
         },
         {
-            "name": "Ponto de exemplo 1",
-            "position": [
-                -15.7868,
-                -47.8912
-            ],
-            "city": "Brasília",
-            "state": "DF",
+            "name": "Assistência Byte Sul",
+            "position": [-26.2308, -51.0865],
+            "city": "União da Vitória",
+            "state": "PR",
             "country": "Brasil",
-            "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
+            "description": "Estabelecimento demonstrativo que recebe componentes e periféricos sem possibilidade de reaproveitamento.",
             "acceptedEquipmentIds": [],
             "modal": {
                 "id": "modal-ponto-1",
-                "kicker": "Pontos de recebimento · Exemplo fictício",
-                "title": "Ponto de exemplo 1",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.7868, -47.8912. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "kicker": "Ponto de recebimento · Periféricos",
+                "title": "Assistência Byte Sul",
+                "intro": "Além dos serviços de manutenção, este estabelecimento demonstra um ponto de entrega para acessórios e componentes eletrônicos que não podem mais ser utilizados.",
                 "sections": [
                     {
-                        "heading": "Informação a validar",
-                        "content": "Informar se recebe pequenos eletroeletrônicos, acessórios e periféricos."
+                        "heading": "Materiais recebidos",
+                        "content": "Teclados, mouses, fontes de alimentação, placas eletrônicas, roteadores e cabos de informática."
                     },
                     {
-                        "heading": "Antes de utilizar este cadastro",
-                        "content": "Substitua este exemplo por dados confirmados diretamente com o estabelecimento. Até essa atualização, este ponto não deve ser apresentado como opção real de descarte."
+                        "heading": "Endereço e atendimento",
+                        "content": "Avenida Bento Munhoz da Rocha, 480 — Centro, União da Vitória/PR. Atendimento de segunda a sexta-feira, das 8h30 às 18h."
+                    },
+                    {
+                        "heading": "Condições de entrega",
+                        "content": "Componentes devem ser entregues sem embalagens volumosas. Equipamentos grandes precisam de agendamento prévio."
                     }
                 ],
-                "note": "Importante: Este cartão é exclusivamente ilustrativo. Não há endereço, horário ou aceitação de resíduos confirmados para este ponto."
+                "note": "Cadastro fictício para demonstração da interface. Endereço, funcionamento e recebimento não foram verificados."
             }
         },
         {
-            "name": "Ponto de exemplo 2",
-            "position": [
-                -15.8002,
-                -47.8875
-            ],
-            "city": "Brasília",
-            "state": "DF",
+            "name": "Cooperativa Recicla União",
+            "position": [-26.241, -51.0758],
+            "city": "Porto União",
+            "state": "SC",
             "country": "Brasil",
-            "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
+            "description": "Cooperativa demonstrativa com triagem de materiais recicláveis e pequenos equipamentos eletrônicos.",
             "acceptedEquipmentIds": [],
             "modal": {
                 "id": "modal-ponto-2",
-                "kicker": "Pontos de recebimento · Exemplo fictício",
-                "title": "Ponto de exemplo 2",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.8002, -47.8875. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "kicker": "Ponto de recebimento · Cooperativa",
+                "title": "Cooperativa Recicla União",
+                "intro": "Unidade de triagem que recebe materiais separados pela população e encaminha cada tipo de resíduo para destinação adequada.",
                 "sections": [
                     {
-                        "heading": "Informação a validar",
-                        "content": "Informar se recebe pequenos eletroeletrônicos, acessórios e periféricos."
+                        "heading": "Materiais recebidos",
+                        "content": "Rádios portáteis, controles remotos, calculadoras, brinquedos eletrônicos e pequenos aparelhos sem uso."
                     },
                     {
-                        "heading": "Antes de utilizar este cadastro",
-                        "content": "Substitua este exemplo por dados confirmados diretamente com o estabelecimento. Até essa atualização, este ponto não deve ser apresentado como opção real de descarte."
+                        "heading": "Endereço e atendimento",
+                        "content": "Rua Expedicionário Edmundo Arrabar, 210 — Bairro Santa Rosa, Porto União/SC. Atendimento de segunda a sexta-feira, das 8h às 16h."
+                    },
+                    {
+                        "heading": "Preparação dos materiais",
+                        "content": "Separe os equipamentos eletrônicos de papel, plástico e metal. Não desmonte aparelhos que ainda contenham baterias internas."
                     }
                 ],
-                "note": "Importante: Este cartão é exclusivamente ilustrativo. Não há endereço, horário ou aceitação de resíduos confirmados para este ponto."
+                "note": "Cadastro fictício para demonstração da interface. Endereço, funcionamento e recebimento não foram verificados."
             }
         },
         {
-            "name": "Ponto de exemplo 3",
-            "position": [
-                -15.7901,
-                -47.8708
-            ],
-            "city": "Brasília",
-            "state": "DF",
+            "name": "EletroLar Utilidades",
+            "position": [-26.2278, -51.083],
+            "city": "União da Vitória",
+            "state": "PR",
             "country": "Brasil",
-            "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
+            "description": "Loja demonstrativa com recebimento de pilhas, baterias portáteis e acessórios de uso doméstico.",
             "acceptedEquipmentIds": [],
             "modal": {
                 "id": "modal-ponto-3",
-                "kicker": "Pontos de recebimento · Exemplo fictício",
-                "title": "Ponto de exemplo 3",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.7901, -47.8708. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "kicker": "Ponto de recebimento · Pilhas e baterias",
+                "title": "EletroLar Utilidades",
+                "intro": "Ponto de entrega de resíduos eletroeletrônicos de pequeno porte, com foco em pilhas e baterias usadas de equipamentos domésticos.",
                 "sections": [
                     {
-                        "heading": "Informação a validar",
-                        "content": "Informar se recebe pequenos eletroeletrônicos, acessórios e periféricos."
+                        "heading": "Materiais recebidos",
+                        "content": "Pilhas alcalinas, baterias recarregáveis removíveis, baterias de controles e pequenos acessórios eletrônicos."
                     },
                     {
-                        "heading": "Antes de utilizar este cadastro",
-                        "content": "Substitua este exemplo por dados confirmados diretamente com o estabelecimento. Até essa atualização, este ponto não deve ser apresentado como opção real de descarte."
+                        "heading": "Endereço e atendimento",
+                        "content": "Rua Professora Amazília, 95 — Centro, União da Vitória/PR. Atendimento de segunda a sábado, das 9h às 18h."
+                    },
+                    {
+                        "heading": "Cuidados importantes",
+                        "content": "Não entregue baterias estufadas, perfuradas ou com sinais de vazamento junto aos resíduos comuns. Peça orientação ao responsável pelo ponto."
                     }
                 ],
-                "note": "Importante: Este cartão é exclusivamente ilustrativo. Não há endereço, horário ou aceitação de resíduos confirmados para este ponto."
+                "note": "Cadastro fictício para demonstração da interface. Endereço, funcionamento e recebimento não foram verificados."
             }
         },
         {
-            "name": "Ponto de exemplo 4",
-            "position": [
-                -15.805,
-                -47.875
-            ],
-            "city": "Brasília",
-            "state": "DF",
+            "name": "Centro Comunitário São Pedro",
+            "position": [-26.2352, -51.083],
+            "city": "Porto União",
+            "state": "SC",
             "country": "Brasil",
-            "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
+            "description": "Local demonstrativo de campanhas periódicas para coleta de equipamentos eletrônicos domésticos.",
             "acceptedEquipmentIds": [],
             "modal": {
                 "id": "modal-ponto-4",
-                "kicker": "Pontos de recebimento · Exemplo fictício",
-                "title": "Ponto de exemplo 4",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.805, -47.875. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "kicker": "Ponto de recebimento · Campanha",
+                "title": "Centro Comunitário São Pedro",
+                "intro": "Local utilizado como referência para campanhas de arrecadação de eletroeletrônicos. O recebimento ocorre em datas divulgadas previamente pela organização.",
                 "sections": [
                     {
-                        "heading": "Informação a validar",
-                        "content": "Informar se recebe pequenos eletroeletrônicos, acessórios e periféricos."
+                        "heading": "Materiais da campanha",
+                        "content": "Monitores, teclados, impressoras pequenas, telefones, cabos e equipamentos de informática em geral."
                     },
                     {
-                        "heading": "Antes de utilizar este cadastro",
-                        "content": "Substitua este exemplo por dados confirmados diretamente com o estabelecimento. Até essa atualização, este ponto não deve ser apresentado como opção real de descarte."
+                        "heading": "Endereço e funcionamento",
+                        "content": "Rua Frei Canísio, 340 — Bairro São Pedro, Porto União/SC. Recebimento em campanhas programadas, normalmente aos sábados, das 9h às 15h."
+                    },
+                    {
+                        "heading": "Antes de levar",
+                        "content": "Consulte a programação da campanha para confirmar a data e os tipos de equipamentos aceitos. Não deixe materiais no local fora do período de coleta."
                     }
                 ],
-                "note": "Importante: Este cartão é exclusivamente ilustrativo. Não há endereço, horário ou aceitação de resíduos confirmados para este ponto."
+                "note": "Cadastro fictício para demonstração da interface. Endereço, calendário e recebimento não foram verificados."
             }
         },
         {
-            "name": "Ponto de exemplo 5",
-            "position": [
-                -15.7805,
-                -47.879
-            ],
-            "city": "Brasília",
-            "state": "DF",
+            "name": "Ecoponto São Cristóvão",
+            "position": [-26.234, -51.0915],
+            "city": "União da Vitória",
+            "state": "PR",
             "country": "Brasil",
-            "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
+            "description": "Ponto demonstrativo de coleta de eletrodomésticos compactos e equipamentos de áudio e vídeo.",
             "acceptedEquipmentIds": [],
             "modal": {
                 "id": "modal-ponto-5",
-                "kicker": "Pontos de recebimento · Exemplo fictício",
-                "title": "Ponto de exemplo 5",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.7805, -47.879. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "kicker": "Ponto de recebimento · Eletrodomésticos",
+                "title": "Ecoponto São Cristóvão",
+                "intro": "Unidade demonstrativa destinada ao recebimento organizado de pequenos eletrodomésticos e aparelhos de áudio e vídeo fora de uso.",
                 "sections": [
                     {
-                        "heading": "Informação a validar",
-                        "content": "Informar se recebe pequenos eletroeletrônicos, acessórios e periféricos."
+                        "heading": "Materiais recebidos",
+                        "content": "Liquidificadores, ferros elétricos, ventiladores pequenos, rádios, caixas de som e aparelhos de DVD."
                     },
                     {
-                        "heading": "Antes de utilizar este cadastro",
-                        "content": "Substitua este exemplo por dados confirmados diretamente com o estabelecimento. Até essa atualização, este ponto não deve ser apresentado como opção real de descarte."
+                        "heading": "Endereço e atendimento",
+                        "content": "Avenida Paula Freitas, 720 — São Cristóvão, União da Vitória/PR. Atendimento de terça a sábado, das 8h às 17h."
+                    },
+                    {
+                        "heading": "Limites de recebimento",
+                        "content": "Não são recebidos geladeiras, fogões, televisores de grande porte, lâmpadas ou resíduos hospitalares. Para itens volumosos, procure um serviço especializado."
                     }
                 ],
-                "note": "Importante: Este cartão é exclusivamente ilustrativo. Não há endereço, horário ou aceitação de resíduos confirmados para este ponto."
+                "note": "Cadastro fictício para demonstração da interface. Endereço, funcionamento e recebimento não foram verificados."
             }
         }
     ]
