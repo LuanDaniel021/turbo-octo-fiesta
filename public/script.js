@@ -65,6 +65,50 @@
     return visible;
   }
 
+  function getModalFocusables(modal) {
+    return Array.from(modal.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter(element => element.getClientRects().length > 0);
+  }
+
+  function closeModal() {
+    if (!MODAL) return;
+
+    MODAL.classList.remove('open');
+    MODAL = null;
+    OVERLAY?.classList.remove('open');
+    document.body.classList.remove('modal-open');
+
+    const trigger = LAST_TRIGGER;
+    LAST_TRIGGER = null;
+    trigger?.focus();
+  }
+
+  function openModal(trigger) {
+    const modalId = trigger.dataset.modal;
+    const targetModal = modalId ? document.getElementById(modalId) : null;
+    if (!targetModal) return;
+
+    if (MODAL === targetModal) return;
+    if (MODAL) MODAL.classList.remove('open');
+
+    MODAL = targetModal;
+    LAST_TRIGGER = trigger;
+    MODAL.classList.add('open');
+    OVERLAY?.classList.add('open');
+    document.body.classList.add('modal-open');
+
+    const closeControl = MODAL.querySelector('.close-modal');
+    (closeControl || MODAL).focus();
+  }
+
+  function setNavigationOpen(open) {
+    if (!NAV_TOGGLE || !MAIN_NAVIGATION) return;
+    NAV_TOGGLE.setAttribute('aria-expanded', String(open));
+    NAV_TOGGLE.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    MAIN_NAVIGATION.classList.toggle('open', open);
+  }
+
   function createMap() {
     const mapElement = document.getElementById('collectionMap');
     if (!mapElement || typeof L === 'undefined') return null;
@@ -252,51 +296,6 @@
     return section;
   }
 
-
-  function getModalFocusables(modal) {
-    return Array.from(modal.querySelectorAll(
-      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )).filter(element => element.getClientRects().length > 0);
-  }
-
-  function closeModal() {
-    if (!MODAL) return;
-
-    MODAL.classList.remove('open');
-    MODAL = null;
-    OVERLAY?.classList.remove('open');
-    document.body.classList.remove('modal-open');
-
-    const trigger = LAST_TRIGGER;
-    LAST_TRIGGER = null;
-    trigger?.focus();
-  }
-
-  function openModal(trigger) {
-    const modalId = trigger.dataset.modal;
-    const targetModal = modalId ? document.getElementById(modalId) : null;
-    if (!targetModal) return;
-
-    if (MODAL === targetModal) return;
-    if (MODAL) MODAL.classList.remove('open');
-
-    MODAL = targetModal;
-    LAST_TRIGGER = trigger;
-    MODAL.classList.add('open');
-    OVERLAY?.classList.add('open');
-    document.body.classList.add('modal-open');
-
-    const closeControl = MODAL.querySelector('.close-modal');
-    (closeControl || MODAL).focus();
-  }
-
-  function setNavigationOpen(open) {
-    if (!NAV_TOGGLE || !MAIN_NAVIGATION) return;
-    NAV_TOGGLE.setAttribute('aria-expanded', String(open));
-    NAV_TOGGLE.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
-    MAIN_NAVIGATION.classList.toggle('open', open);
-  }
-
   function initialize() {
     MAP = createMap();
 
@@ -323,127 +322,129 @@
     }
 
     filterEquipment();
+  }
+    
+  initialize();
 
-    if (MAP_TAG) {
-      MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
-    }
+  if (MAP_TAG) {
+    MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
+  }
 
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          const activeLink = NAV_LINKS.find(link => link.getAttribute('href') === '#' + entry.target.id);
-          NAV_LINKS.forEach(link => {
-            const active = link === activeLink;
-            link.classList.toggle('active', active);
-            if (active) link.setAttribute('aria-current', 'location');
-            else link.removeAttribute('aria-current');
-          });
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const activeLink = NAV_LINKS.find(link => link.getAttribute('href') === '#' + entry.target.id);
+        NAV_LINKS.forEach(link => {
+          const active = link === activeLink;
+          link.classList.toggle('active', active);
+          if (active) link.setAttribute('aria-current', 'location');
+          else link.removeAttribute('aria-current');
         });
-      }, { rootMargin: '-25% 0px -65% 0px' });
-      SECTIONS.forEach(section => observer.observe(section));
-    }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+    SECTIONS.forEach(section => observer.observe(section));
+  }
 
-    OVERLAY?.addEventListener('click', () => {
-      if (MODAL) closeModal();
+  OVERLAY?.addEventListener('click', () => {
+    if (MODAL) closeModal();
+  });
+
+  SEARCH_INPUT?.addEventListener('input', filterEquipment);
+
+  NAV_TOGGLE?.addEventListener('click', () => {
+    const isOpen = NAV_TOGGLE.getAttribute('aria-expanded') === 'true';
+    setNavigationOpen(!isOpen);
+  });
+
+  MAIN_NAVIGATION?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setNavigationOpen(false));
+  });
+
+  document.querySelectorAll('.open-modal').forEach(trigger => {
+    trigger.addEventListener('click', event => {
+      if (trigger.tagName === 'A') event.preventDefault();
+      openModal(trigger);
     });
 
-    SEARCH_INPUT?.addEventListener('input', filterEquipment);
-
-    NAV_TOGGLE?.addEventListener('click', () => {
-      const isOpen = NAV_TOGGLE.getAttribute('aria-expanded') === 'true';
-      setNavigationOpen(!isOpen);
-    });
-
-    MAIN_NAVIGATION?.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => setNavigationOpen(false));
-    });
-
-    document.querySelectorAll('.open-modal').forEach(trigger => {
-      trigger.addEventListener('click', event => {
-        if (trigger.tagName === 'A') event.preventDefault();
+    if (trigger.getAttribute('role') === 'button') {
+      trigger.addEventListener('keydown', event => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
         openModal(trigger);
       });
+    }
+  });
 
-      if (trigger.getAttribute('role') === 'button') {
-        trigger.addEventListener('keydown', event => {
-          if (event.key !== 'Enter' && event.key !== ' ') return;
-          event.preventDefault();
-          openModal(trigger);
-        });
-      }
-    });
+  document.querySelectorAll('.close-modal').forEach(control => {
+    control.addEventListener('click', closeModal);
+  });
 
-    document.querySelectorAll('.close-modal').forEach(control => {
-      control.addEventListener('click', closeModal);
-    });
+  document.addEventListener('keydown', event => {
+    if (!MODAL) return;
 
-    document.addEventListener('keydown', event => {
-      if (!MODAL) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeModal();
+      return;
+    }
 
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        closeModal();
-        return;
-      }
+    if (event.key !== 'Tab') return;
+    const focusables = getModalFocusables(MODAL);
+    if (!focusables.length) {
+      event.preventDefault();
+      MODAL.focus();
+      return;
+    }
 
-      if (event.key !== 'Tab') return;
-      const focusables = getModalFocusables(MODAL);
-      if (!focusables.length) {
-        event.preventDefault();
-        MODAL.focus();
-        return;
-      }
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
 
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
 
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    });
+  document.addEventListener('click', event => {
+    if (NAV_TOGGLE?.getAttribute('aria-expanded') !== 'true') return;
+    if (TOP_HEADER?.contains(event.target)) return;
+    setNavigationOpen(false);
+  });
 
-    document.addEventListener('click', event => {
-      if (NAV_TOGGLE?.getAttribute('aria-expanded') !== 'true') return;
-      if (TOP_HEADER?.contains(event.target)) return;
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && NAV_TOGGLE?.getAttribute('aria-expanded') === 'true') {
       setNavigationOpen(false);
-    });
+      NAV_TOGGLE.focus();
+    }
+  });
 
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && NAV_TOGGLE?.getAttribute('aria-expanded') === 'true') {
-        setNavigationOpen(false);
-        NAV_TOGGLE.focus();
-      }
-    });
+  window.addEventListener('scroll', () => {
+    if (!TOP_HEADER) return;
 
-    window.addEventListener('scroll', () => {
-      if (!TOP_HEADER) return;
+    const currentScrollY = Math.max(0, window.scrollY);
+    const difference = currentScrollY - PREVIOUS_SCROLL_Y;
+    const passedThreshold = Math.abs(difference) >= SCROLL_THRESHOLD;
 
-      const currentScrollY = Math.max(0, window.scrollY);
-      const difference = currentScrollY - PREVIOUS_SCROLL_Y;
-      const passedThreshold = Math.abs(difference) >= SCROLL_THRESHOLD;
+    const navigationWasOpen = NAV_TOGGLE?.getAttribute('aria-expanded') === 'true';
 
-      const navigationWasOpen = NAV_TOGGLE?.getAttribute('aria-expanded') === 'true';
+    if (passedThreshold && navigationWasOpen) {
+      setNavigationOpen(false);
+      TOP_HEADER.classList.remove('header-hidden');
+    } else if (currentScrollY <= 12) {
+      TOP_HEADER.classList.remove('header-hidden');
+    } else if (passedThreshold) {
+      TOP_HEADER.classList.toggle('header-hidden', difference > 0);
+    }
 
-      if (passedThreshold && navigationWasOpen) {
-        setNavigationOpen(false);
-        TOP_HEADER.classList.remove('header-hidden');
-      } else if (currentScrollY <= 12) {
-        TOP_HEADER.classList.remove('header-hidden');
-      } else if (passedThreshold) {
-        TOP_HEADER.classList.toggle('header-hidden', difference > 0);
-      }
+    PREVIOUS_SCROLL_Y = currentScrollY;
+  }, { passive: true });
 
-      PREVIOUS_SCROLL_Y = currentScrollY;
-    }, { passive: true });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 1050) setNavigationOpen(false);
-    }, { passive: true });
-  }
-  initialize();
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1050) setNavigationOpen(false);
+  }, { passive: true });
+  
 })();
