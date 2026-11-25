@@ -1,32 +1,38 @@
 
 (async () => {
 
-  const SOURCE = "./data";
+  let SOURCE, FILES, LIST_FILES, DATA_READY, POINTS;
+  let mapTag, OVERLAY, LAST_TRIGGER, MODAL;
+  let searchInput, equipmentCards, equipmentCount;
+  let topHeader, previousScrollY, scrollThreshold;
+  let navToggle, mainNavigation, navLinks, sections;
 
-  const FILES = {
+  SOURCE = "./data";
+
+  FILES = {
       pontos:"pontos.json"
   }
 
-  const LIST_FILES = [
+  LIST_FILES = [
       FILES.pontos
   ];
 
-  const DATA_READY = await loader( SOURCE, LIST_FILES );
+  DATA_READY = await loader( SOURCE, LIST_FILES );
 
-  const POINTS = DATA_READY[FILES.pontos].points;
+  POINTS = DATA_READY[FILES.pontos].points;
 
-  const mapTag = document.querySelector(".map-tag");
+  mapTag = document.querySelector(".map-tag");
   if (mapTag) mapTag.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
 
-  const OVERLAY = document.getElementById('overlay');
+  OVERLAY = document.getElementById('overlay');
 
-  let LAST_TRIGGER = null;
+  LAST_TRIGGER = null;
 
-  let MODAL = null;
+  MODAL = null;
 
-  const searchInput = document.getElementById('equipmentSearch');
-  const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .equipment-item'));
-  const equipmentCount = document.getElementById('equipmentCount');
+  searchInput = document.getElementById('equipmentSearch');
+  equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .equipment-item'));
+  equipmentCount = document.getElementById('equipmentCount');
 
   function filterEquipment() {
     const term = (searchInput?.value || '').trim().toLocaleLowerCase('pt-BR');
@@ -323,9 +329,9 @@ function renderPontos(items) {
   searchInput?.addEventListener('input', filterEquipment);
 
   // CABEÇALHO INTELIGENTE — direção da rolagem
-  const topHeader = document.querySelector('.top');
-  let previousScrollY = window.scrollY;
-  const scrollThreshold = 8;
+  topHeader = document.querySelector('.top');
+  previousScrollY = window.scrollY;
+  scrollThreshold = 8;
 
   window.addEventListener('scroll', () => {
     if (!topHeader) return;
@@ -348,8 +354,8 @@ function renderPontos(items) {
     previousScrollY = currentScrollY;
   }, { passive: true });
 
-  const navToggle = document.querySelector('.nav-toggle');
-  const mainNavigation = document.getElementById('main-navigation');
+  navToggle = document.querySelector('.nav-toggle');
+  mainNavigation = document.getElementById('main-navigation');
 
   function setNavigationOpen(open) {
     if (!navToggle || !mainNavigation) return;
@@ -384,8 +390,8 @@ function renderPontos(items) {
     }
   });
 
-  const navLinks = Array.from(document.querySelectorAll('.top nav a'));
-  const sections = navLinks
+  navLinks = Array.from(document.querySelectorAll('.top nav a'));
+  sections = navLinks
     .map(link => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
 
