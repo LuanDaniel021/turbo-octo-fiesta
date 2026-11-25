@@ -20,6 +20,7 @@
   }
 
   const OVERLAY = document.getElementById('overlay');
+  const MODALS_CONTAINER = document.getElementById('modals');
 
   const TOP_HEADER = document.querySelector('.top');
   const NAV_TOGGLE = document.querySelector('.nav-toggle');
@@ -63,11 +64,23 @@
     )).filter(element => element.getClientRects().length > 0);
   }
 
+  function setModalIsolation(activeModal) {
+    Array.from(document.body.children).forEach(element => {
+      if (element === OVERLAY || element === MODALS_CONTAINER) return;
+      element.inert = Boolean(activeModal);
+    });
+
+    MODALS_CONTAINER?.querySelectorAll('.modal').forEach(modal => {
+      modal.inert = Boolean(activeModal) && modal !== activeModal;
+    });
+  }
+
   function closeModal() {
     if (!MODAL) return;
 
     MODAL.classList.remove('open');
     MODAL = null;
+    setModalIsolation(null);
     OVERLAY?.classList.remove('open');
     document.body.classList.remove('modal-open');
 
@@ -86,6 +99,7 @@
 
     MODAL = targetModal;
     LAST_TRIGGER = trigger;
+    setModalIsolation(MODAL);
     MODAL.classList.add('open');
     OVERLAY?.classList.add('open');
     document.body.classList.add('modal-open');
@@ -379,6 +393,13 @@
 
   document.querySelectorAll('.close-modal').forEach(control => {
     control.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('focusin', event => {
+    if (!MODAL || MODAL.contains(event.target)) return;
+
+    const focusables = getModalFocusables(MODAL);
+    (focusables[0] || MODAL).focus();
   });
 
   document.addEventListener('keydown', event => {
