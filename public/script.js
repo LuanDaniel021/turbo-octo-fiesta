@@ -96,11 +96,7 @@ function createMapPoint(item, index) {
     location.className = "map-point-location";
     location.textContent = [item.city, item.state, item.country].filter(Boolean).join(" · ") || "Localização não informada";
 
-    const coordinates = document.createElement("p");
-    coordinates.className = "map-point-coordinates";
-    coordinates.textContent = Array.isArray(item.position)
-      ? `Coordenadas: ${item.position.map(value => Number(value).toFixed(4)).join(", ")}`
-      : "Coordenadas não informadas";
+
 
     info.append(title, location, coordinates);
     card.append(num, info);
