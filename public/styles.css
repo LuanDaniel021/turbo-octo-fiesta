@@ -1360,3 +1360,37 @@ body.modal-open {
     padding-right: 16px;
   }
 }
+
+/* CARTÕES DOS PONTOS — informações do cadastro JSON */
+.map-point-card {
+  align-items: flex-start;
+}
+.map-point-info {
+  flex: 1;
+  min-width: 0;
+}
+.map-point-card .map-point-description {
+  margin: 7px 0 10px;
+  color: #40584d;
+  font-size: .88rem;
+  line-height: 1.55;
+}
+.map-point-card .map-point-location {
+  margin: 0 0 5px;
+  color: var(--green);
+  font-size: .82rem;
+  font-weight: 700;
+}
+.map-point-card .map-point-coordinates,
+.map-point-card .map-point-accepted {
+  margin: 0 0 5px;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+.map-point-card .map-point-accepted {
+  margin-top: 7px;
+  padding-top: 7px;
+  border-top: 1px solid var(--line);
+}
+

@@ -74,17 +74,37 @@ function createMapPoint(item, index) {
     card.setAttribute("aria-haspopup", "dialog");
 
     const num = document.createElement("span");
+    num.className = "map-point-number";
     num.textContent = String(index + 1).padStart(2, "0");
 
     const info = document.createElement("div");
+    info.className = "map-point-info";
 
     const title = document.createElement("h3");
-    title.textContent = item.modal?.title || item.name;
+    title.textContent = item.name || item.modal?.title || `Ponto ${index + 1}`;
 
-    const summary = document.createElement("p");
-    summary.textContent = `Localização demonstrativa em ${item.city} (${item.state}).`;
+    const description = document.createElement("p");
+    description.className = "map-point-description";
+    description.textContent = item.description || "Sem descrição cadastrada.";
 
-    info.append(title, summary);
+    const location = document.createElement("p");
+    location.className = "map-point-location";
+    location.textContent = [item.city, item.state, item.country].filter(Boolean).join(" · ") || "Localização não informada";
+
+    const coordinates = document.createElement("p");
+    coordinates.className = "map-point-coordinates";
+    coordinates.textContent = Array.isArray(item.position)
+      ? `Coordenadas: ${item.position.map(value => Number(value).toFixed(4)).join(", ")}`
+      : "Coordenadas não informadas";
+
+    const accepted = document.createElement("p");
+    accepted.className = "map-point-accepted";
+    const acceptedIds = Array.isArray(item.acceptedEquipmentIds) ? item.acceptedEquipmentIds : [];
+    accepted.textContent = acceptedIds.length
+      ? `Categorias aceitas: ${acceptedIds.join(", ")}`
+      : "Categorias aceitas: não informadas";
+
+    info.append(title, description, location, coordinates, accepted);
     card.append(num, info);
 
     return card;
