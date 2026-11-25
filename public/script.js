@@ -292,9 +292,12 @@ function renderPontos(items) {
     const difference = currentScrollY - previousScrollY;
     const passedThreshold = Math.abs(difference) >= scrollThreshold;
 
-    const navigationIsOpen = navToggle?.getAttribute('aria-expanded') === 'true';
+    const navigationWasOpen = navToggle?.getAttribute('aria-expanded') === 'true';
 
-    if (navigationIsOpen || currentScrollY <= 12) {
+    if (passedThreshold && navigationWasOpen) {
+      setNavigationOpen(false);
+      topHeader.classList.remove('header-hidden');
+    } else if (currentScrollY <= 12) {
       topHeader.classList.remove('header-hidden');
     } else if (passedThreshold) {
       topHeader.classList.toggle('header-hidden', difference > 0);
