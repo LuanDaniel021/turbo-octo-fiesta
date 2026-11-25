@@ -1429,12 +1429,8 @@ body.modal-open {
 }
 
 
-/* POPUP DO MAPA — conteúdo centralizado e sem limite de largura */
+/* POPUP DO MAPA — alinhamento do conteúdo; dimensões padrão do Leaflet */
 .leaflet-popup-content {
-  width: auto !important;
-  max-width: none !important;
-  margin: 10px 12px !important;
-  line-height: 1.4;
   text-align: center;
 }
 
@@ -1451,15 +1447,5 @@ body.modal-open {
   color: #607268;
   font-size: 11px;
   font-variant-numeric: tabular-nums;
-  text-align: center;
-}
-
-.leaflet-popup-content a.map-route-link {
-  display: inline-flex;
-  width: auto;
-  box-sizing: border-box;
-  margin-top: 8px;
-  padding: 8px 12px;
-  font-size: 11px;
   text-align: center;
 }
