@@ -19,12 +19,5 @@ async function loader(source, files)
             return Object.fromEntries(data);
         }
     )
-    .catch(
-        ( error ) => {
-            console.error(
-                "Falha ao carregar os dados da aplicação:", error
-            );
-            throw error;
-        }
-    );
+    ;
 }
