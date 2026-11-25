@@ -63,7 +63,7 @@
         .addTo(map)
         .bindPopup(
           '<strong>' + point.name + '</strong><br>' +
-          '<a href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Abrir rota no Google Maps</a>'
+          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Abrir rota no Google Maps <span aria-hidden="true">↗</span></a>'
         );
     });
 
