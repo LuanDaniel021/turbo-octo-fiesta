@@ -11,9 +11,17 @@
     DATA_FILES.pontos
   ];
 
-  const DATA_READY = await loader(DATA_SOURCE, DATA_LIST_FILES);
+  let DATA_READY = {};
 
-  const POINTS = DATA_READY[DATA_FILES.pontos].points;
+  try {
+    DATA_READY = await loader(DATA_SOURCE, DATA_LIST_FILES);
+  } catch (error) {
+    console.error("A aplicação continuará sem os dados dos pontos.", error);
+  }
+
+  const POINTS = Array.isArray(DATA_READY[DATA_FILES.pontos]?.points)
+    ? DATA_READY[DATA_FILES.pontos].points
+    : [];
 
   const MAP_TAG = document.querySelector(".map-tag");
 
@@ -70,20 +78,36 @@
       const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
       const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
 
+      const popup = document.createElement("div");
+
+      const title = document.createElement("strong");
+      title.textContent = point.name || "Ponto de recebimento";
+
+      const route = document.createElement("a");
+      route.className = "map-route-link";
+      route.href = routeUrl;
+      route.target = "_blank";
+      route.rel = "noopener noreferrer";
+      route.textContent = "Google Maps Rota";
+
+      const location = document.createElement("div");
+      location.className = "map-popup-coordinates";
+      location.textContent = coordinates;
+
+      popup.append(title, route, location);
+
       return L.marker(point.position)
         .addTo(map)
-        .bindPopup(
-          '<strong>' + point.name + '</strong>' +
-          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Google Maps Rota</a>' +
-          '<div class="map-popup-coordinates">' + coordinates + '</div>'
-        );
+        .bindPopup(popup);
     });
 
-    const markerGroup = L.featureGroup(markers).addTo(map);
-    map.fitBounds(markerGroup.getBounds(), {
-      padding: [24, 24],
-      maxZoom: 14
-    });
+    if (markers.length) {
+      const markerGroup = L.featureGroup(markers).addTo(map);
+      map.fitBounds(markerGroup.getBounds(), {
+        padding: [24, 24],
+        maxZoom: 14
+      });
+    }
   }
 
   function createMapPoint(item, index) {
@@ -283,7 +307,7 @@
     MAIN_NAVIGATION.classList.toggle('open', open);
   }
 
-  renderPontos(POINTS)
+  renderPontos(POINTS);
 
   filterEquipment();
 
