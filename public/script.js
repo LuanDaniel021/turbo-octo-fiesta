@@ -15,6 +15,9 @@
 
   const POINTS = DATA_READY[FILES.pontos].points;
 
+  const mapTag = document.querySelector(".map-tag");
+  if (mapTag) mapTag.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
+
   const OVERLAY = document.getElementById('overlay');
 
   let LAST_TRIGGER = null;
