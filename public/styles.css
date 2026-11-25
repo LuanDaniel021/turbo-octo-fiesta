@@ -48,15 +48,12 @@ section {
 }
 
 footer {
-  display: flex;
-  justify-content: center;
   width: 100%;
-
   background: #fff;
   color: var(--ink);
+  font-size: .9rem;
 
   padding: 34px 24px;
-  font-size: .9rem;
 }
 
 footer p {
@@ -1294,6 +1291,9 @@ p {
 }
 
 footer .inner {
+  display: flex;
+  justify-content: center;
+
   max-width: 1040px;
   width: 100%;
   margin: auto;
