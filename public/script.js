@@ -69,8 +69,11 @@
         );
     });
 
-    L.featureGroup(markers).addTo(map);
-    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
+    const markerGroup = L.featureGroup(markers).addTo(map);
+    map.fitBounds(markerGroup.getBounds(), {
+      padding: [24, 24],
+      maxZoom: 14
+    });
   }
 
 function createMapPoint(item, index) {
@@ -289,11 +292,9 @@ function renderPontos(items) {
     const difference = currentScrollY - previousScrollY;
     const passedThreshold = Math.abs(difference) >= scrollThreshold;
 
-    if (passedThreshold) {
-      setNavigationOpen(false);
-    }
+    const navigationIsOpen = navToggle?.getAttribute('aria-expanded') === 'true';
 
-    if (currentScrollY <= 12) {
+    if (navigationIsOpen || currentScrollY <= 12) {
       topHeader.classList.remove('header-hidden');
     } else if (passedThreshold) {
       topHeader.classList.toggle('header-hidden', difference > 0);
