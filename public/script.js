@@ -101,11 +101,17 @@
     MAIN_NAVIGATION.classList.toggle('open', open);
   }
 
-  function createMap() {
+  function createMap(position) {
     const mapElement = document.getElementById('collectionMap');
     if (!mapElement || typeof L === 'undefined') return null;
 
-    const map = L.map(mapElement, { zoomControl: false }).setView([-15.7939, -47.8828], 13);
+    const initialPosition = Array.isArray(position)
+      && position.length === 2
+      && position.every(Number.isFinite)
+      ? position
+      : [-15.7939, -47.8828];
+
+    const map = L.map(mapElement, { zoomControl: false }).setView(initialPosition, 13);
     L.control.zoom({ position: 'topright' }).addTo(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -287,12 +293,11 @@
   }
 
   function initialize() {
-    const points = Array.isArray(DATA_READY[DATA_FILES.pontos]?.points)
-      ? DATA_READY[DATA_FILES.pontos].points
-      : [];
+    const pointsData = DATA_READY[DATA_FILES.pontos] || {};
+    const points = Array.isArray(pointsData.points) ? pointsData.points : [];
 
     const mapTag = document.querySelector(".map-tag");
-    const map = createMap();
+    const map = createMap(pointsData.position);
 
     const pointsContainer = document.getElementById("mapPoints");
     const modalsContainer = document.getElementById("modals");
