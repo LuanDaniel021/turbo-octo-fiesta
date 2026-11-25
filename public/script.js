@@ -89,10 +89,6 @@ function createMapPoint(item, index) {
     const title = document.createElement("h3");
     title.textContent = item.name || item.modal?.title || `Ponto ${index + 1}`;
 
-    const description = document.createElement("p");
-    description.className = "map-point-description";
-    description.textContent = item.description || "Sem descrição cadastrada.";
-
     const location = document.createElement("p");
     location.className = "map-point-location";
     location.textContent = [item.city, item.state, item.country].filter(Boolean).join(" · ") || "Localização não informada";
@@ -103,14 +99,7 @@ function createMapPoint(item, index) {
       ? `Coordenadas: ${item.position.map(value => Number(value).toFixed(4)).join(", ")}`
       : "Coordenadas não informadas";
 
-    const accepted = document.createElement("p");
-    accepted.className = "map-point-accepted";
-    const acceptedIds = Array.isArray(item.acceptedEquipmentIds) ? item.acceptedEquipmentIds : [];
-    accepted.textContent = acceptedIds.length
-      ? `Categorias aceitas: ${acceptedIds.join(", ")}`
-      : "Categorias aceitas: não informadas";
-
-    info.append(title, description, location, coordinates, accepted);
+    info.append(title, location, coordinates);
     card.append(num, info);
 
     return card;
