@@ -1395,6 +1395,36 @@ body.modal-open {
 }
 
 
+/* LINK DE ROTA NOS MODAIS DOS PONTOS */
+.modal-route-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 22px;
+  padding: 11px 16px;
+  border: 1px solid #087f5b;
+  border-radius: 10px;
+  background: #087f5b;
+  color: #fff;
+  font-size: .92rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.modal-route-link:hover {
+  border-color: #066747;
+  background: #066747;
+  color: #fff;
+  transform: translateY(-1px);
+}
+.modal-route-link:focus-visible {
+  outline: 3px solid rgba(8, 127, 91, .3);
+  outline-offset: 3px;
+}
+
 /* LINK DE ROTA NOS POPUPS DO MAPA */
 .leaflet-popup-content a.map-route-link {
   display: inline-flex;
