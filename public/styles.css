@@ -468,22 +468,6 @@ p {
   transform: translateY(-50%) rotate(-32.89deg);
 }
 
-.hero:before {
-  width: 2561.7513407500296px;
-  height: 2561.7513407500296px;
-  opacity: 1;
-  transform: rotate(-32.89deg);
-  background-size: 100% 100%;
-  background-position: center;
-}
-
-.hero:before {
-  inset: auto;
-  right: -850px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-32.89deg);
-}
-
 .eyebrow {
   color: #c9ead7;
   text-transform: uppercase;
