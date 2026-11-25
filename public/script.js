@@ -156,10 +156,10 @@
     return marker;
   }
 
-  function createMapPoint(item, index) {
+  function createMapPoint(item, index, pointId) {
     const card = document.createElement("article");
     card.className = "map-point-card open-modal";
-    card.dataset.modal = item.id ? `modal-${item.id}` : "";
+    card.dataset.modal = `modal-${pointId}`;
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
     card.setAttribute("aria-haspopup", "dialog");
@@ -185,8 +185,8 @@
     return card;
   }
 
-  function createModalSection(data) {
-    const modalId = `modal-${data.id}`;
+  function createModalSection(data, pointId) {
+    const modalId = `modal-${pointId}`;
     const titleId = `${modalId}-titulo`;
 
     const section = document.createElement("section");
@@ -304,9 +304,10 @@
     const markers = [];
 
     points.forEach((point, index) => {
-      const mapPoint = createMapPoint(point, index);
+      const pointId = `point-${index + 1}`;
+      const mapPoint = createMapPoint(point, index, pointId);
       const marker = createMapMarker(point, map);
-      const modal = point.id ? createModalSection(point) : null;
+      const modal = createModalSection(point, pointId);
 
       if (pointsContainer) pointsContainer.appendChild(mapPoint);
       if (marker) markers.push(marker);
