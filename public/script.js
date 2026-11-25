@@ -64,9 +64,9 @@
         .addTo(map)
         .bindPopup(
           '<strong>' + point.name + '</strong>' +
-          '<div class="map-popup-coordinates">' + coordinates + '</div>' +
-          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Abrir rota no Google Maps <span aria-hidden="true">↗</span></a>',
-          { maxWidth: 190, minWidth: 170 }
+          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Google Maps Rota</a>' +
+          '<div class="map-popup-coordinates">' + coordinates + '</div>',
+          { maxWidth: Infinity }
         );
     });
 
