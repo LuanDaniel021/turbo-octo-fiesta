@@ -4,8 +4,8 @@
         {
             "name": "Ponto demonstrativo",
             "position": [
-                -26.24,
-                -51.08
+                -26.2386,
+                -51.0786
             ],
             "city": "Porto União",
             "state": "SC",
@@ -16,7 +16,7 @@
                 "id": "modal-ponto-0",
                 "kicker": "Pontos de recebimento · Exemplo fictício",
                 "title": "Ponto demonstrativo",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.24, -51.08. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.2386, -51.0786. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
                 "sections": [
                     {
                         "heading": "Informação a validar",
@@ -33,11 +33,11 @@
         {
             "name": "Ponto de exemplo 1",
             "position": [
-                -15.7868,
-                -47.8912
+                -26.2308,
+                -51.0865
             ],
-            "city": "Brasília",
-            "state": "DF",
+            "city": "União da Vitória",
+            "state": "PR",
             "country": "Brasil",
             "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
             "acceptedEquipmentIds": [],
@@ -45,7 +45,7 @@
                 "id": "modal-ponto-1",
                 "kicker": "Pontos de recebimento · Exemplo fictício",
                 "title": "Ponto de exemplo 1",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.7868, -47.8912. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.2308, -51.0865. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
                 "sections": [
                     {
                         "heading": "Informação a validar",
@@ -62,11 +62,11 @@
         {
             "name": "Ponto de exemplo 2",
             "position": [
-                -15.8002,
-                -47.8875
+                -26.241,
+                -51.0758
             ],
-            "city": "Brasília",
-            "state": "DF",
+            "city": "Porto União",
+            "state": "SC",
             "country": "Brasil",
             "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
             "acceptedEquipmentIds": [],
@@ -74,7 +74,7 @@
                 "id": "modal-ponto-2",
                 "kicker": "Pontos de recebimento · Exemplo fictício",
                 "title": "Ponto de exemplo 2",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.8002, -47.8875. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.241, -51.0758. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
                 "sections": [
                     {
                         "heading": "Informação a validar",
@@ -91,11 +91,11 @@
         {
             "name": "Ponto de exemplo 3",
             "position": [
-                -15.7901,
-                -47.8708
+                -26.2278,
+                -51.083
             ],
-            "city": "Brasília",
-            "state": "DF",
+            "city": "União da Vitória",
+            "state": "PR",
             "country": "Brasil",
             "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
             "acceptedEquipmentIds": [],
@@ -103,7 +103,7 @@
                 "id": "modal-ponto-3",
                 "kicker": "Pontos de recebimento · Exemplo fictício",
                 "title": "Ponto de exemplo 3",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.7901, -47.8708. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.2278, -51.083. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
                 "sections": [
                     {
                         "heading": "Informação a validar",
@@ -120,11 +120,11 @@
         {
             "name": "Ponto de exemplo 4",
             "position": [
-                -15.805,
-                -47.875
+                -26.2352,
+                -51.083
             ],
-            "city": "Brasília",
-            "state": "DF",
+            "city": "Porto União",
+            "state": "SC",
             "country": "Brasil",
             "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
             "acceptedEquipmentIds": [],
@@ -132,7 +132,7 @@
                 "id": "modal-ponto-4",
                 "kicker": "Pontos de recebimento · Exemplo fictício",
                 "title": "Ponto de exemplo 4",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.805, -47.875. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.2352, -51.083. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
                 "sections": [
                     {
                         "heading": "Informação a validar",
@@ -149,11 +149,11 @@
         {
             "name": "Ponto de exemplo 5",
             "position": [
-                -15.7805,
-                -47.879
+                -26.234,
+                -51.0915
             ],
-            "city": "Brasília",
-            "state": "DF",
+            "city": "União da Vitória",
+            "state": "PR",
             "country": "Brasil",
             "description": "Localização fictícia utilizada para demonstrar a interação com o mapa.",
             "acceptedEquipmentIds": [],
@@ -161,7 +161,7 @@
                 "id": "modal-ponto-5",
                 "kicker": "Pontos de recebimento · Exemplo fictício",
                 "title": "Ponto de exemplo 5",
-                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -15.7805, -47.879. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
+                "intro": "Cadastro demonstrativo — dados reais pendentes. Coordenadas demonstrativas: -26.234, -51.0915. Antes de publicar este ponto, confirme o nome do estabelecimento, endereço completo, responsável pelo recebimento e categorias aceitas.",
                 "sections": [
                     {
                         "heading": "Informação a validar",

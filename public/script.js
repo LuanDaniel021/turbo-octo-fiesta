@@ -15,6 +15,9 @@
 
   const POINTS = DATA_READY[FILES.pontos].points;
 
+  const mapTag = document.querySelector(".map-tag");
+  if (mapTag) mapTag.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
+
   const OVERLAY = document.getElementById('overlay');
 
   let LAST_TRIGGER = null;
@@ -52,11 +55,19 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    const markers = POINTS.map(point =>
-      L.marker(point.position)
+    const markers = POINTS.map(point => {
+      const [latitude, longitude] = point.position;
+      const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
+      const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
+
+      return L.marker(point.position)
         .addTo(map)
-        .bindPopup('<strong>' + point.name + '</strong><br>Localização demonstrativa')
-    );
+        .bindPopup(
+          '<strong>' + point.name + '</strong>' +
+          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Google Maps Rota</a>' +
+          '<div class="map-popup-coordinates">' + coordinates + '</div>'
+        );
+    });
 
     L.featureGroup(markers).addTo(map);
     map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
@@ -71,17 +82,22 @@ function createMapPoint(item, index) {
     card.setAttribute("aria-haspopup", "dialog");
 
     const num = document.createElement("span");
+    num.className = "map-point-number";
     num.textContent = String(index + 1).padStart(2, "0");
 
     const info = document.createElement("div");
+    info.className = "map-point-info";
 
     const title = document.createElement("h3");
-    title.textContent = item.modal?.title || item.name;
+    title.textContent = item.name || item.modal?.title || `Ponto ${index + 1}`;
 
-    const summary = document.createElement("p");
-    summary.textContent = `Localização demonstrativa em ${item.city} (${item.state}).`;
+    const location = document.createElement("p");
+    location.className = "map-point-location";
+    location.textContent = [item.city, item.state, item.country].filter(Boolean).join(" · ") || "Localização não informada";
 
-    info.append(title, summary);
+
+
+    info.append(title, location);
     card.append(num, info);
 
     return card;
