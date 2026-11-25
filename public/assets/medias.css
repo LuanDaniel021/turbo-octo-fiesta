@@ -27,7 +27,7 @@
     flex: 0 0 auto;
   }
 
-  .grid {
+  .equipment-grid {
     grid-template-columns: 1fr;
   }
 
@@ -99,8 +99,8 @@
     padding-top: 28px;
   }
 
-  .item,
-  .step,
+  .equipment-item,
+  .receiving-step,
   .checklist label {
     box-shadow: none;
     break-inside: avoid;
@@ -118,27 +118,27 @@
 }
 
 @media (min-width: 900px) {
-  .grid {
+  .equipment-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
   }
 
-  .item {
+  .equipment-item {
     padding: 18px;
   }
 
-  .item h3 {
+  .equipment-item h3 {
     font-size: 1rem;
   }
 
-  .item p {
+  .equipment-item p {
     font-size: .9rem;
     line-height: 1.55;
   }
 }
 
 @media (min-width: 600px) and (max-width: 899px) {
-  .grid {
+  .equipment-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -393,7 +393,7 @@
 }
 
 @media (max-width: 760px) {
-  .steps {
+  .receiving-steps {
     grid-template-columns: 1fr;
   }
 }
@@ -412,11 +412,11 @@
     padding: 15px;
   }
 
-  .step {
+  .receiving-step {
     padding: 18px 18px 18px 60px;
   }
 
-  .step:before {
+  .receiving-step:before {
     left: 17px;
     top: 18px;
   }
@@ -425,7 +425,7 @@
 @media (prefers-reduced-motion: reduce) {
 
   .map-point-card,
-  .step,
+  .receiving-step,
   .checklist-item,
   .social-card,
   .news-card,
