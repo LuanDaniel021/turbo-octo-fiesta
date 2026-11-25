@@ -46,6 +46,10 @@
 
   let MODAL = null;
 
+  let MAP = null;
+
+  const MAP_MARKERS = [];
+
   function filterEquipment() {
     const term = (SEARCH_INPUT?.value || '').trim().toLocaleLowerCase('pt-BR');
     let visible = 0;
@@ -65,49 +69,47 @@
     const mapElement = document.getElementById('collectionMap');
     if (!mapElement || typeof L === 'undefined') return;
 
-    const map = L.map(mapElement, { zoomControl: false }).setView([-15.7939, -47.8828], 13);
-    L.control.zoom({ position: 'topright' }).addTo(map);
+    MAP = L.map(mapElement, { zoomControl: false }).setView([-15.7939, -47.8828], 13);
+    L.control.zoom({ position: 'topright' }).addTo(MAP);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    }).addTo(MAP);
+  }
 
-    const markers = POINTS.map(point => {
-      const [latitude, longitude] = point.position;
-      const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
-      const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
+  function createMapMarker(point) {
+    if (!MAP || !Array.isArray(point.position) || point.position.length !== 2) return;
 
-      const popup = document.createElement("div");
+    const [latitude, longitude] = point.position;
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
 
-      const title = document.createElement("strong");
-      title.textContent = point.name || "Ponto de recebimento";
+    const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
+    const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
 
-      const route = document.createElement("a");
-      route.className = "map-route-link";
-      route.href = routeUrl;
-      route.target = "_blank";
-      route.rel = "noopener noreferrer";
-      route.textContent = "Google Maps Rota";
+    const popup = document.createElement("div");
 
-      const location = document.createElement("div");
-      location.className = "map-popup-coordinates";
-      location.textContent = coordinates;
+    const title = document.createElement("strong");
+    title.textContent = point.name || "Ponto de recebimento";
 
-      popup.append(title, route, location);
+    const route = document.createElement("a");
+    route.className = "map-route-link";
+    route.href = routeUrl;
+    route.target = "_blank";
+    route.rel = "noopener noreferrer";
+    route.textContent = "Google Maps Rota";
 
-      return L.marker(point.position)
-        .addTo(map)
-        .bindPopup(popup);
-    });
+    const location = document.createElement("div");
+    location.className = "map-popup-coordinates";
+    location.textContent = coordinates;
 
-    if (markers.length) {
-      const markerGroup = L.featureGroup(markers).addTo(map);
-      map.fitBounds(markerGroup.getBounds(), {
-        padding: [24, 24],
-        maxZoom: 14
-      });
-    }
+    popup.append(title, route, location);
+
+    const marker = L.marker(point.position)
+      .addTo(MAP)
+      .bindPopup(popup);
+
+    MAP_MARKERS.push(marker);
   }
 
   function createMapPoint(item, index) {
@@ -260,7 +262,17 @@
       if (modalsContainer && item.id) {
         modalsContainer.appendChild(createModalSection(item));
       }
+
+      createMapMarker(item);
     });
+
+    if (MAP && MAP_MARKERS.length) {
+      const markerGroup = L.featureGroup(MAP_MARKERS).addTo(MAP);
+      MAP.fitBounds(markerGroup.getBounds(), {
+        padding: [24, 24],
+        maxZoom: 14
+      });
+    }
   }
 
   function getModalFocusables(modal) {
@@ -307,11 +319,11 @@
     MAIN_NAVIGATION.classList.toggle('open', open);
   }
 
+  initializeMap();
+
   renderPontos(POINTS);
 
   filterEquipment();
-
-  initializeMap();
 
   if (MAP_TAG) MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
 
