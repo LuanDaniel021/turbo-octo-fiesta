@@ -25,7 +25,7 @@
   let MODAL = null;
 
   const searchInput = document.getElementById('equipmentSearch');
-  const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .item'));
+  const equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .equipment-item'));
   const equipmentCount = document.getElementById('equipmentCount');
 
   function filterEquipment() {
