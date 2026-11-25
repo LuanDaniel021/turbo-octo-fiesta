@@ -536,13 +536,6 @@ p {
   margin: 0;
 }
 
-.checklist-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
 .checklist {
   list-style: none;
   padding: 0;
@@ -615,40 +608,9 @@ p {
   margin-top: 18px;
 }
 
-.progress {
-  height: 9px;
-  background: #dfe9e2;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 18px 0 8px;
-}
-
-.progress span {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #176b52, #53a77c);
-  transition: width .25s;
-}
-
 .progress-text {
   color: var(--muted);
   font-size: .88rem;
-}
-
-.text-button {
-  border: 0;
-  padding: 6px 0;
-  background: transparent;
-  color: var(--green);
-  font-size: .88rem;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.text-button:hover {
-  color: var(--green-dark);
 }
 
 .steps {
@@ -830,72 +792,15 @@ p {
   background: #eaf5ef;
 }
 
-.map-disclaimer {
-  color: var(--muted);
-  font-size: .82rem;
-  margin: 10px 2px 0;
-}
-
 .map-point-info {
   flex: 1;
   min-width: 0;
-}
-
-.map-point-card .map-point-description {
-  margin: 7px 0 10px;
-  color: #40584d;
-  font-size: .88rem;
-  line-height: 1.55;
 }
 
 .map-point-card .map-point-location {
   margin: 0 0 5px;
   color: var(--green);
   font-size: .82rem;
-  font-weight: 700;
-}
-
-.map-point-card .map-point-coordinates,
-.map-point-card .map-point-accepted {
-  margin: 0 0 5px;
-  color: var(--muted);
-  font-size: .78rem;
-  line-height: 1.45;
-}
-
-.map-point-card .map-point-accepted {
-  margin-top: 7px;
-  padding-top: 7px;
-  border-top: 1px solid var(--line);
-}
-
-.brochure-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin: 24px 0;
-}
-
-.brochure-preview {
-  margin: 0;
-  padding: 12px;
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-}
-
-.brochure-preview img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.brochure-preview figcaption {
-  padding: 10px 4px 2px;
-  color: var(--muted);
-  font-size: .88rem;
   font-weight: 700;
 }
 
@@ -1505,20 +1410,6 @@ body.modal-open {
 .folder-preview-trigger {
   font: inherit;
   cursor: pointer;
-}
-
-.folder-download-secondary,
-.folder-open-pdf {
-  color: #087b59;
-  font-size: .88rem;
-  font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-}
-
-.folder-download-secondary:hover,
-.folder-open-pdf:hover {
-  text-decoration: underline;
 }
 
 .modal-folder {
