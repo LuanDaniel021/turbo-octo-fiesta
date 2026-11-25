@@ -48,8 +48,6 @@
 
   let MAP = null;
 
-  const MAP_MARKERS = [];
-
   function filterEquipment() {
     const term = (SEARCH_INPUT?.value || '').trim().toLocaleLowerCase('pt-BR');
     let visible = 0;
@@ -63,26 +61,30 @@
     if (EQUIPMENT_COUNT) {
       EQUIPMENT_COUNT.textContent = visible + (visible === 1 ? ' categoria encontrada' : ' categorias encontradas');
     }
+
+    return visible;
   }
 
-  function initializeMap() {
+  function createMap() {
     const mapElement = document.getElementById('collectionMap');
-    if (!mapElement || typeof L === 'undefined') return;
+    if (!mapElement || typeof L === 'undefined') return null;
 
-    MAP = L.map(mapElement, { zoomControl: false }).setView([-15.7939, -47.8828], 13);
-    L.control.zoom({ position: 'topright' }).addTo(MAP);
+    const map = L.map(mapElement, { zoomControl: false }).setView([-15.7939, -47.8828], 13);
+    L.control.zoom({ position: 'topright' }).addTo(map);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(MAP);
+    }).addTo(map);
+
+    return map;
   }
 
   function createMapMarker(point) {
-    if (!MAP || !Array.isArray(point.position) || point.position.length !== 2) return;
+    if (!MAP || !Array.isArray(point.position) || point.position.length !== 2) return null;
 
     const [latitude, longitude] = point.position;
-    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
 
     const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
     const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
@@ -109,7 +111,7 @@
       .addTo(MAP)
       .bindPopup(popup);
 
-    MAP_MARKERS.push(marker);
+    return marker;
   }
 
   function createMapPoint(item, index) {
@@ -250,30 +252,6 @@
     return section;
   }
 
-  function renderPontos(items) {
-    const pointsContainer = document.getElementById("mapPoints");
-    const modalsContainer = document.getElementById("modals");
-
-    items.forEach((item, index) => {
-      if (pointsContainer) {
-        pointsContainer.appendChild(createMapPoint(item, index));
-      }
-
-      if (modalsContainer && item.id) {
-        modalsContainer.appendChild(createModalSection(item));
-      }
-
-      createMapMarker(item);
-    });
-
-    if (MAP && MAP_MARKERS.length) {
-      const markerGroup = L.featureGroup(MAP_MARKERS).addTo(MAP);
-      MAP.fitBounds(markerGroup.getBounds(), {
-        padding: [24, 24],
-        maxZoom: 14
-      });
-    }
-  }
 
   function getModalFocusables(modal) {
     return Array.from(modal.querySelectorAll(
@@ -319,11 +297,32 @@
     MAIN_NAVIGATION.classList.toggle('open', open);
   }
 
-  initializeMap();
+  function initialize() {
+    MAP = createMap();
 
-  renderPontos(POINTS);
+    const pointsContainer = document.getElementById("mapPoints");
+    const modalsContainer = document.getElementById("modals");
+    const markers = [];
 
-  filterEquipment();
+    POINTS.forEach((point, index) => {
+      const mapPoint = createMapPoint(point, index);
+      const marker = createMapMarker(point);
+      const modal = point.id ? createModalSection(point) : null;
+
+      if (pointsContainer) pointsContainer.appendChild(mapPoint);
+      if (marker) markers.push(marker);
+      if (modalsContainer && modal) modalsContainer.appendChild(modal);
+    });
+
+    if (MAP && markers.length) {
+      const markerGroup = L.featureGroup(markers).addTo(MAP);
+      MAP.fitBounds(markerGroup.getBounds(), {
+        padding: [24, 24],
+        maxZoom: 14
+      });
+    }
+
+    filterEquipment();
 
   if (MAP_TAG) MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
 
@@ -343,105 +342,109 @@
     SECTIONS.forEach(section => observer.observe(section));
   }
 
-  OVERLAY?.addEventListener('click', () => {
-    if (MODAL) closeModal();
-  });
 
-  SEARCH_INPUT?.addEventListener('input', filterEquipment);
-
-  NAV_TOGGLE?.addEventListener('click', () => {
-    const isOpen = NAV_TOGGLE.getAttribute('aria-expanded') === 'true';
-    setNavigationOpen(!isOpen);
-  });
-
-  MAIN_NAVIGATION?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => setNavigationOpen(false));
-  });
-
-  document.querySelectorAll('.open-modal').forEach(trigger => {
-    trigger.addEventListener('click', event => {
-      if (trigger.tagName === 'A') event.preventDefault();
-      openModal(trigger);
+      OVERLAY?.addEventListener('click', () => {
+      if (MODAL) closeModal();
     });
-
-    if (trigger.getAttribute('role') === 'button') {
-      trigger.addEventListener('keydown', event => {
-        if (event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
+  
+    SEARCH_INPUT?.addEventListener('input', filterEquipment);
+  
+    NAV_TOGGLE?.addEventListener('click', () => {
+      const isOpen = NAV_TOGGLE.getAttribute('aria-expanded') === 'true';
+      setNavigationOpen(!isOpen);
+    });
+  
+    MAIN_NAVIGATION?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => setNavigationOpen(false));
+    });
+  
+    document.querySelectorAll('.open-modal').forEach(trigger => {
+      trigger.addEventListener('click', event => {
+        if (trigger.tagName === 'A') event.preventDefault();
         openModal(trigger);
       });
-    }
-  });
-
-  document.querySelectorAll('.close-modal').forEach(control => {
-    control.addEventListener('click', closeModal);
-  });
-
-  document.addEventListener('keydown', event => {
-    if (!MODAL) return;
-
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeModal();
-      return;
-    }
-
-    if (event.key !== 'Tab') return;
-    const focusables = getModalFocusables(MODAL);
-    if (!focusables.length) {
-      event.preventDefault();
-      MODAL.focus();
-      return;
-    }
-
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
-
-  document.addEventListener('click', event => {
-    if (NAV_TOGGLE?.getAttribute('aria-expanded') !== 'true') return;
-    if (TOP_HEADER?.contains(event.target)) return;
-    setNavigationOpen(false);
-  });
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && NAV_TOGGLE?.getAttribute('aria-expanded') === 'true') {
+  
+      if (trigger.getAttribute('role') === 'button') {
+        trigger.addEventListener('keydown', event => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          openModal(trigger);
+        });
+      }
+    });
+  
+    document.querySelectorAll('.close-modal').forEach(control => {
+      control.addEventListener('click', closeModal);
+    });
+  
+    document.addEventListener('keydown', event => {
+      if (!MODAL) return;
+  
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+  
+      if (event.key !== 'Tab') return;
+      const focusables = getModalFocusables(MODAL);
+      if (!focusables.length) {
+        event.preventDefault();
+        MODAL.focus();
+        return;
+      }
+  
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+  
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  
+    document.addEventListener('click', event => {
+      if (NAV_TOGGLE?.getAttribute('aria-expanded') !== 'true') return;
+      if (TOP_HEADER?.contains(event.target)) return;
       setNavigationOpen(false);
-      NAV_TOGGLE.focus();
-    }
-  });
+    });
+  
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && NAV_TOGGLE?.getAttribute('aria-expanded') === 'true') {
+        setNavigationOpen(false);
+        NAV_TOGGLE.focus();
+      }
+    });
+  
+    window.addEventListener('scroll', () => {
+      if (!TOP_HEADER) return;
+  
+      const currentScrollY = Math.max(0, window.scrollY);
+      const difference = currentScrollY - PREVIOUS_SCROLL_Y;
+      const passedThreshold = Math.abs(difference) >= SCROLL_THRESHOLD;
+  
+      const navigationWasOpen = NAV_TOGGLE?.getAttribute('aria-expanded') === 'true';
+  
+      if (passedThreshold && navigationWasOpen) {
+        setNavigationOpen(false);
+        TOP_HEADER.classList.remove('header-hidden');
+      } else if (currentScrollY <= 12) {
+        TOP_HEADER.classList.remove('header-hidden');
+      } else if (passedThreshold) {
+        TOP_HEADER.classList.toggle('header-hidden', difference > 0);
+      }
+  
+      PREVIOUS_SCROLL_Y = currentScrollY;
+    }, { passive: true });
+  
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1050) setNavigationOpen(false);
+    }, { passive: true });
+  
+  }
 
-  window.addEventListener('scroll', () => {
-    if (!TOP_HEADER) return;
-
-    const currentScrollY = Math.max(0, window.scrollY);
-    const difference = currentScrollY - PREVIOUS_SCROLL_Y;
-    const passedThreshold = Math.abs(difference) >= SCROLL_THRESHOLD;
-
-    const navigationWasOpen = NAV_TOGGLE?.getAttribute('aria-expanded') === 'true';
-
-    if (passedThreshold && navigationWasOpen) {
-      setNavigationOpen(false);
-      TOP_HEADER.classList.remove('header-hidden');
-    } else if (currentScrollY <= 12) {
-      TOP_HEADER.classList.remove('header-hidden');
-    } else if (passedThreshold) {
-      TOP_HEADER.classList.toggle('header-hidden', difference > 0);
-    }
-
-    PREVIOUS_SCROLL_Y = currentScrollY;
-  }, { passive: true });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 1050) setNavigationOpen(false);
-  }, { passive: true });
-
+  initialize();
 })();
