@@ -55,14 +55,25 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    const markers = POINTS.map(point =>
-      L.marker(point.position)
-        .addTo(map)
-        .bindPopup('<strong>' + point.name + '</strong><br>Localização demonstrativa')
-    );
+    const markers = POINTS.map(point => {
+      const [latitude, longitude] = point.position;
+      const routeUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(latitude + "," + longitude)}`;
+      const coordinates = `${Number(latitude).toFixed(4)}, ${Number(longitude).toFixed(4)}`;
 
-    L.featureGroup(markers).addTo(map);
-    map.fitBounds(L.featureGroup(markers).getBounds().pad(0.18));
+      return L.marker(point.position)
+        .addTo(map)
+        .bindPopup(
+          '<strong>' + point.name + '</strong>' +
+          '<a class="map-route-link" href="' + routeUrl + '" target="_blank" rel="noopener noreferrer">Google Maps Rota</a>' +
+          '<div class="map-popup-coordinates">' + coordinates + '</div>'
+        );
+    });
+
+    const markerGroup = L.featureGroup(markers).addTo(map);
+    map.fitBounds(markerGroup.getBounds(), {
+      padding: [24, 24],
+      maxZoom: 14
+    });
   }
 
 function createMapPoint(item, index) {
@@ -83,28 +94,13 @@ function createMapPoint(item, index) {
     const title = document.createElement("h3");
     title.textContent = item.name || item.modal?.title || `Ponto ${index + 1}`;
 
-    const description = document.createElement("p");
-    description.className = "map-point-description";
-    description.textContent = item.description || "Sem descrição cadastrada.";
-
     const location = document.createElement("p");
     location.className = "map-point-location";
     location.textContent = [item.city, item.state, item.country].filter(Boolean).join(" · ") || "Localização não informada";
 
-    const coordinates = document.createElement("p");
-    coordinates.className = "map-point-coordinates";
-    coordinates.textContent = Array.isArray(item.position)
-      ? `Coordenadas: ${item.position.map(value => Number(value).toFixed(4)).join(", ")}`
-      : "Coordenadas não informadas";
 
-    const accepted = document.createElement("p");
-    accepted.className = "map-point-accepted";
-    const acceptedIds = Array.isArray(item.acceptedEquipmentIds) ? item.acceptedEquipmentIds : [];
-    accepted.textContent = acceptedIds.length
-      ? `Categorias aceitas: ${acceptedIds.join(", ")}`
-      : "Categorias aceitas: não informadas";
 
-    info.append(title, description, location, coordinates, accepted);
+    info.append(title, location);
     card.append(num, info);
 
     return card;
@@ -296,11 +292,12 @@ function renderPontos(items) {
     const difference = currentScrollY - previousScrollY;
     const passedThreshold = Math.abs(difference) >= scrollThreshold;
 
-    if (passedThreshold) {
-      setNavigationOpen(false);
-    }
+    const navigationWasOpen = navToggle?.getAttribute('aria-expanded') === 'true';
 
-    if (currentScrollY <= 12) {
+    if (passedThreshold && navigationWasOpen) {
+      setNavigationOpen(false);
+      topHeader.classList.remove('header-hidden');
+    } else if (currentScrollY <= 12) {
       topHeader.classList.remove('header-hidden');
     } else if (passedThreshold) {
       topHeader.classList.toggle('header-hidden', difference > 0);
