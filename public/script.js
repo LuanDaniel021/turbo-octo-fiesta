@@ -1,51 +1,20 @@
 
 (async () => {
 
-  let SOURCE, FILES, LIST_FILES, DATA_READY, POINTS;
-  let mapTag, OVERLAY, LAST_TRIGGER, MODAL;
-  let searchInput, equipmentCards, equipmentCount;
-  let topHeader, previousScrollY, scrollThreshold;
-  let navToggle, mainNavigation, navLinks, sections;
-
-  SOURCE = "./data";
-
-  FILES = {
-      pontos:"pontos.json"
-  }
-
-  LIST_FILES = [
-      FILES.pontos
-  ];
-
-  DATA_READY = await loader( SOURCE, LIST_FILES );
-
-  POINTS = DATA_READY[FILES.pontos].points;
-
-  mapTag = document.querySelector(".map-tag");
-  if (mapTag) mapTag.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
-
-  OVERLAY = document.getElementById('overlay');
-
-  LAST_TRIGGER = null;
-
-  MODAL = null;
-
-  searchInput = document.getElementById('equipmentSearch');
-  equipmentCards = Array.from(document.querySelectorAll('#equipmentGrid .equipment-item'));
-  equipmentCount = document.getElementById('equipmentCount');
+  if (MAPTAG) MAPTAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
 
   function filterEquipment() {
-    const term = (searchInput?.value || '').trim().toLocaleLowerCase('pt-BR');
+    const term = (SEARCHINPUT?.value || '').trim().toLocaleLowerCase('pt-BR');
     let visible = 0;
 
-    equipmentCards.forEach(card => {
+    EQUIPMENTCARDS.forEach(card => {
       const matches = card.textContent.toLocaleLowerCase('pt-BR').includes(term);
       card.hidden = !matches;
       if (matches) visible++;
     });
 
-    if (equipmentCount) {
-      equipmentCount.textContent = visible + (visible === 1 ? ' categoria encontrada' : ' categorias encontradas');
+    if (EQUIPMENTCOUNT) {
+      EQUIPMENTCOUNT.textContent = visible + (visible === 1 ? ' categoria encontrada' : ' categorias encontradas');
     }
   }
 
@@ -326,52 +295,45 @@ function renderPontos(items) {
     if (MODAL) closeModal();
   });
 
-  searchInput?.addEventListener('input', filterEquipment);
+  SEARCHINPUT?.addEventListener('input', filterEquipment);
 
   // CABEÇALHO INTELIGENTE — direção da rolagem
-  topHeader = document.querySelector('.top');
-  previousScrollY = window.scrollY;
-  scrollThreshold = 8;
-
   window.addEventListener('scroll', () => {
-    if (!topHeader) return;
+    if (!TOPHEADER) return;
 
     const currentScrollY = Math.max(0, window.scrollY);
-    const difference = currentScrollY - previousScrollY;
-    const passedThreshold = Math.abs(difference) >= scrollThreshold;
+    const difference = currentScrollY - PREVIOUSSCROLLY;
+    const passedThreshold = Math.abs(difference) >= SCROLLTHRESHOLD;
 
-    const navigationWasOpen = navToggle?.getAttribute('aria-expanded') === 'true';
+    const navigationWasOpen = NAVTOGGLE?.getAttribute('aria-expanded') === 'true';
 
     if (passedThreshold && navigationWasOpen) {
       setNavigationOpen(false);
-      topHeader.classList.remove('header-hidden');
+      TOPHEADER.classList.remove('header-hidden');
     } else if (currentScrollY <= 12) {
-      topHeader.classList.remove('header-hidden');
+      TOPHEADER.classList.remove('header-hidden');
     } else if (passedThreshold) {
-      topHeader.classList.toggle('header-hidden', difference > 0);
+      TOPHEADER.classList.toggle('header-hidden', difference > 0);
     }
 
-    previousScrollY = currentScrollY;
+    PREVIOUSSCROLLY = currentScrollY;
   }, { passive: true });
 
-  navToggle = document.querySelector('.nav-toggle');
-  mainNavigation = document.getElementById('main-navigation');
-
   function setNavigationOpen(open) {
-    if (!navToggle || !mainNavigation) return;
-    navToggle.setAttribute('aria-expanded', String(open));
-    navToggle.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
-    mainNavigation.classList.toggle('open', open);
+    if (!NAVTOGGLE || !MAINNAVIGATION) return;
+    NAVTOGGLE.setAttribute('aria-expanded', String(open));
+    NAVTOGGLE.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    MAINNAVIGATION.classList.toggle('open', open);
   }
 
-  navToggle?.addEventListener('click', () => {
-    const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+  NAVTOGGLE?.addEventListener('click', () => {
+    const isOpen = NAVTOGGLE.getAttribute('aria-expanded') === 'true';
     setNavigationOpen(!isOpen);
   });
 
   document.addEventListener('click', event => {
-    if (navToggle?.getAttribute('aria-expanded') !== 'true') return;
-    if (topHeader?.contains(event.target)) return;
+    if (NAVTOGGLE?.getAttribute('aria-expanded') !== 'true') return;
+    if (TOPHEADER?.contains(event.target)) return;
     setNavigationOpen(false);
   });
 
@@ -379,28 +341,23 @@ function renderPontos(items) {
     if (window.innerWidth > 1050) setNavigationOpen(false);
   }, { passive: true });
 
-  mainNavigation?.querySelectorAll('a').forEach(link => {
+  MAINNAVIGATION?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => setNavigationOpen(false));
   });
 
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
+    if (event.key === 'Escape' && NAVTOGGLE?.getAttribute('aria-expanded') === 'true') {
       setNavigationOpen(false);
-      navToggle.focus();
+      NAVTOGGLE.focus();
     }
   });
-
-  navLinks = Array.from(document.querySelectorAll('.top nav a'));
-  sections = navLinks
-    .map(link => document.querySelector(link.getAttribute('href')))
-    .filter(Boolean);
 
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
-        const activeLink = navLinks.find(link => link.getAttribute('href') === '#' + entry.target.id);
-        navLinks.forEach(link => {
+        const activeLink = NAVLINKS.find(link => link.getAttribute('href') === '#' + entry.target.id);
+        NAVLINKS.forEach(link => {
           const active = link === activeLink;
           link.classList.toggle('active', active);
           if (active) link.setAttribute('aria-current', 'location');
@@ -408,7 +365,7 @@ function renderPontos(items) {
         });
       });
     }, { rootMargin: '-25% 0px -65% 0px' });
-    sections.forEach(section => observer.observe(section));
+    SECTIONS.forEach(section => observer.observe(section));
   }
 
   filterEquipment();
