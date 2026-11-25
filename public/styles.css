@@ -60,15 +60,15 @@ section {
 }
 
 footer {
+  background: #fff;
+  color: var(--ink);
+}
+
+footer {
   background: var(--green-dark);
   color: #d9e9df;
   padding: 34px 24px;
   font-size: .9rem;
-}
-
-footer {
-  background: #fff;
-  color: var(--ink);
 }
 
 footer p {
