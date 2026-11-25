@@ -287,20 +287,20 @@
   }
 
   function initialize() {
-    const POINTS = Array.isArray(DATA_READY[DATA_FILES.pontos]?.points)
+    const points = Array.isArray(DATA_READY[DATA_FILES.pontos]?.points)
       ? DATA_READY[DATA_FILES.pontos].points
       : [];
 
-    const MAP_TAG = document.querySelector(".map-tag");
-    const MAP = createMap();
+    const mapTag = document.querySelector(".map-tag");
+    const map = createMap();
 
     const pointsContainer = document.getElementById("mapPoints");
     const modalsContainer = document.getElementById("modals");
     const markers = [];
 
-    POINTS.forEach((point, index) => {
+    points.forEach((point, index) => {
       const mapPoint = createMapPoint(point, index);
-      const marker = createMapMarker(point, MAP);
+      const marker = createMapMarker(point, map);
       const modal = point.id ? createModalSection(point) : null;
 
       if (pointsContainer) pointsContainer.appendChild(mapPoint);
@@ -308,9 +308,9 @@
       if (modalsContainer && modal) modalsContainer.appendChild(modal);
     });
 
-    if (MAP && markers.length) {
-      const markerGroup = L.featureGroup(markers).addTo(MAP);
-      MAP.fitBounds(markerGroup.getBounds(), {
+    if (map && markers.length) {
+      const markerGroup = L.featureGroup(markers).addTo(map);
+      map.fitBounds(markerGroup.getBounds(), {
         padding: [24, 24],
         maxZoom: 14
       });
@@ -318,8 +318,8 @@
 
     filterEquipment();
 
-    if (MAP_TAG) {
-      MAP_TAG.textContent = `${POINTS.length} ${POINTS.length === 1 ? "ponto" : "pontos"}`;
+    if (mapTag) {
+      mapTag.textContent = `${points.length} ${points.length === 1 ? "ponto" : "pontos"}`;
     }
   }
     
