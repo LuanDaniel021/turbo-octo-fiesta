@@ -1,4 +1,75 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
 
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.7 "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  background: #fff;
+  color: var(--ink);
+}
+
+a {
+  color: var(--green);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  max-width: 800px;
+  font-size: clamp(2.5rem, 6vw, 4.6rem);
+  line-height: 1.05;
+  letter-spacing: -.045em;
+  margin: 18px 0;
+}
+
+main>section {
+  padding: 0 24px 0
+}
+
+section {
+  scroll-margin-top: 110px;
+  margin: 0 0 70px;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.55rem);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  margin: 8px 0 16px;
+}
+
+h3 {
+  margin: 0 0 8px;
+  font-size: 1.12rem;
+  line-height: 1.35;
+}
+
+p {
+  margin: 0 0 14px;
+}
+
+footer {
+  background: #fff;
+  color: var(--ink);
+}
+
+footer p {
+  margin: 0;
+}
 
 .leaflet-popup-content-wrapper {
   border-radius: 10px;
@@ -237,78 +308,14 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px;
-}
-
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font: 16px/1.7 "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-body {
-  background: #fff;
-  color: var(--ink);
-}
-
-a {
-  color: var(--green);
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
 ::selection {
   background: #cde8d8;
   color: var(--green-dark);
 }
 
-h1 {
-  max-width: 800px;
-  font-size: clamp(2.5rem, 6vw, 4.6rem);
-  line-height: 1.05;
-  letter-spacing: -.045em;
-  margin: 18px 0;
-}
-
 /* 05. ESTRUTURA E TIPOGRAFIA */
 main {
   padding: 58px 0 86px;
-}
-
-main>section {
-  padding: 0 24px 0
-}
-
-section {
-  scroll-margin-top: 110px;
-  margin: 0 0 70px;
-}
-
-h2 {
-  font-size: clamp(1.8rem, 4vw, 2.55rem);
-  line-height: 1.15;
-  letter-spacing: -.035em;
-  margin: 8px 0 16px;
-}
-
-h3 {
-  margin: 0 0 8px;
-  font-size: 1.12rem;
-  line-height: 1.35;
-}
-
-p {
-  margin: 0 0 14px;
 }
 
 :focus-visible {
@@ -1575,15 +1582,6 @@ footer {
   color: #d9e9df;
   padding: 34px 24px;
   font-size: .9rem;
-}
-
-footer {
-  background: #fff;
-  color: var(--ink);
-}
-
-footer p {
-  margin: 0;
 }
 
 .footer-brand {
